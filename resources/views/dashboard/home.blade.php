@@ -14,7 +14,7 @@
             <div class="card-header">
                 <h4 class="card-title">{{__('Statistics')}}</h4>
                 <div class="d-flex align-items-center">
-
+                    Admin
                 </div>
             </div>
 

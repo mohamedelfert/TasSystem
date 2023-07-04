@@ -3,45 +3,46 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Http\RedirectResponse;
+use App\Http\Traits\AuthTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Display the login view.
-     */
-    public function create(): View
-    {
-        return view('auth.login');
-    }
+    use AuthTrait;
 
-    public function loginForm($type){
-        return view('auth.login',compact('type'));
+    public function loginForm($type)
+    {
+        return view('auth.login', compact('type'));
     }
 
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(Request $request)
     {
-        $request->authenticate();
+        $this->validate($request, [
+            'email' => 'required|string|email',
+            'password' => 'required|string|min:6'
+        ]);
+        if (Auth::guard($this->checkGuard($request))->attempt(['email' => $request->email, 'password' => $request->password],
+            $request->get('remember'))) {
 
-        $request->session()->regenerate();
+            $request->session()->regenerate();
+            return $this->redirect($request);
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        } else {
+            toast('Login Failed, Try Again!','error');
+            return redirect()->back();
+        }
     }
 
     /**
      * Destroy an authenticated session.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request, $type)
     {
-        Auth::guard('web')->logout();
+        Auth::guard($type)->logout();
 
         $request->session()->invalidate();
 

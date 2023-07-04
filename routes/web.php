@@ -18,21 +18,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('selection');
 
-Route::group(['namespace' => 'Auth'], function () {
-    Route::get('/login/{type}', [AuthenticatedSessionController::class, 'loginForm'])->middleware('guest')->name('login.show');
-    Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
-    Route::get('/logout/{type}', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-});
+Route::middleware(['language','auth:web'])->group(function () {
 
-Route::middleware(['language'])->group(function () {
+    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 
-    Route::get('/dashboard', [HomeController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
-
-    Route::middleware('auth')->group(function () {
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    });
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('lang-ar', function () {
         session()->put('lang', 'ar');
@@ -43,6 +35,7 @@ Route::middleware(['language'])->group(function () {
         session()->put('lang', 'en');
         return back();
     })->name('lang-en');
+
 });
 
 require __DIR__ . '/auth.php';
