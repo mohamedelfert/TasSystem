@@ -30,6 +30,12 @@
                 </a>
             </li>
 
+            <li class=" nav-item @if(Request::is('dashboard/slots')) active  @endif">
+                <a href="{{ route('dashboard.slots.index') }}">
+                    <i class="feather icon-server"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Slots')}}</span>
+                </a>
+            </li>
+
         </ul>
     </div>
 </div>
