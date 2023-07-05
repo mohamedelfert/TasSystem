@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -18,13 +18,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('selection');
 
-Route::middleware(['language','auth:web'])->group(function () {
+Route::name('dashboard.')->middleware(['language', 'auth:web'])->prefix('dashboard')->group(function () {
 
-    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+    Route::get('/', function () {
+        return redirect(route('dashboard.home'));
+    });
+
+    Route::get('/home', [HomeController::class, 'dashboard'])->name('home');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::resource('countries', CountryController::class);
 
     Route::get('lang-ar', function () {
         session()->put('lang', 'ar');

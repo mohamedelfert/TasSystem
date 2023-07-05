@@ -9,6 +9,7 @@ class Country extends Model {
 
 	protected $table = 'countries';
 	public $timestamps = true;
+    protected $guarded = [];
 
 	use SoftDeletes;
 
