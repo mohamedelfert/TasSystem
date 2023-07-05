@@ -13,11 +13,12 @@ class Branch extends Model {
 	use SoftDeletes;
 
 	protected $dates = ['deleted_at'];
-	protected $fillable = array('name', 'address', 'email', 'phone', 'status');
+//	protected $fillable = array('name', 'address', 'email', 'phone', 'status');
+    protected $guarded = [];
 
 	public function teachers()
 	{
-		return $this->belongsToMany('Teacher');
+		return $this->belongsToMany('App\Models\Teacher');
 	}
 
 	public function country()

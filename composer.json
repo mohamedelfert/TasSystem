@@ -32,8 +32,7 @@
         "files": [
             "app/Helpers/Helper.php",
             "app/Helpers/UIHelper.php",
-            "app/Helpers/Notifications.php",
-            "app/Helpers/SMS.php"
+            "app/Helpers/Notifications.php"
         ]
     },
     "autoload-dev": {
