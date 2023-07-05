@@ -13,7 +13,7 @@
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             <li class=" nav-item @if(Request::is('dashboard/home')) active open  @endif">
-                <a href="#">
+                <a href="{{ route('dashboard.home') }}">
                     <i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">{{__('Home')}}</span>
                 </a>
             </li>
@@ -41,6 +41,13 @@
             </li>
 
 
+            <li class=" nav-item @if(Request::is('dashboard/countries')) active  @endif">
+                <a href="{{ route('dashboard.countries.index') }}">
+                    <i class="feather icon-folder"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Countries')}}</span>
+                </a>
+            </li>
+
+
             <li class=" nav-item ">
                 <a href="#"><i class="feather icon-cogs"></i><span class="menu-title" data-i18n="Starter kit">{{__('General setups')}}</span></a>
                 <ul class="menu-content">
@@ -53,12 +60,6 @@
                     <li class=" nav-item @if(Request::is('dashboard/contact-us')) active open  @endif">
                         <a href="#">
                             <i class="feather icon-phone-call"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Contact us Sections')}}</span>
-                        </a>
-                    </li>
-
-                    <li class=" nav-item @if(Request::is('dashboard/countries')) active open  @endif">
-                        <a href="#">
-                            <i class="feather icon-folder"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Countries')}}</span>
                         </a>
                     </li>
 

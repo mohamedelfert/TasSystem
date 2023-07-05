@@ -1,8 +1,11 @@
 @extends('dashboard.layouts.app')
-@section('title'){!! __('Show User') !!}@endsection
+@section('title'){!! __('Countries') !!}@endsection
 @section('header')@endsection
 @section('breadcrumb')
-    @include('dashboard.layouts.partials._breadcrumb',['level'=>'users'])
+        @include('dashboard.layouts.partials._breadcrumb',['level'=>'countries'])
+@endsection
+@section('btn')
+        @include('dashboard.layouts.partials._add_icon',['route'=>'countries'])
 @endsection
 @section('content')
     <section id="column-selectors">
@@ -14,17 +17,14 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body card-dashboard">
-                            {!! Form::model($user,['class'=>'form']  ) !!}
-                            @csrf()
-                            <div class="row">
-                                @include('dashboard.users.partials._form')
+                            <div class="table-responsive">
+                                @include('dashboard.countries.partials._table')
                             </div>
-                            {!! Form::close() !!}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
 @endsection
+

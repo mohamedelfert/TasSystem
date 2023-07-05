@@ -1,8 +1,8 @@
 @extends('dashboard.layouts.app')
-@section('title'){!! __('Edit User') !!}@endsection
+@section('title'){!! __('Create Country') !!}@endsection
 @section('header')@endsection
 @section('breadcrumb')
-    @include('dashboard.layouts.partials._breadcrumb',['level'=>'users'])
+    @include('dashboard.layouts.partials._breadcrumb',['level'=>'countries'])
 @endsection
 @section('content')
     <section id="column-selectors">
@@ -14,10 +14,10 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body card-dashboard">
-                            {!! Form::model($user,['method'=>'put','route'=>['dashboard.users.update',$user->id],'class'=>'form','enctype' => 'multipart/form-data']  ) !!}
+                            {!! Form::open(['method'=>'post','route'=>'dashboard.countries.store','class'=>'form','enctype' => 'multipart/form-data']) !!}
                             @csrf()
                             <div class="row">
-                                @include('dashboard.users.partials._form')
+                                @include('dashboard.countries.partials._form')
                                 @component('dashboard.layouts.partials.buttons._save_button',[])
                                 @endcomponent
                             </div>
@@ -28,9 +28,8 @@
             </div>
         </div>
     </section>
-
 @endsection
 @section('js-validation')
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\UserRequest', '.form'); !!}
+
 @endsection
