@@ -36,10 +36,10 @@
                                     English
                                 @endif</span></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown-flag">
-                            <a class="dropdown-item" href="{{route('lang-en')}}" data-language="en">
+                            <a class="dropdown-item" href="{{ url('dashboard/lang/en') }}" data-language="en">
                                 <i class="flag-icon flag-icon-us"></i> English
                             </a>
-                            <a class="dropdown-item" href="{{route('lang-ar')}}" data-language="ar">
+                            <a class="dropdown-item" href="{{ url('dashboard/lang/ar') }}" data-language="ar">
                                 <i class="flag-icon flag-icon-sa"></i> عربى
                             </a>
 
