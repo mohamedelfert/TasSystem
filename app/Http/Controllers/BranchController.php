@@ -1,81 +1,107 @@
-<?php 
+<?php
 
-class BranchController extends BaseController {
+namespace App\Http\Controllers;
 
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index()
-  {
-    
-  }
+use App\Models\Branch;
+use App\Models\Country;
+use Illuminate\Http\Request;
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  public function create()
-  {
-    
-  }
+class BranchController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $branches = Branch::latest()->get();
+        return view('dashboard.branches.index', compact('branches'));
+    }
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @return Response
-   */
-  public function store()
-  {
-    
-  }
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $countries = Country::all();
+        return view('dashboard.branches.create', compact('countries'));
+    }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-    
-  }
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $rules = [
+            'name' => 'required|unique:branches',
+            'address' => 'required',
+            'email' => 'required|email|unique:branches',
+            'phone' => 'required|numeric|unique:branches',
+            'status' => 'required',
+            'country_id' => 'required',
+            'lat' => 'required',
+            'lng' => 'required'
+        ];
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit($id)
-  {
-    
-  }
+        $data = $this->validate($request, $rules);
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id)
-  {
-    
-  }
+        Branch::create($request->all());
 
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-    
-  }
-  
+        toast(__('Added successfully'), 'success');
+        return redirect(route('dashboard.branches.index'));
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $branch = Branch::findOrFail($id);
+        return view('dashboard.branches.show', compact('branch'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $branch = Branch::findOrFail($id);
+        $countries = Country::all();
+        return view('dashboard.branches.edit', compact('branch', 'countries'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
+        $rules = [
+            'name' => 'required|unique:branches,name,' . $id,
+            'address' => 'required',
+            'email' => 'required|email|unique:branches,email,' . $id,
+            'phone' => 'required|numeric|unique:branches,phone,' . $id,
+            'status' => 'required',
+            'country_id' => 'required',
+            'lat' => 'required',
+            'lng' => 'required'
+        ];
+
+        $data = $this->validate($request, $rules);
+
+        $branch = Branch::findOrFail($id);
+        $branch->update($data);
+
+        toast(__('Edited successfully'), 'success');
+        return redirect(route('dashboard.branches.index'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $branch = Branch::findOrFail($id);
+        $branch->delete();
+        toast(__('Deleted successfully'), 'success');
+        return redirect(route('dashboard.branches.index'));
+    }
 }
-
-?>

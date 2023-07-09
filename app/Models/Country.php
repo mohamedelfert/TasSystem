@@ -22,7 +22,7 @@ class Country extends Model {
 
 	public function branches()
 	{
-		return $this->hasMany('App/Models\Branch');
+		return $this->hasMany('App\Models\Branch');
 	}
 
 }

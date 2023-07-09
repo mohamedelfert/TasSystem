@@ -1,81 +1,93 @@
-<?php 
+<?php
 
-class WorkdayController extends BaseController {
+namespace App\Http\Controllers;
 
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index()
-  {
-    
-  }
+use App\Models\Workday;
+use Illuminate\Http\Request;
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  public function create()
-  {
-    
-  }
+class WorkdayController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $workdays = Workday::latest()->get();
+        return view('dashboard.workdays.index', compact('workdays'));
+    }
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @return Response
-   */
-  public function store()
-  {
-    
-  }
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('dashboard.workdays.create');
+    }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-    
-  }
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $rules = [
+            'day' => 'required',
+            'date' => 'required',
+            'name_slot' => 'required',
+        ];
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit($id)
-  {
-    
-  }
+        $data = $this->validate($request, $rules);
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id)
-  {
-    
-  }
+        Workday::create($request->all());
 
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-    
-  }
-  
+        toast(__('Added successfully'), 'success');
+        return redirect(route('dashboard.workdays.index'));
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        $workday = Workday::findOrFail($id);
+        return view('dashboard.workdays.edit', compact('workday'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
+        $rules = [
+            'day' => 'required',
+            'date' => 'required',
+            'name_slot' => 'required',
+        ];
+
+        $data = $this->validate($request, $rules);
+
+        $workday = Workday::findOrFail($id);
+        $workday->update($request->all());
+
+        toast(__('Edited successfully'), 'success');
+        return redirect(route('dashboard.workdays.index'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        $workday = Workday::findOrFail($id);
+        $workday->delete();
+        toast(__('Deleted successfully'), 'success');
+        return redirect(route('dashboard.workdays.index'));
+    }
 }
-
-?>

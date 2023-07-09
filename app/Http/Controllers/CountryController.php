@@ -30,11 +30,7 @@ class CountryController extends Controller
     public function store(Request $request)
     {
         $rules = ['name' => 'required|unique:countries'];
-        $validate_msg = [
-            'name.required' => 'يجب كتابه اسم الدولة',
-            'name.unique' => 'اسم الدولة مسجل مسبقا',
-        ];
-        $data = $this->validate($request, $rules, $validate_msg);
+        $data = $this->validate($request, $rules);
 
         $data['name'] = $request->name;
         Country::create($data);
@@ -57,7 +53,6 @@ class CountryController extends Controller
     public function edit(string $id)
     {
         $country = Country::findOrFail($id);
-
         return view('dashboard.countries.edit', compact('country'));
     }
 
@@ -67,11 +62,7 @@ class CountryController extends Controller
     public function update(Request $request, $id)
     {
         $rules = ['name' => 'required|unique:countries,name,' . $id];
-        $validate_msg = [
-            'name.required' => 'يجب كتابه اسم الدولة',
-            'name.unique' => 'اسم الدولة مسجل مسبقا',
-        ];
-        $data = $this->validate($request, $rules, $validate_msg);
+        $data = $this->validate($request, $rules);
 
         $data['name'] = $request->name;
         $country = Country::findOrFail($id);
