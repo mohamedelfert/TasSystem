@@ -36,7 +36,7 @@ class CountryController extends Controller
         Country::create($data);
 
         toast(__('Added successfully'), 'success');
-        return redirect(route('dashboard.countries.index'));
+        return redirect(route('admin.countries.index'));
     }
 
     /**
@@ -69,7 +69,7 @@ class CountryController extends Controller
         $country->update($data);
 
         toast(__('Edited successfully'), 'success');
-        return redirect(route('dashboard.countries.index'));
+        return redirect(route('admin.countries.index'));
     }
 
     /**
@@ -80,6 +80,6 @@ class CountryController extends Controller
         $country = Country::findOrFail($id);
         $country->delete();
         toast(__('Deleted successfully'), 'success');
-        return redirect(route('dashboard.countries.index'));
+        return redirect(route('admin.countries.index'));
     }
 }

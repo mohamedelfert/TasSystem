@@ -9,7 +9,7 @@
         <div class="btn-group" role="group" aria-label="Vertical button group">
             <div class="btn-group" role="group">
             @component('dashboard.layouts.partials.buttons._edit_button',[
-                        'route' => route('dashboard.workdays.edit',$workday->id),
+                        'route' => route('admin.workdays.edit',$workday->id),
                         'tooltip' => __('Edit '.$workday['name']),
                          ])
                 @endcomponent
@@ -17,7 +17,7 @@
                 <div class="btn-group" role="group">
                     @component('dashboard.layouts.partials.buttons._delete_button',[
                                     'id'=>$workday->id,
-                                    'route' => route('dashboard.workdays.destroy',$workday->id) ,
+                                    'route' => route('admin.workdays.destroy',$workday->id) ,
                                     'tooltip' => __('Delete'),
                                      ])
                     @endcomponent

@@ -47,7 +47,7 @@ class BranchController extends Controller
         Branch::create($request->all());
 
         toast(__('Added successfully'), 'success');
-        return redirect(route('dashboard.branches.index'));
+        return redirect(route('admin.branches.index'));
     }
 
     /**
@@ -91,7 +91,7 @@ class BranchController extends Controller
         $branch->update($data);
 
         toast(__('Edited successfully'), 'success');
-        return redirect(route('dashboard.branches.index'));
+        return redirect(route('admin.branches.index'));
     }
 
     /**
@@ -102,6 +102,6 @@ class BranchController extends Controller
         $branch = Branch::findOrFail($id);
         $branch->delete();
         toast(__('Deleted successfully'), 'success');
-        return redirect(route('dashboard.branches.index'));
+        return redirect(route('admin.branches.index'));
     }
 }

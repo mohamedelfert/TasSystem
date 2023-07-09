@@ -12,32 +12,33 @@
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            <li class=" nav-item @if(Request::is('dashboard/home')) active open  @endif">
-                <a href="{{ route('dashboard.home') }}">
+            <li class=" nav-item @if(Request::is('admin/home')) active open  @endif">
+                <a href="{{ route('admin.home') }}">
                     <i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">{{__('Home')}}</span>
                 </a>
             </li>
 
-            <li class=" nav-item @if(Request::is('dashboard/countries')) active  @endif">
-                <a href="{{ route('dashboard.countries.index') }}">
-                    <i class="feather icon-globe"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Countries')}}</span>
+
+            <li class=" nav-item @if(Request::is('admin/countries')) active  @endif">
+                <a href="{{ route('admin.countries.index') }}">
+                    <i class="feather icon-folder"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Countries')}}</span>
                 </a>
             </li>
 
-            <li class=" nav-item @if(Request::is('dashboard/branches')) active  @endif">
-                <a href="{{ route('dashboard.branches.index') }}">
+            <li class=" nav-item @if(Request::is('admin/branches')) active  @endif">
+                <a href="{{ route('admin.branches.index') }}">
                     <i class="feather icon-server"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Branches')}}</span>
                 </a>
             </li>
 
-            <li class=" nav-item @if(Request::is('dashboard/slots')) active  @endif">
-                <a href="{{ route('dashboard.slots.index') }}">
+            <li class=" nav-item @if(Request::is('admin/slots')) active  @endif">
+                <a href="{{ route('admin.slots.index') }}">
                     <i class="feather icon-watch"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Slots')}}</span>
                 </a>
             </li>
 
-            <li class=" nav-item @if(Request::is('dashboard/workdays')) active  @endif">
-                <a href="{{ route('dashboard.workdays.index') }}">
+            <li class=" nav-item @if(Request::is('admin/workdays')) active  @endif">
+                <a href="{{ route('admin.workdays.index') }}">
                     <i class="feather icon-archive"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Workdays')}}</span>
                 </a>
             </li>

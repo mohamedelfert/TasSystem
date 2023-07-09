@@ -67,10 +67,10 @@
                                             <div class="login-fancy pb-40 clearfix">
                                                 <h3 style="font-family: 'Cairo', sans-serif" class="mb-5 text-center">Choose your Role</h3>
                                                 <div class="form-inline">
-                                                    <a class="btn btn-default col-lg-3 ml-5" title="Admin" href="{{route('login.show','admin')}}">
+                                                    <a class="btn btn-default col-lg-3 ml-5" title="Admin" href="{{route('login-admin.show')}}">
                                                         <img alt="user-img" width="100px;" src="{{ asset('assets/images/admin.png') }}">
                                                     </a>
-                                                    <a class="btn btn-default col-lg-3 ml-5" title="Teacher" href="{{route('login.show','teacher')}}">
+                                                    <a class="btn btn-default col-lg-3 ml-5" title="Teacher" href="{{route('teacher-admin.show')}}">
                                                         <img alt="user-img" width="100px;" src="{{ asset('assets/images/teacher.png') }}">
                                                     </a>
                                                 </div>

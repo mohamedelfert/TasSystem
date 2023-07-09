@@ -53,6 +53,20 @@ if (!function_exists('lang')){
     }
 }
 
+if (!function_exists('appDirection')) {
+    function appDirection()
+    {
+        if (session()->has('lang')) {
+            if (session('lang') == 'ar') {
+                return 'rtl';
+            } else {
+                return 'ltr';
+            }
+        } else {
+            return 'ltr';
+        }
+    }
+}
 
 if (!function_exists('str_limit')) {
     function str_limit(string $text = null, int $limit = 70)

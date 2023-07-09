@@ -17,7 +17,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/dashboard/resources')}}/app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
 
-    @include('dashboard.layouts.partials._styles')
+    @include('teacher-dashboard.layouts.partials._styles')
     @yield('header')
 </head>
 <!-- END: Head-->
@@ -26,9 +26,9 @@
 
 <body class="vertical-layout {!! auth()->user()->default_theme?'':'dark-layout' !!}dark-layout vertical-menu-modern 2-columns  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 
-@include('dashboard.layouts.partials._nav')
+@include('teacher-dashboard.layouts.partials._nav')
 
-@include('dashboard.layouts.partials._menu')
+@include('teacher-dashboard.layouts.partials._menu')
 
 <!-- BEGIN: Content-->
 <div class="app-content content">
@@ -55,8 +55,8 @@
         </div>
         <div class="content-body">
             <!-- Description -->
-                @yield('content')
-         <!--/ Description -->
+            @yield('content')
+            <!--/ Description -->
 
 
         </div>
@@ -69,13 +69,13 @@
 
 <!-- BEGIN: Footer-->
 <footer class="footer footer-static footer-light">
-{{--    <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; {{date('Y')}}<a class="text-bold-800 grey darken-2" href="#" target="_blank">Mozawed,</a>All rights Reserved</span>--}}
-        <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="feather icon-arrow-up"></i></button>
+    {{--    <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; {{date('Y')}}<a class="text-bold-800 grey darken-2" href="#" target="_blank">Mozawed,</a>All rights Reserved</span>--}}
+    <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="feather icon-arrow-up"></i></button>
     </p>
 </footer>
 <!-- END: Footer-->
 
-@include('dashboard.layouts.partials._scripts')
+@include('teacher-dashboard.layouts.partials._scripts')
 @include('sweetalert::alert')
 @yield('js-validation')
 @yield('footer')

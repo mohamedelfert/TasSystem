@@ -40,7 +40,7 @@ class SlotController extends Controller
         Slot::create($request->all());
 
         toast(__('Added successfully'), 'success');
-        return redirect(route('dashboard.slots.index'));
+        return redirect(route('admin.slots.index'));
     }
 
     /**
@@ -77,7 +77,7 @@ class SlotController extends Controller
         $slot->update($request->all());
 
         toast(__('Edited successfully'), 'success');
-        return redirect(route('dashboard.slots.index'));
+        return redirect(route('admin.slots.index'));
     }
 
     /**
@@ -88,6 +88,6 @@ class SlotController extends Controller
         $slot = Slot::findOrFail($id);
         $slot->delete();
         toast(__('Deleted successfully'), 'success');
-        return redirect(route('dashboard.slots.index'));
+        return redirect(route('admin.slots.index'));
     }
 }
