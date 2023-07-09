@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Http\Controllers;
@@ -91,3 +92,4 @@ class SlotController extends Controller
         return redirect(route('dashboard.slots.index'));
     }
 }
+
