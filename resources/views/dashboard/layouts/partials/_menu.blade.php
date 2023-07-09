@@ -18,57 +18,16 @@
                 </a>
             </li>
 
-            <li class=" nav-item ">
-                <a href="#"><i class="feather icon-folder"></i><span class="menu-title" data-i18n="Starter kit">{{__('Orders')}}</span></a>
-                <ul class="menu-content">
-
-                    <li class=" nav-item @if(Request::is('dashboard/clients')) active open  @endif">
-                        <a href="#">
-                            <i class="feather icon-users"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Clients')}}</span>
-                        </a>
-                    </li>
-                    <li class=" nav-item @if(Request::is('dashboard/orders')) active open  @endif">
-                        <a href="#">
-                            <i class="feather icon-users"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Orders')}}</span>
-                        </a>
-                    </li>
-                    <li class=" nav-item @if(Request::is('dashboard/promocodes')) active open  @endif">
-                        <a href="#">
-                            <i class="feather icon-folder"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Promocodes')}}</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-
             <li class=" nav-item @if(Request::is('dashboard/countries')) active  @endif">
                 <a href="{{ route('dashboard.countries.index') }}">
-                    <i class="feather icon-folder"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Countries')}}</span>
+                    <i class="feather icon-globe"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Countries')}}</span>
                 </a>
             </li>
 
-
-            <li class=" nav-item ">
-                <a href="#"><i class="feather icon-cogs"></i><span class="menu-title" data-i18n="Starter kit">{{__('General setups')}}</span></a>
-                <ul class="menu-content">
-                    <li class=" nav-item @if(Request::is('dashboard/pages')) active open  @endif">
-                        <a href="#">
-                            <i class="feather icon-layers"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Pages')}}</span>
-                        </a>
-                    </li>
-
-                    <li class=" nav-item @if(Request::is('dashboard/contact-us')) active open  @endif">
-                        <a href="#">
-                            <i class="feather icon-phone-call"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Contact us Sections')}}</span>
-                        </a>
-                    </li>
-
-                    <li class=" nav-item @if(Request::is('dashboard/system-options')) active open  @endif">
-                        <a href="#">
-                            <i class="feather icon-phone-call"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('System options')}}</span>
-                        </a>
-                    </li>
-                </ul>
+            <li class=" nav-item @if(Request::is('dashboard/branches')) active  @endif">
+                <a href="{{ route('dashboard.branches.index') }}">
+                    <i class="feather icon-server"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Branches')}}</span>
+                </a>
             </li>
 
         </ul>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -26,11 +27,9 @@ Route::name('dashboard.')->middleware(['language', 'auth:web'])->prefix('dashboa
 
     Route::get('/home', [HomeController::class, 'dashboard'])->name('home');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
     Route::resource('countries', CountryController::class);
+
+    Route::resource('branches', BranchController::class);
 
     Route::get('lang-ar', function () {
         session()->put('lang', 'ar');
