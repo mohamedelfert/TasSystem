@@ -6,7 +6,7 @@
         <div class="btn-group" role="group" aria-label="Vertical button group">
             <div class="btn-group" role="group">
             @component('dashboard.layouts.partials.buttons._edit_button',[
-                        'route' => route('dashboard.countries.edit',$country->id),
+                        'route' => route('admin.countries.edit',$country->id),
                         'tooltip' => __('Edit '.$country['name']),
                          ])
                 @endcomponent
@@ -14,7 +14,7 @@
                 <div class="btn-group" role="group">
                     @component('dashboard.layouts.partials.buttons._delete_button',[
                                     'id'=>$country->id,
-                                    'route' => route('dashboard.countries.destroy',$country->id) ,
+                                    'route' => route('admin.countries.destroy',$country->id) ,
                                     'tooltip' => __('Delete'),
                                      ])
                     @endcomponent

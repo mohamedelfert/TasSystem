@@ -19,9 +19,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+require __DIR__ . '/auth.php';
+
 Route::get('/', [HomeController::class, 'index'])->name('selection');
 
-Route::prefix('dashboard')->name('dashboard.')->middleware(['auth:web'])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth:web'])->group(function () {
 
     Route::get('/', [HomeController::class, 'dashboard'])->name('home');
 
@@ -40,5 +42,3 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth:web'])->group(
         return back();
     })->name('lang');
 });
-
-require __DIR__ . '/auth.php';

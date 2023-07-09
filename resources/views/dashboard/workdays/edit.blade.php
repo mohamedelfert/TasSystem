@@ -16,7 +16,7 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body card-dashboard">
-                            {!! Form::model($workday,['method'=>'put','route'=>['dashboard.workdays.update',$workday->id],'class'=>'form','enctype' => 'multipart/form-data']  ) !!}
+                            {!! Form::model($workday,['method'=>'put','route'=>['admin.workdays.update',$workday->id],'class'=>'form','enctype' => 'multipart/form-data']  ) !!}
                             @csrf()
                             <div class="row">
                                 @include('dashboard.workdays.partials._form')

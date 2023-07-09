@@ -16,7 +16,7 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body card-dashboard">
-                            {!! Form::model($slot,['method'=>'put','route'=>['dashboard.slots.update',$slot->id],'class'=>'form','enctype' => 'multipart/form-data']  ) !!}
+                            {!! Form::model($slot,['method'=>'put','route'=>['admin.slots.update',$slot->id],'class'=>'form','enctype' => 'multipart/form-data']  ) !!}
                             @csrf()
                             <div class="row">
                                 @include('dashboard.slots.partials._form')

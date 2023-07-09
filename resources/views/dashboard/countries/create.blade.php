@@ -14,7 +14,7 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body card-dashboard">
-                            {!! Form::open(['method'=>'post','route'=>'dashboard.countries.store','class'=>'form','enctype' => 'multipart/form-data']) !!}
+                            {!! Form::open(['method'=>'post','route'=>'admin.countries.store','class'=>'form','enctype' => 'multipart/form-data']) !!}
                             @csrf()
                             <div class="row">
                                 @include('dashboard.countries.partials._form')

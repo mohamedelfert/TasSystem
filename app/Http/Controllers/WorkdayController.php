@@ -40,7 +40,7 @@ class WorkdayController extends Controller
         Workday::create($request->all());
 
         toast(__('Added successfully'), 'success');
-        return redirect(route('dashboard.workdays.index'));
+        return redirect(route('admin.workdays.index'));
     }
 
     /**
@@ -77,7 +77,7 @@ class WorkdayController extends Controller
         $workday->update($request->all());
 
         toast(__('Edited successfully'), 'success');
-        return redirect(route('dashboard.workdays.index'));
+        return redirect(route('admin.workdays.index'));
     }
 
     /**
@@ -88,6 +88,6 @@ class WorkdayController extends Controller
         $workday = Workday::findOrFail($id);
         $workday->delete();
         toast(__('Deleted successfully'), 'success');
-        return redirect(route('dashboard.workdays.index'));
+        return redirect(route('admin.workdays.index'));
     }
 }

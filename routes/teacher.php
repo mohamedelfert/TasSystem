@@ -3,20 +3,18 @@
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['language','auth:teacher'])->group(function () {
+require __DIR__ . '/auth.php';
 
-    Route::get('/teachers/dashboard', [TeacherController::class, 'teacherDashboard'])->name('teacher-dashboard');
+Route::prefix('teacher')->name('teacher.')->middleware(['auth:teacher'])->group(function () {
 
-    Route::get('lang-ar', function () {
-        session()->put('lang', 'ar');
+    Route::get('/', [TeacherController::class, 'teacherDashboard'])->name('teacher-home');
+
+    //================= this route for change language ( ar - en ) ===================//
+    Route::get('lang/{lang}', function ($lang) {
+        session()->has('lang') ? session()->forget('lang') : '';
+        $lang === 'ar' ? session()->put('lang', 'ar') : session()->put('lang', 'en');
         return back();
-    })->name('lang-ar');
-
-    Route::get('lang-en', function () {
-        session()->put('lang', 'en');
-        return back();
-    })->name('lang-en');
+    })->name('lang');
 
 });
 
-require __DIR__ . '/auth.php';
