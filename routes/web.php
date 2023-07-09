@@ -4,6 +4,8 @@ use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SlotController;
+use App\Http\Controllers\WorkdayController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,28 +21,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('selection');
 
-Route::name('dashboard.')->middleware(['language', 'auth:web'])->prefix('dashboard')->group(function () {
+Route::prefix('dashboard')->name('dashboard.')->middleware(['auth:web'])->group(function () {
 
-    Route::get('/', function () {
-        return redirect(route('dashboard.home'));
-    });
-
-    Route::get('/home', [HomeController::class, 'dashboard'])->name('home');
+    Route::get('/', [HomeController::class, 'dashboard'])->name('home');
 
     Route::resource('countries', CountryController::class);
 
     Route::resource('branches', BranchController::class);
 
-    Route::get('lang-ar', function () {
-        session()->put('lang', 'ar');
-        return back();
-    })->name('lang-ar');
+    Route::resource('slots', SlotController::class);
 
-    Route::get('lang-en', function () {
-        session()->put('lang', 'en');
-        return back();
-    })->name('lang-en');
+    Route::resource('workdays', WorkdayController::class);
 
+    //================= this route for change language ( ar - en ) ===================//
+    Route::get('lang/{lang}', function ($lang) {
+        session()->has('lang') ? session()->forget('lang') : '';
+        $lang === 'ar' ? session()->put('lang', 'ar') : session()->put('lang', 'en');
+        return back();
+    })->name('lang');
 });
 
 require __DIR__ . '/auth.php';

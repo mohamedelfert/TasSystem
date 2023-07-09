@@ -30,6 +30,18 @@
                 </a>
             </li>
 
+            <li class=" nav-item @if(Request::is('dashboard/slots')) active  @endif">
+                <a href="{{ route('dashboard.slots.index') }}">
+                    <i class="feather icon-watch"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Slots')}}</span>
+                </a>
+            </li>
+
+            <li class=" nav-item @if(Request::is('dashboard/workdays')) active  @endif">
+                <a href="{{ route('dashboard.workdays.index') }}">
+                    <i class="feather icon-archive"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Workdays')}}</span>
+                </a>
+            </li>
+
         </ul>
     </div>
 </div>

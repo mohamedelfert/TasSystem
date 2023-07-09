@@ -20,4 +20,9 @@ class Workday extends Model {
 		return $this->hasMany('App\Models\SlotTeacher');
 	}
 
+    public function slot()
+    {
+        return $this->belongsTo(Slot::class, 'name_slot');
+    }
+
 }

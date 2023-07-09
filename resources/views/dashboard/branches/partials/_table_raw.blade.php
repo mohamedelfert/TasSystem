@@ -3,7 +3,13 @@
     <td>{!! $branch->name !!}</td>
     <td>{!! $branch->phone !!}</td>
     <td>{!! $branch->email !!}</td>
-    <td>{!! $branch->status !!}</td>
+    <td>
+        @if($branch->status === 'open')
+            <span class="badge badge-pill badge-success">{{ $branch->status }}</span>
+        @elseif($branch->status === 'close')
+            <span class="badge badge-pill badge-danger">{{ $branch->status }}</span>
+        @endif
+    </td>
     <td>
 
         <div class="btn-group" role="group" aria-label="Vertical button group">
