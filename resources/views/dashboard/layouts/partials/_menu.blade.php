@@ -43,6 +43,14 @@
                 </a>
             </li>
 
+            <li class=" nav-item @if(Request::is('admin/users')) active  @endif">
+                <a href="{{ route('admin.users.index') }}">
+                    <i class="feather icon-users"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Users')}}</span>
+                </a>
+            </li>
+
+
+
         </ul>
     </div>
 </div>

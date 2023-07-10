@@ -4,7 +4,9 @@ use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SlotController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkdayController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +36,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:web'])->group(function
     Route::resource('slots', SlotController::class);
 
     Route::resource('workdays', WorkdayController::class);
+
+    /**************************** Users & Roles *******************************/
+    Route::resource('users', UserController::class);
+
 
     //================= this route for change language ( ar - en ) ===================//
     Route::get('lang/{lang}', function ($lang) {

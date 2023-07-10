@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title'){!! __('Create User') !!}@endsection
+@section('title'){!! __('Show User') !!}@endsection
 @section('header')@endsection
 @section('breadcrumb')
     @include('dashboard.layouts.partials._breadcrumb',['level'=>'users'])
@@ -14,12 +14,10 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body card-dashboard">
-                            {!! Form::open(['method'=>'post','route'=>'dashboard.users.store','class'=>'form','enctype' => 'multipart/form-data']) !!}
+                            {!! Form::model($user,['class'=>'form']  ) !!}
                             @csrf()
                             <div class="row">
                                 @include('dashboard.users.partials._form')
-                                @component('dashboard.layouts.partials.buttons._save_button',[])
-                                @endcomponent
                             </div>
                             {!! Form::close() !!}
                         </div>
@@ -28,8 +26,4 @@
             </div>
         </div>
     </section>
-@endsection
-@section('js-validation')
-    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\UserRequest', '.form'); !!}
 @endsection

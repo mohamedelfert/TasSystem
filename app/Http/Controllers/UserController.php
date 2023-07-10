@@ -1,0 +1,105 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
+use Spatie\Permission\Models\Role;
+
+class UserController extends Controller
+{
+    public function index(Request $request)
+    {
+        $users = User::where('role_name', '!=', 'super_admin')->where(function ($q) use ($request) {
+            return $q->when($request->search, function ($query) use ($request) {
+                return $query->where('first_name', 'LIKE', '%' . $request->search . '%')
+                    ->orWhere('last_name', 'LIKE', '%' . $request->search . '%')
+                    ->orWhere('status', 'LIKE', '%' . $request->search . '%')
+                    ->orWhere('email', 'LIKE', '%' . $request->search . '%');
+            });
+        })->latest()->paginate(20);
+        return view('dashboard.users.index', compact('users'));
+    }
+
+    public function create()
+    {
+        return view('dashboard.users.create');
+    }
+
+    public function store(Request $request)
+    {
+        $rules = [
+            'name' => 'required|unique:users,name',
+            'first_name' => 'required|unique:users,first_name',
+            'last_name' => 'required|unique:users,last_name',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|confirmed',
+            'status' => 'required',
+            'role_name' => 'required'
+        ];
+
+        $validation = $this->validate($request, $rules);
+
+        $data = $request->except(['password', 'password_confirmation']);
+        $data['password'] = Hash::make($request->password);
+
+        $user = User::create($data);
+        $user->assignRole($request->input('role_name'));
+
+        toast(__('Added successfully'), 'success');
+        return redirect(route('admin.users.index'));
+    }
+
+    public function show(User $user)
+    {
+        if ($user->id !== auth()->user()->id) {
+            abort(403);
+        }
+
+        return view('dashboard.users.show', compact('user'));
+    }
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        return view('dashboard.users.edit', compact('user'));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $rules = [
+            'name' => 'required|unique:users,name,' . $user->id,
+            'first_name' => 'required|unique:users,first_name,' . $user->id,
+            'last_name' => 'required|unique:users,last_name,' . $user->id,
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'status' => 'required',
+            'role_name' => 'required'
+        ];
+
+        $validation = $this->validate($request, $rules);
+
+        $user->update($request->all());
+        DB::table('model_has_roles')->where('model_id', $user->id)->delete();
+        $user->assignRole($request->input('role_name'));
+
+        toast(__('Edited successfully'), 'success');
+        return redirect(route('admin.users.index'));
+    }
+
+    public function destroy(User $user)
+    {
+        if ($user->image != 'default.png') {
+            Storage::disk('public_uploads')->delete('/users_images/' . $user->image);
+        }
+        $user->delete();
+        toast(__('Deleted successfully'), 'success');
+        return redirect(route('admin.users.index'));
+    }
+
+
+}
