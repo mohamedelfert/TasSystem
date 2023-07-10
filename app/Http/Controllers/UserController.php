@@ -57,7 +57,8 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        if ($user->id !== auth()->user()->id) {
+//        dd(['user_id'=>$user->id,'user_role'=>$user->role_name,'auth_user'=>auth()->user()->role_name,'auth_role'=>auth()->user()->id]);
+        if ($user->id !== auth()->user()->id && auth()->user()->role_name != 'super_admin') {
             abort(403);
         }
 
@@ -67,6 +68,11 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+
+        if ($user->id !== auth()->user()->id && auth()->user()->role_name != 'super_admin') {
+            abort(403);
+        }
+
         return view('dashboard.users.edit', compact('user'));
     }
 
@@ -101,5 +107,69 @@ class UserController extends Controller
         return redirect(route('admin.users.index'));
     }
 
+    public function showProfile($id)
+    {
+        $user = User::findOrFail($id);
 
+        if ($user->id !== auth()->user()->id && auth()->user()->role_name != 'super_admin') {
+            abort(403);
+        }
+
+        return view('dashboard.users.show_profile', compact('user'));
+    }
+
+    public function editProfile($id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->id !== auth()->user()->id && auth()->user()->role_name != 'super_admin') {
+            abort(403);
+        }
+
+        return view('dashboard.users.edit_profile', compact('user'));
+    }
+
+    public function profile(Request $request, $id)
+    {
+        $validation = Validator::make($request->all(), [
+            'name' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $id,
+//            'email' => ['required', Rule::unique('users')->ignore($id)],
+            'password' => 'sometimes|nullable|confirmed',
+            'image' => 'sometimes|nullable|image|mimes:png,jpg,jpeg,gif',
+        ]);
+
+        if ($validation->fails()) {
+            return redirect()->back()->withErrors($validation)->withInput();
+        }
+
+        $data = $request->except(['password', 'password_confirmation', 'image']);
+
+        if ($request->password != null) {
+            $data['password'] = bcrypt($request->password);
+        }
+
+        $user = User::findOrFail($id);
+
+        if ($request->image) {
+
+            if ($user->image != 'default.png') {
+                Storage::disk('public_uploads')->delete('/users_images/' . $user->image);
+            }
+
+            Image::make($request->image)->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path('/uploads/users_images/' . $request->image->hashName()));
+
+            $data['image'] = $request->image->hashName();
+
+        }
+
+        $user->update($data);
+
+        toast(__('Updated successfully'), 'success');
+        return redirect(route('admin.users.index'));
+    }
 }
