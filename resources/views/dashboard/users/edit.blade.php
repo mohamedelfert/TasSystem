@@ -14,7 +14,8 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body card-dashboard">
-                            {!! Form::model($user,['method'=>'put','route'=>['dashboard.users.update',$user->id],'class'=>'form','enctype' => 'multipart/form-data']  ) !!}
+                            {!! Form::model($user,['method'=>'put','route'=>['admin.users.update',$user->id],'class'=>'form','enctype' => 'multipart/form-data']  ) !!}
+
                             @csrf()
                             <div class="row">
                                 @include('dashboard.users.partials._form')
@@ -32,5 +33,4 @@
 @endsection
 @section('js-validation')
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\UserRequest', '.form'); !!}
 @endsection

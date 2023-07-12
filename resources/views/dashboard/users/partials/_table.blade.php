@@ -4,6 +4,8 @@
         <th scope="col">{{__('#') }}</th>
         <th scope="col">{{__('Full name')}}</th>
         <th scope="col">{{__('Email')}}</th>
+        <th scope="col">{{__('Status')}}</th>
+        <th scope="col">{{__('Role')}}</th>
         <th scope="col">{{__('Options')}}</th>
     </thead>
     <tbody>
@@ -12,12 +14,6 @@
     @endforeach
     </tbody>
     <tfoot>
-    <tr>
-        <th scope="col">{{__('#') }}</th>
-        <th scope="col">{{__('Full name')}}</th>
-        <th scope="col">{{__('Email')}}</th>
-        <th scope="col">{{__('Options')}}</th>
-    </tr>
     </tfoot>
 </table>
 

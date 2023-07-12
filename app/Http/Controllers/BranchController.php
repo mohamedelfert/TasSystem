@@ -65,8 +65,7 @@ class BranchController extends Controller
     public function edit(string $id)
     {
         $branch = Branch::findOrFail($id);
-        $countries = Country::all();
-        return view('dashboard.branches.edit', compact('branch', 'countries'));
+        return view('dashboard.branches.edit', compact('branch'));
     }
 
     /**
