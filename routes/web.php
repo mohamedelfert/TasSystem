@@ -3,6 +3,7 @@
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SlotController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkdayController;
@@ -23,7 +24,7 @@ require __DIR__ . '/auth.php';
 
 Route::get('/', [HomeController::class, 'index'])->name('selection');
 
-Route::prefix('admin')->name('admin.')->middleware(['auth:web'])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth:web','auto_check_permission'])->group(function () {
 
     Route::get('/', [HomeController::class, 'dashboard'])->name('home');
 
@@ -40,7 +41,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:web'])->group(function
     Route::get('/users/profile/{id}', [UserController::class, 'showProfile'])->name('showProfile');
     Route::get('/users/{id}/profile', [UserController::class, 'editProfile'])->name('editProfile');
     Route::put('/users/profile/{id}', [UserController::class, 'profile'])->name('profile');
-
+    Route::resource('roles', RoleController::class);
 
     //================= this route for change language ( ar - en ) ===================//
     Route::get('lang/{lang}', function ($lang) {
