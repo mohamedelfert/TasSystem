@@ -86,7 +86,7 @@
                              <a class="dropdown-item" href="#">
                                  <i class="feather icon-message-square"></i> Chats
                              </a>--}}
-                            <a class="dropdown-item" href="{{ route('admin.users.show',auth()->user()->id) }}">
+                            <a class="dropdown-item" href="{{ route('admin.showProfile',auth()->user()->id) }}">
                                 <i class="feather icon-user"></i> {{__('Profile')}}
                             </a>
                             <a class="dropdown-item" href="#">
