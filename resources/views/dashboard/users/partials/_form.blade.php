@@ -1,3 +1,4 @@
+
 <div class="form-group py-1 col-md-6">
     <label for="formInputRole"> {{__('Name')}}</label>
     {!! Form::text('name',null,['class'=>'form-control col','placeholder'=>__("Name"),isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
@@ -14,6 +15,7 @@
     <label for="formInputRole"> {{__('Last Name')}}</label>
     {!! Form::text('last_name',null,['class'=>'form-control col','placeholder'=>__("Last Name"),isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
     {{input_error($errors,'last_name')}}
+
 </div>
 
 <div class="form-group py-1 col-md-6">
@@ -21,6 +23,7 @@
     {!! Form::email('email',null,['class'=>'form-control col',disable_on_show()]) !!}
     {{input_error($errors,'email')}}
 </div>
+
 @if(Route::is('admin.users.create'))
     <div class="form-group py-1 col-md-6 {{hidden_on_show()}}">
         <label for="formInputRole"> {{__('Password')}} </label>

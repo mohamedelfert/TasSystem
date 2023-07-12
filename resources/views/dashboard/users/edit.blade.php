@@ -15,6 +15,7 @@
                     <div class="card-content">
                         <div class="card-body card-dashboard">
                             {!! Form::model($user,['method'=>'put','route'=>['admin.users.update',$user->id],'class'=>'form','enctype' => 'multipart/form-data']  ) !!}
+
                             @csrf()
                             <div class="row">
                                 @include('dashboard.users.partials._form')
