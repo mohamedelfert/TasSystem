@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -9,7 +10,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
-use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -31,20 +31,8 @@ class UserController extends Controller
         return view('dashboard.users.create');
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $rules = [
-            'name' => 'required|unique:users,name',
-            'first_name' => 'required|unique:users,first_name',
-            'last_name' => 'required|unique:users,last_name',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed',
-            'status' => 'required',
-            'role_name' => 'required'
-        ];
-
-        $validation = $this->validate($request, $rules);
-
         $data = $request->except(['password', 'password_confirmation']);
         $data['password'] = Hash::make($request->password);
 
