@@ -3,6 +3,7 @@
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SlotController;
 use App\Http\Controllers\UserController;
@@ -24,7 +25,7 @@ require __DIR__ . '/auth.php';
 
 Route::get('/', [HomeController::class, 'index'])->name('selection');
 
-Route::prefix('admin')->name('admin.')->middleware(['auth:web','auto_check_permission'])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth:web', 'auto_check_permission'])->group(function () {
 
     Route::get('/', [HomeController::class, 'dashboard'])->name('home');
 
@@ -35,6 +36,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:web','auto_check_permi
     Route::resource('slots', SlotController::class);
 
     Route::resource('workdays', WorkdayController::class);
+
+    Route::resource('payment-methods', PaymentMethodController::class);
 
     /**************************** Users & Roles *******************************/
     Route::resource('users', UserController::class);
