@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PaymentMethods extends Model {
+class PaymentMethod extends Model {
 
 	protected $table = 'payment_methods';
 	public $timestamps = true;

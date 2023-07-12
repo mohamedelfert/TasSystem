@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RoleRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
@@ -27,16 +28,8 @@ class RoleController extends Controller
         return view('dashboard.roles.create',compact('permissions'));
     }
 
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
-        $rules = [
-            'name' => 'required|unique:roles,name',
-            'display_name' => 'required',
-            'permissions' => 'required|array'
-        ];
-
-        $validation = $this->validate($request, $rules);
-
         $data = Role::create(['name' => $request->input('name'), 'display_name' => $request->input('display_name')]);
         $data->syncPermissions($request->input('permissions'));
 
@@ -63,17 +56,8 @@ class RoleController extends Controller
         return view('dashboard.roles.edit', compact('role', 'rolePermissions','permissions'));
     }
 
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request, Role $role)
     {
-        $rules = [
-            'name' => 'required|unique:roles,name,' . $id,
-            'display_name' => 'required',
-            'permissions' => 'required|array'
-        ];
-
-        $validation = $this->validate($request, $rules);
-
-        $role = Role::findOrFail($id);
         $role->name = $request->input('name');
         $role->display_name = $request->input('display_name');
         $role->save();
