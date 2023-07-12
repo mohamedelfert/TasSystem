@@ -52,6 +52,14 @@
                 </li>
             @endcan
 
+            @can('payment-method-list')
+                <li class=" nav-item @if(Request::is('admin/payment-methods')) active  @endif">
+                    <a href="{{ route('admin.payment-methods.index') }}">
+                        <i class="feather icon-dollar-sign"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Payment Methods')}}</span>
+                    </a>
+                </li>
+            @endcan
+
             @can('user-list')
                 <li class=" nav-item @if(Request::is('admin/users')) active  @endif">
                     <a href="{{ route('admin.users.index') }}">

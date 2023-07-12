@@ -101,25 +101,25 @@ class PermissionsTableSeeder extends Seeder
             ], [
                 'id' => '15',
                 'name' => 'workday-list',
-                'display_name' => 'الدول',
+                'display_name' => 'ايام العمل',
                 'guard_name' => 'web',
                 'routes' => 'admin.workdays.index',
             ], [
                 'id' => '16',
                 'name' => 'workday-create',
-                'display_name' => 'الدول',
+                'display_name' => 'ايام العمل',
                 'guard_name' => 'web',
                 'routes' => 'admin.workdays.create,admin.workdays.store',
             ], [
                 'id' => '17',
                 'name' => 'workday-edit',
-                'display_name' => 'الدول',
+                'display_name' => 'ايام العمل',
                 'guard_name' => 'web',
                 'routes' => 'admin.workdays.edit,admin.workdays.update',
             ], [
                 'id' => '18',
                 'name' => 'workday-delete',
-                'display_name' => 'الدول',
+                'display_name' => 'ايام العمل',
                 'guard_name' => 'web',
                 'routes' => 'admin.workdays.destroy',
             ], [
@@ -200,6 +200,30 @@ class PermissionsTableSeeder extends Seeder
                 'display_name' => 'الفروع',
                 'guard_name' => 'web',
                 'routes' => 'admin.branches.show',
+            ], [
+                'id' => '32',
+                'name' => 'payment-method-list',
+                'display_name' => 'طرق الدفع',
+                'guard_name' => 'web',
+                'routes' => 'admin.payment-methods.index',
+            ], [
+                'id' => '33',
+                'name' => 'payment-method-create',
+                'display_name' => 'طرق الدفع',
+                'guard_name' => 'web',
+                'routes' => 'admin.payment-methods.create,admin.payment-methods.store',
+            ], [
+                'id' => '34',
+                'name' => 'payment-method-edit',
+                'display_name' => 'طرق الدفع',
+                'guard_name' => 'web',
+                'routes' => 'admin.payment-methods.edit,admin.payment-methods.update',
+            ], [
+                'id' => '35',
+                'name' => 'payment-method-delete',
+                'display_name' => 'طرق الدفع',
+                'guard_name' => 'web',
+                'routes' => 'admin.payment-methods.destroy',
             ],
         ];
 
