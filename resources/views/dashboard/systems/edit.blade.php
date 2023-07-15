@@ -16,7 +16,7 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body card-dashboard">
-                            {!! Form::model($system,['method'=>'put','route'=>['dashboard.systems.update',$system->id],'class'=>'form','enctype' => 'multipart/form-data']  ) !!}
+                            {!! Form::model($system,['method'=>'put','route'=>['admin.systems.update',$system->id],'class'=>'form','enctype' => 'multipart/form-data']  ) !!}
                             @csrf()
                             <div class="row">
                                 @include('dashboard.systems.partials._form')

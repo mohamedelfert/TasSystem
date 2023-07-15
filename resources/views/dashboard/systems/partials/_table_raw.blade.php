@@ -8,7 +8,7 @@
             @can('system-edit')
                 <div class="btn-group" role="group">
                     @component('dashboard.layouts.partials.buttons._edit_button',[
-                            'route' => route('dashboard.systems.edit',$system->id),
+                            'route' => route('admin.systems.edit',$system->id),
                             'tooltip' => __('Edit '.$system['name']),
                              ])
                     @endcomponent
@@ -19,7 +19,7 @@
                 <div class="btn-group" role="group">
                     @component('dashboard.layouts.partials.buttons._delete_button',[
                                 'id'=>$system->id,
-                                'route' => route('dashboard.systems.destroy',$system->id) ,
+                                'route' => route('admin.systems.destroy',$system->id) ,
                                 'tooltip' => __('Delete'),
                                  ])
                     @endcomponent

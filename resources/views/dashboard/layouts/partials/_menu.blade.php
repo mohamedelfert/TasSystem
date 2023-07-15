@@ -52,6 +52,14 @@
                 </li>
             @endcan
 
+            @can('system-list')
+                <li class=" nav-item @if(Request::is('admin/systems')) active  @endif">
+                    <a href="{{ route('admin.systems.index') }}">
+                        <i class="feather icon-slack"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Systems')}}</span>
+                    </a>
+                </li>
+            @endcan
+
             @can('payment-method-list')
                 <li class=" nav-item @if(Request::is('admin/payment-methods')) active  @endif">
                     <a href="{{ route('admin.payment-methods.index') }}">

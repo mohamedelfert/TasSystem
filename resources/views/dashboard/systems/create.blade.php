@@ -14,7 +14,7 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body card-dashboard">
-                            {!! Form::open(['method'=>'post','route'=>'dashboard.systems.store','class'=>'form','enctype' => 'multipart/form-data']) !!}
+                            {!! Form::open(['method'=>'post','route'=>'admin.systems.store','class'=>'form','enctype' => 'multipart/form-data']) !!}
                             @csrf()
                             <div class="row">
                                 @include('dashboard.systems.partials._form')
@@ -31,5 +31,4 @@
 @endsection
 @section('js-validation')
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
-
 @endsection

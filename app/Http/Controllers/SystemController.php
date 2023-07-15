@@ -1,10 +1,13 @@
 <?php
+
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SystemRequest;
 use App\Models\System;
 use Illuminate\Http\Request;
 
-class SystemController extends Controller {
+class SystemController extends Controller
+{
 
     public function index()
     {
@@ -23,26 +26,18 @@ class SystemController extends Controller {
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SystemRequest $request)
     {
-        $rules = ['name' => 'required|unique:systems'];
-        $validate_msg = [
-            'name.required' => 'يجب كتابه اسم النظام',
-            'name.unique' => 'اسم النظامٍ مسجل مسبقا',
-        ];
-        $data = $this->validate($request, $rules, $validate_msg);
-
-        $data['name'] = $request->name;
-        System::create($data);
+        System::create($request->all());
 
         toast(__('Added successfully'), 'success');
-        return redirect(route('dashboard.systems.index'));
+        return redirect(route('admin.systems.index'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
         //
     }
@@ -50,41 +45,30 @@ class SystemController extends Controller {
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
         $system = System::findOrFail($id);
-
         return view('dashboard.systems.edit', compact('system'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(SystemRequest $request, System $system)
     {
-        $rules = ['name' => 'required|unique:systems,name,' . $id];
-        $validate_msg = [
-            'name.required' => 'يجب كتابه اسم النظام',
-            'name.unique' => 'اسم النظام مسجل مسبقا',
-        ];
-        $data = $this->validate($request, $rules, $validate_msg);
-
-        $data['name'] = $request->name;
-        $system = System::findOrFail($id);
-        $system->update($data);
-
+        $system->update($request->all());
         toast(__('Edited successfully'), 'success');
-        return redirect(route('dashboard.systems.index'));
+        return redirect(route('admin.systems.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $system = System::findOrFail($id);
         $system->delete();
         toast(__('Deleted successfully'), 'success');
-        return redirect(route('dashboard.systems.index'));
+        return redirect(route('admin.systems.index'));
     }
 }

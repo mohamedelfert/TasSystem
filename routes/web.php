@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SlotController;
+use App\Http\Controllers\SystemController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkdayController;
@@ -41,6 +42,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:web', 'auto_check_perm
     Route::resource('payment-methods', PaymentMethodController::class);
 
     Route::resource('teachers', TeacherController::class);
+
+    Route::resource('systems', SystemController::class);
 
     /**************************** Users & Roles *******************************/
     Route::resource('users', UserController::class);
