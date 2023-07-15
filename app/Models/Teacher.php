@@ -18,7 +18,8 @@ class Teacher extends Authenticatable
     protected $guard = 'teacher';
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('first_name', 'last_name', 'email', 'phone', 'password', 'address', 'status', 'work');
+//    protected $fillable = array('first_name', 'last_name', 'email', 'phone', 'password', 'address', 'status', 'work');
+    protected $guarded = [];
 
     public function subjects()
     {
@@ -48,6 +49,16 @@ class Teacher extends Authenticatable
     public function systems()
     {
         return $this->belongsToMany('App\Models\System');
+    }
+
+    public function getFirstNameAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    public function getLastNameAttribute($value)
+    {
+        return ucfirst($value);
     }
 
 }

@@ -158,6 +158,6 @@ class UserController extends Controller
         $user->update($data);
 
         toast(__('Updated successfully'), 'success');
-        return redirect(route('admin.users.index'));
+        return redirect(route('admin.home'));
     }
 }

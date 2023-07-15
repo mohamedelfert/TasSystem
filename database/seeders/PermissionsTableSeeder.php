@@ -224,6 +224,42 @@ class PermissionsTableSeeder extends Seeder
                 'display_name' => 'طرق الدفع',
                 'guard_name' => 'web',
                 'routes' => 'admin.payment-methods.destroy',
+            ], [
+                'id' => '36',
+                'name' => 'lang',
+                'display_name' => 'اللغات',
+                'guard_name' => 'web',
+                'routes' => 'admin.lang',
+            ], [
+                'id' => '37',
+                'name' => 'teacher-list',
+                'display_name' => 'المدرسين',
+                'guard_name' => 'web',
+                'routes' => 'admin.teachers.index',
+            ], [
+                'id' => '38',
+                'name' => 'teacher-create',
+                'display_name' => 'المدرسين',
+                'guard_name' => 'web',
+                'routes' => 'admin.teachers.create,admin.teachers.store',
+            ], [
+                'id' => '39',
+                'name' => 'teacher-edit',
+                'display_name' => 'المدرسين',
+                'guard_name' => 'web',
+                'routes' => 'admin.teachers.edit,admin.teachers.update',
+            ], [
+                'id' => '40',
+                'name' => 'teacher-show',
+                'display_name' => 'المدرسين',
+                'guard_name' => 'web',
+                'routes' => 'admin.teachers.show',
+            ], [
+                'id' => '41',
+                'name' => 'teacher-delete',
+                'display_name' => 'المدرسين',
+                'guard_name' => 'web',
+                'routes' => 'admin.teachers.destroy',
             ],
         ];
 
