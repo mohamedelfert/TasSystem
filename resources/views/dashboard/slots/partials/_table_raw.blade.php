@@ -6,24 +6,29 @@
     <td>
 
         <div class="btn-group" role="group" aria-label="Vertical button group">
-            <div class="btn-group" role="group">
-            @component('dashboard.layouts.partials.buttons._edit_button',[
-                        'route' => route('admin.slots.edit',$slot->id),
-                        'tooltip' => __('Edit '.$slot['name']),
-                         ])
-                @endcomponent
-            </div>
+
+            @can('slot-edit')
+                <div class="btn-group" role="group">
+                    @component('dashboard.layouts.partials.buttons._edit_button',[
+                            'route' => route('admin.slots.edit',$slot->id),
+                            'tooltip' => __('Edit '.$slot['name']),
+                             ])
+                    @endcomponent
+                </div>
+            @endcan
+
+            @can('slot-delete')
                 <div class="btn-group" role="group">
                     @component('dashboard.layouts.partials.buttons._delete_button',[
-                                    'id'=>$slot->id,
-                                    'route' => route('admin.slots.destroy',$slot->id) ,
-                                    'tooltip' => __('Delete'),
-                                     ])
+                                'id'=>$slot->id,
+                                'route' => route('admin.slots.destroy',$slot->id) ,
+                                'tooltip' => __('Delete'),
+                                 ])
                     @endcomponent
-            </div>
+                </div>
+            @endcan
 
         </div>
-
     </td>
 </tr>
 

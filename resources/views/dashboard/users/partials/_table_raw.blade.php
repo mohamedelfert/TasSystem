@@ -21,29 +21,37 @@
     <td>
 
         <div class="btn-group" role="group" aria-label="Vertical button group">
-            <div class="btn-group" role="group">
-            @component('dashboard.layouts.partials.buttons._show_button',[
-                    'route' => route('admin.users.show',$user->id),
-                    'tooltip' => __('Show '.$user['name']),
-                     ])
-            @endcomponent
-            </div>
-            <div class="btn-group" role="group">
-        @component('dashboard.layouts.partials.buttons._edit_button',[
-                    'route' => route('admin.users.edit',$user->id),
-                    'tooltip' => __('Edit '.$user['name']),
-                     ])
-            @endcomponent
-            </div>
 
-                    <div class="btn-group" role="group">
-                        @component('dashboard.layouts.partials.buttons._delete_button',[
-                                        'id'=>$user->id,
-                                        'route' => route('admin.users.destroy',$user->id) ,
-                                        'tooltip' => __('Delete'),
-                                         ])
-                        @endcomponent
-            </div>
+            @can('user-show')
+                <div class="btn-group" role="group">
+                    @component('dashboard.layouts.partials.buttons._show_button',[
+                            'route' => route('admin.users.show',$user->id),
+                            'tooltip' => __('Show '.$user['name']),
+                             ])
+                    @endcomponent
+                </div>
+            @endcan
+
+            @can('user-edit')
+                <div class="btn-group" role="group">
+                    @component('dashboard.layouts.partials.buttons._edit_button',[
+                            'route' => route('admin.users.edit',$user->id),
+                            'tooltip' => __('Edit '.$user['name']),
+                             ])
+                    @endcomponent
+                </div>
+            @endcan
+
+            @can('user-delete')
+                <div class="btn-group" role="group">
+                    @component('dashboard.layouts.partials.buttons._delete_button',[
+                                'id'=>$user->id,
+                                'route' => route('admin.users.destroy',$user->id) ,
+                                'tooltip' => __('Delete'),
+                                 ])
+                    @endcomponent
+                </div>
+            @endcan
 
         </div>
     </td>

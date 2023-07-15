@@ -13,31 +13,39 @@
     <td>
 
         <div class="btn-group" role="group" aria-label="Vertical button group">
-            <div class="btn-group" role="group">
-                @component('dashboard.layouts.partials.buttons._show_button',[
-                            'route' => route('admin.branches.show',$branch->id),
-                            'tooltip' => __('Edit '.$branch['name']),
-                             ])
-                @endcomponent
-            </div>
-            <div class="btn-group" role="group">
-            @component('dashboard.layouts.partials.buttons._edit_button',[
-                        'route' => route('admin.branches.edit',$branch->id),
-                        'tooltip' => __('Edit '.$branch['name']),
-                         ])
-                @endcomponent
-            </div>
+
+            @can('branch-show')
+                <div class="btn-group" role="group">
+                    @component('dashboard.layouts.partials.buttons._show_button',[
+                                'route' => route('admin.branches.show',$branch->id),
+                                'tooltip' => __('Edit '.$branch['name']),
+                                 ])
+                    @endcomponent
+                </div>
+            @endcan
+
+            @can('branch-edit')
+                <div class="btn-group" role="group">
+                    @component('dashboard.layouts.partials.buttons._edit_button',[
+                                'route' => route('admin.branches.edit',$branch->id),
+                                'tooltip' => __('Edit '.$branch['name']),
+                                 ])
+                    @endcomponent
+                </div>
+            @endcan
+
+            @can('branch-delete')
                 <div class="btn-group" role="group">
                     @component('dashboard.layouts.partials.buttons._delete_button',[
-                                    'id'=>$branch->id,
-                                    'route' => route('admin.branches.destroy',$branch->id) ,
-                                    'tooltip' => __('Delete'),
-                                     ])
+                                'id'=>$branch->id,
+                                'route' => route('admin.branches.destroy',$branch->id) ,
+                                'tooltip' => __('Delete'),
+                                 ])
                     @endcomponent
-            </div>
+                </div>
+            @endcan
 
         </div>
-
     </td>
 </tr>
 

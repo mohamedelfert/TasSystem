@@ -14,31 +14,39 @@
     <td>
 
         <div class="btn-group" role="group" aria-label="Vertical button group">
-            <div class="btn-group" role="group">
-                @component('dashboard.layouts.partials.buttons._show_button',[
-                            'route' => route('admin.teachers.show',$teacher->id),
-                            'tooltip' => __('Show '.$teacher['name']),
+
+            @can('teacher-show')
+                <div class="btn-group" role="group">
+                    @component('dashboard.layouts.partials.buttons._show_button',[
+                                'route' => route('admin.teachers.show',$teacher->id),
+                                'tooltip' => __('Show '.$teacher['name']),
+                                 ])
+                    @endcomponent
+                </div>
+            @endcan
+
+            @can('teacher-edit')
+                <div class="btn-group" role="group">
+                    @component('dashboard.layouts.partials.buttons._edit_button',[
+                            'route' => route('admin.teachers.edit',$teacher->id),
+                            'tooltip' => __('Edit '.$teacher['name']),
                              ])
-                @endcomponent
-            </div>
-            <div class="btn-group" role="group">
-            @component('dashboard.layouts.partials.buttons._edit_button',[
-                        'route' => route('admin.teachers.edit',$teacher->id),
-                        'tooltip' => __('Edit '.$teacher['name']),
-                         ])
-                @endcomponent
-            </div>
+                    @endcomponent
+                </div>
+            @endcan
+
+            @can('teacher-delete')
                 <div class="btn-group" role="group">
                     @component('dashboard.layouts.partials.buttons._delete_button',[
-                                    'id'=>$teacher->id,
-                                    'route' => route('admin.teachers.destroy',$teacher->id) ,
-                                    'tooltip' => __('Delete'),
-                                     ])
+                                'id'=>$teacher->id,
+                                'route' => route('admin.teachers.destroy',$teacher->id) ,
+                                'tooltip' => __('Delete'),
+                                 ])
                     @endcomponent
-            </div>
+                </div>
+            @endcan
 
         </div>
-
     </td>
 </tr>
 

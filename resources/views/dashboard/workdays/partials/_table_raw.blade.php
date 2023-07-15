@@ -7,24 +7,29 @@
     <td>
 
         <div class="btn-group" role="group" aria-label="Vertical button group">
-            <div class="btn-group" role="group">
-            @component('dashboard.layouts.partials.buttons._edit_button',[
-                        'route' => route('admin.workdays.edit',$workday->id),
-                        'tooltip' => __('Edit '.$workday['name']),
-                         ])
-                @endcomponent
-            </div>
+
+            @can('workday-edit')
+                <div class="btn-group" role="group">
+                    @component('dashboard.layouts.partials.buttons._edit_button',[
+                            'route' => route('admin.workdays.edit',$workday->id),
+                            'tooltip' => __('Edit '.$workday['name']),
+                             ])
+                    @endcomponent
+                </div>
+            @endcan
+
+            @can('workday-delete')
                 <div class="btn-group" role="group">
                     @component('dashboard.layouts.partials.buttons._delete_button',[
-                                    'id'=>$workday->id,
-                                    'route' => route('admin.workdays.destroy',$workday->id) ,
-                                    'tooltip' => __('Delete'),
-                                     ])
+                                'id'=>$workday->id,
+                                'route' => route('admin.workdays.destroy',$workday->id) ,
+                                'tooltip' => __('Delete'),
+                                 ])
                     @endcomponent
-            </div>
+                </div>
+            @endcan
 
         </div>
-
     </td>
 </tr>
 
