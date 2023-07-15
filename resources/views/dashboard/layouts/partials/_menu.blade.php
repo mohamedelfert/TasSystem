@@ -60,6 +60,14 @@
                 </li>
             @endcan
 
+            @can('teacher-list')
+                <li class=" nav-item @if(Request::is('admin/teachers')) active  @endif">
+                    <a href="{{ route('admin.teachers.index') }}">
+                        <i class="feather icon-award"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Teachers')}}</span>
+                    </a>
+                </li>
+            @endcan
+
             @can('user-list')
                 <li class=" nav-item @if(Request::is('admin/users')) active  @endif">
                     <a href="{{ route('admin.users.index') }}">

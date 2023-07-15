@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\Teacher\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';

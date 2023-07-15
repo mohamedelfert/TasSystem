@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SlotController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkdayController;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:web', 'auto_check_perm
     Route::resource('workdays', WorkdayController::class);
 
     Route::resource('payment-methods', PaymentMethodController::class);
+
+    Route::resource('teachers', TeacherController::class);
 
     /**************************** Users & Roles *******************************/
     Route::resource('users', UserController::class);
