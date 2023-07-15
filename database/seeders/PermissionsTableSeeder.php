@@ -284,6 +284,36 @@ class PermissionsTableSeeder extends Seeder
                 'display_name' => 'الانظمه',
                 'guard_name' => 'web',
                 'routes' => 'admin.systems.destroy',
+            ], [
+                'id' => '46',
+                'name' => 'subject-list',
+                'display_name' => 'المواد',
+                'guard_name' => 'web',
+                'routes' => 'admin.subjects.index',
+            ], [
+                'id' => '47',
+                'name' => 'subject-create',
+                'display_name' => 'المواد',
+                'guard_name' => 'web',
+                'routes' => 'admin.subjects.create,admin.subjects.store',
+            ], [
+                'id' => '48',
+                'name' => 'subject-edit',
+                'display_name' => 'المواد',
+                'guard_name' => 'web',
+                'routes' => 'admin.subjects.edit,admin.subjects.update',
+            ], [
+                'id' => '49',
+                'name' => 'subject-show',
+                'display_name' => 'المواد',
+                'guard_name' => 'web',
+                'routes' => 'admin.subjects.show',
+            ], [
+                'id' => '50',
+                'name' => 'subject-delete',
+                'display_name' => 'المواد',
+                'guard_name' => 'web',
+                'routes' => 'admin.subjects.destroy',
             ],
         ];
 

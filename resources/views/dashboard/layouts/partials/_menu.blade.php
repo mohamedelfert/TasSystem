@@ -60,6 +60,14 @@
                 </li>
             @endcan
 
+            @can('subject-list')
+                <li class=" nav-item @if(Request::is('admin/subjects')) active  @endif">
+                    <a href="{{ route('admin.subjects.index') }}">
+                        <i class="feather icon-book"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Subjects')}}</span>
+                    </a>
+                </li>
+            @endcan
+
             @can('payment-method-list')
                 <li class=" nav-item @if(Request::is('admin/payment-methods')) active  @endif">
                     <a href="{{ route('admin.payment-methods.index') }}">
