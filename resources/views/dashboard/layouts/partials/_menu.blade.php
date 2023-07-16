@@ -84,6 +84,14 @@
                 </li>
             @endcan
 
+            @can('order-list')
+                <li class=" nav-item @if(Request::is('admin/orders')) active  @endif">
+                    <a href="{{ route('admin.orders.index') }}">
+                        <i class="feather icon-octagon"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Orders')}}</span>
+                    </a>
+                </li>
+            @endcan
+
             @can('user-list')
                 <li class=" nav-item @if(Request::is('admin/users')) active  @endif">
                     <a href="{{ route('admin.users.index') }}">

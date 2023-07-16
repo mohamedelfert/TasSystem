@@ -314,6 +314,12 @@ class PermissionsTableSeeder extends Seeder
                 'display_name' => 'المواد',
                 'guard_name' => 'web',
                 'routes' => 'admin.subjects.destroy',
+            ], [
+                'id' => '51',
+                'name' => 'order-list',
+                'display_name' => 'الطلبات',
+                'guard_name' => 'web',
+                'routes' => 'admin.orders.index',
             ],
         ];
 
