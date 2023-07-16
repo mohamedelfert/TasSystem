@@ -17,7 +17,7 @@ class Fine extends Model {
 
 	public function payment_method()
 	{
-		return $this->belongsTo('PaymentMethods');
+		return $this->belongsTo(PaymentMethod::class);
 	}
 
 	public function teacher()

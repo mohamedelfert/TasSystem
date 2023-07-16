@@ -18,8 +18,23 @@ class Order extends Model {
 
 	public function branch()
 	{
-		return $this->belongsTo('App/Models\Branch');
+		return $this->belongsTo(Branch::class);
 	}
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
+
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
+    }
+
+    public function slot()
+    {
+        return $this->belongsTo(Slot::class);
+    }
 
 	public function fine()
 	{

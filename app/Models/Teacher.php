@@ -33,12 +33,17 @@ class Teacher extends Authenticatable
 
     public function fines()
     {
-        return $this->hasMany('Fine');
+        return $this->hasMany(Fine::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 
     public function country()
     {
-        return $this->belongsTo('App\Models\Country');
+        return $this->belongsTo(Country::class);
     }
 
     public function slotTeachers()
