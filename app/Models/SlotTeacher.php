@@ -5,35 +5,36 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SlotTeacher extends Model {
+class SlotTeacher extends Model
+{
 
-	protected $table = 'slot_teacher';
-	public $timestamps = true;
+    protected $table = 'slot_teacher';
+    public $timestamps = true;
 
-	use SoftDeletes;
+    use SoftDeletes;
 
-	protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at'];
 //	protected $fillable = array('teacher_id');
-	protected $guarded = [];
+    protected $guarded = [];
 
-	public function teacher()
-	{
-		return $this->belongsTo('App\Models\Teacher');
-	}
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
+    }
 
-	public function workday()
-	{
-		return $this->belongsTo('App\Models\Workday');
-	}
+    public function workday()
+    {
+        return $this->belongsTo(Workday::class);
+    }
 
-	public function slot()
-	{
-		return $this->belongsTo('App\Models\Slot');
-	}
+    public function slot()
+    {
+        return $this->belongsTo(Slot::class);
+    }
 
-	public function fine()
-	{
-		return $this->morphMany('App\Models\Fine');
-	}
+    public function fines()
+    {
+        return $this->morphMany(Fine::class, 'model');
+    }
 
 }

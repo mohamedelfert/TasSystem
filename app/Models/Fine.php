@@ -5,29 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Fine extends Model {
+class Fine extends Model
+{
 
-	protected $table = 'fines';
-	public $timestamps = true;
+    protected $table = 'fines';
+    public $timestamps = true;
 
-	use SoftDeletes;
+    use SoftDeletes;
 
-	protected $dates = ['deleted_at'];
-	protected $fillable = array('price');
+    protected $dates = ['deleted_at'];
+//    protected $fillable = array('price');
+    protected $guarded = [];
 
-	public function payment_method()
-	{
-		return $this->belongsTo(PaymentMethod::class);
-	}
+    public function payment_method()
+    {
+        return $this->belongsTo(PaymentMethod::class);
+    }
 
-	public function teacher()
-	{
-		return $this->belongsTo('Teacher');
-	}
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
+    }
 
-	public function model()
-	{
-		return $this->morphTo();
-	}
+    public function model()
+    {
+        return $this->morphTo();
+    }
 
 }

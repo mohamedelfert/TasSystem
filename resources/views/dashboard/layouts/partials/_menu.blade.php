@@ -92,6 +92,14 @@
                 </li>
             @endcan
 
+            @can('fine-list')
+                <li class=" nav-item @if(Request::is('admin/fines')) active  @endif">
+                    <a href="{{ route('admin.fines.index') }}">
+                        <i class="feather icon-filter"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Fines')}}</span>
+                    </a>
+                </li>
+            @endcan
+
             @can('user-list')
                 <li class=" nav-item @if(Request::is('admin/users')) active  @endif">
                     <a href="{{ route('admin.users.index') }}">

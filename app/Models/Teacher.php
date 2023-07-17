@@ -21,14 +21,16 @@ class Teacher extends Authenticatable
 //    protected $fillable = array('first_name', 'last_name', 'email', 'phone', 'password', 'address', 'status', 'work');
     protected $guarded = [];
 
+    protected $appends = ['image_path'];
+
     public function subjects()
     {
-        return $this->belongsToMany('Subject', 'subject_teacher', 'subject_id', 'teacher_id');
+        return $this->belongsToMany(Subject::class, 'subject_teacher', 'subject_id', 'teacher_id');
     }
 
     public function branchs()
     {
-        return $this->belongsToMany('Branch', 'branch_teacher', 'branch_id', 'teacher_id');
+        return $this->belongsToMany(Branch::class, 'branch_teacher', 'branch_id', 'teacher_id');
     }
 
     public function fines()
@@ -48,12 +50,12 @@ class Teacher extends Authenticatable
 
     public function slotTeachers()
     {
-        return $this->hasMany('App\Models\SlotTeacher');
+        return $this->hasMany(SlotTeacher::class);
     }
 
     public function systems()
     {
-        return $this->belongsToMany('App\Models\System');
+        return $this->belongsToMany(System::class);
     }
 
     public function getFirstNameAttribute($value)
@@ -64,6 +66,11 @@ class Teacher extends Authenticatable
     public function getLastNameAttribute($value)
     {
         return ucfirst($value);
+    }
+
+    public function getImagePathAttribute()
+    {
+        return asset('/uploads/teachers_images/' . $this->image);
     }
 
 }

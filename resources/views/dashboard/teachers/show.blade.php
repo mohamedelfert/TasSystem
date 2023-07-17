@@ -135,6 +135,7 @@
                                                                 <th class="wd-10p border-bottom-0">{!! __('Branch') !!}</th>
                                                                 <th class="wd-10p border-bottom-0">{!! __('Finish At') !!}</th>
                                                                 <th class="wd-10p border-bottom-0">{!! __('Price') !!}</th>
+                                                                <th class="wd-10p border-bottom-0">{!! __('Status') !!}</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -162,6 +163,13 @@
                                                                             <span class="badge badge-pill badge-warning">
                                                                                 {{ $order->price }} $
                                                                             </span>
+                                                                        </th>
+                                                                        <th class="wd-10p border-bottom-0">
+                                                                            @if($order->status === 'accepted')
+                                                                                <span class="badge badge-pill badge-success">{{ $order->status }}</span>
+                                                                            @elseif($order->status === 'cancelled')
+                                                                                <span class="badge badge-pill badge-danger">{{ $order->status }}</span>
+                                                                            @endif
                                                                         </th>
                                                                     </tr>
                                                                 @endforeach
@@ -201,9 +209,13 @@
                                                                         <th class="wd-10p border-bottom-0">{{ $fine->price }} $</th>
                                                                         <th class="wd-10p border-bottom-0">
                                                                             @if($fine->status === 'paid')
-                                                                                <span class="badge badge-pill badge-success">{{ $fine->status }}</span>
+                                                                                <a href="{{ route('admin.paid',$fine->id) }}">
+                                                                                    <span class="badge badge-pill badge-success">{{ $fine->status }}</span>
+                                                                                </a>
                                                                             @elseif($fine->status === 'unpaid')
-                                                                                <span class="badge badge-pill badge-primary">{{ $fine->status }}</span>
+                                                                                <a href="{{ route('admin.unpaid',$fine->id) }}">
+                                                                                    <span class="badge badge-pill badge-danger">{{ $fine->status }}</span>
+                                                                                </a>
                                                                             @endif
                                                                         </th>
                                                                         <th class="wd-10p border-bottom-0">{{ $fine->created_at }}</th>

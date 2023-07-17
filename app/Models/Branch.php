@@ -5,30 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Branch extends Model {
+class Branch extends Model
+{
 
-	protected $table = 'branches';
-	public $timestamps = true;
+    protected $table = 'branches';
+    public $timestamps = true;
 
-	use SoftDeletes;
+    use SoftDeletes;
 
-	protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at'];
 //	protected $fillable = array('name', 'address', 'email', 'phone', 'status');
     protected $guarded = [];
 
-	public function teachers()
-	{
-		return $this->belongsToMany('App\Models\Teacher');
-	}
+    public function teachers()
+    {
+        return $this->belongsToMany(Teacher::class);
+    }
 
-	public function country()
-	{
-		return $this->belongsTo('App\Models\Country');
-	}
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
 
-	public function orders()
-	{
-		return $this->hasMany('App\Models\Order');
-	}
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 
 }

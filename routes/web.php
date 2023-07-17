@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\FineController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentMethodController;
@@ -50,6 +51,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:web', 'auto_check_perm
     Route::resource('subjects', SubjectController::class);
 
     Route::resource('orders', OrderController::class);
+
+    Route::resource('fines', FineController::class);
+
+    Route::get('paid/{id}', [FineController::class, 'paid'])->name('paid');
+
+    Route::get('unpaid/{id}', [FineController::class, 'unpaid'])->name('unpaid');
 
     /**************************** Users & Roles *******************************/
     Route::resource('users', UserController::class);

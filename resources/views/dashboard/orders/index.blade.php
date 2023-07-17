@@ -12,10 +12,31 @@
                     <div class="text-wrap">
                         <div class="example">
                             <div class="panel panel-primary tabs-style-2">
-                                <div class=" tab-menu-heading">
-                                    {!! __('Show All Orders') !!}
+                                <div class="card-header pb-0">
+                                    <div class="box-header with-border">
+                                        <span style="display: block;margin-bottom:10px">@lang('orders') : <small>( {{ $orders->total() }} )</small></span>
+                                        <form action="{{ route('admin.orders.index') }}" method="get">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <input type="text" name="search" class="form-control" value="{{ request()->search }}"
+                                                           placeholder="@lang('main.search')">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button class="btn btn-primary btn-sm" title="@lang('main.search')">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                    <a class="btn btn-danger btn-sm" href="{{ route('admin.orders.index') }}"
+                                                       title="@lang('main.clear')">
+                                                        <i class="fa fa-eraser"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                                <hr>
+
+                                <hr style="margin:10px 30px">
+                                
                                 <div class="panel-body tabs-menu-body main-content-body-right border">
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -62,11 +83,11 @@
                                                                     </span>
                                                                 </th>
                                                                 <th class="wd-10p border-bottom-0">
-                                                                    @if($order->status === 'completed')
+                                                                    @if($order->status === 'accepted')
                                                                         <span class="badge badge-pill badge-primary">
                                                                             {{ $order->status }}
                                                                         </span>
-                                                                    @elseif($order->status === 'suspended')
+                                                                    @elseif($order->status === 'cancelled')
                                                                         <span class="badge badge-pill badge-danger">
                                                                             {{ $order->status }}
                                                                         </span>

@@ -5,20 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Workday extends Model {
+class Workday extends Model
+{
 
-	protected $table = 'workdays';
-	public $timestamps = true;
+    protected $table = 'workdays';
+    public $timestamps = true;
 
-	use SoftDeletes;
+    use SoftDeletes;
 
-	protected $dates = ['deleted_at'];
-	protected $fillable = array('day', 'date', 'name_slot');
+    protected $dates = ['deleted_at'];
+    protected $fillable = array('day', 'date', 'name_slot');
 
-	public function slotTeachers()
-	{
-		return $this->hasMany('App\Models\SlotTeacher');
-	}
+    public function slotTeachers()
+    {
+        return $this->hasMany(SlotTeacher::class);
+    }
 
     public function slot()
     {

@@ -320,6 +320,36 @@ class PermissionsTableSeeder extends Seeder
                 'display_name' => 'الطلبات',
                 'guard_name' => 'web',
                 'routes' => 'admin.orders.index',
+            ], [
+                'id' => '52',
+                'name' => 'fine-paid',
+                'display_name' => 'الغرامات',
+                'guard_name' => 'web',
+                'routes' => 'admin.paid',
+            ], [
+                'id' => '53',
+                'name' => 'fine-unpaid',
+                'display_name' => 'الغرامات',
+                'guard_name' => 'web',
+                'routes' => 'admin.unpaid',
+            ], [
+                'id' => '54',
+                'name' => 'order-accept',
+                'display_name' => 'الطلبات',
+                'guard_name' => 'web',
+                'routes' => 'admin.accept',
+            ], [
+                'id' => '55',
+                'name' => 'order-cancel',
+                'display_name' => 'الطلبات',
+                'guard_name' => 'web',
+                'routes' => 'admin.cancel',
+            ], [
+                'id' => '56',
+                'name' => 'fine-list',
+                'display_name' => 'الغرامات',
+                'guard_name' => 'web',
+                'routes' => 'admin.fines.index',
             ],
         ];
 

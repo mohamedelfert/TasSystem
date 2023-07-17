@@ -6,20 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use PhpParser\Node\Expr\AssignOp\Mod;
 
-class Order extends Model {
+class Order extends Model
+{
 
-	protected $table = 'orders';
-	public $timestamps = true;
+    protected $table = 'orders';
+    public $timestamps = true;
 
-	use SoftDeletes;
+    use SoftDeletes;
 
-	protected $dates = ['deleted_at'];
-	protected $fillable = array('final_price', 'coupon_name');
+    protected $dates = ['deleted_at'];
+    protected $fillable = array('final_price', 'coupon_name');
 
-	public function branch()
-	{
-		return $this->belongsTo(Branch::class);
-	}
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
 
     public function subject()
     {
@@ -36,9 +37,9 @@ class Order extends Model {
         return $this->belongsTo(Slot::class);
     }
 
-	public function fine()
-	{
-		return $this->morphMany('App\Models\Fine');
-	}
+    public function fines()
+    {
+        return $this->morphMany(Fine::class, 'model');
+    }
 
 }

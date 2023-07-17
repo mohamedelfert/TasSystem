@@ -5,19 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PaymentMethod extends Model {
+class PaymentMethod extends Model
+{
 
-	protected $table = 'payment_methods';
-	public $timestamps = true;
+    protected $table = 'payment_methods';
+    public $timestamps = true;
 
-	use SoftDeletes;
+    use SoftDeletes;
 
-	protected $dates = ['deleted_at'];
-	protected $fillable = array('name');
+    protected $dates = ['deleted_at'];
+    protected $fillable = array('name');
 
-	public function fines()
-	{
-		return $this->hasMany('Fine');
-	}
+    public function fines()
+    {
+        return $this->hasMany(Fine::class);
+    }
 
 }
