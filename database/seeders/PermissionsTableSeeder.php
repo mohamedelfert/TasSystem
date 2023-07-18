@@ -350,6 +350,30 @@ class PermissionsTableSeeder extends Seeder
                 'display_name' => 'الغرامات',
                 'guard_name' => 'web',
                 'routes' => 'admin.fines.index',
+            ],[
+                'id' => '75',
+                'name' => 'filter-teacher',
+                'display_name' => 'الطلبات',
+                'guard_name' => 'web',
+                'routes' => 'admin.filterTeacher',
+            ],[
+                'id' => '58',
+                'name' => 'filter-subject',
+                'display_name' => 'الطلبات',
+                'guard_name' => 'web',
+                'routes' => 'admin.filterSubject',
+            ],[
+                'id' => '59',
+                'name' => 'filter-status',
+                'display_name' => 'الطلبات',
+                'guard_name' => 'web',
+                'routes' => 'admin.filterStatus',
+            ],[
+                'id' => '60',
+                'name' => 'date-search',
+                'display_name' => 'الطلبات',
+                'guard_name' => 'web',
+                'routes' => 'admin.dateSearch',
             ],
         ];
 

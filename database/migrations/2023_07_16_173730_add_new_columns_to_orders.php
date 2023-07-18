@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->enum('status', array('accepted', 'cancelled'));
+            $table->enum('status', array('pending','accepted', 'cancelled'))->default('pending');
         });
     }
 

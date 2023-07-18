@@ -169,6 +169,8 @@
                                                                                 <span class="badge badge-pill badge-success">{{ $order->status }}</span>
                                                                             @elseif($order->status === 'cancelled')
                                                                                 <span class="badge badge-pill badge-danger">{{ $order->status }}</span>
+                                                                            @elseif($order->status === 'pending')
+                                                                                <span class="badge badge-pill badge-light-warning">{{ $order->status }}</span>
                                                                             @endif
                                                                         </th>
                                                                     </tr>

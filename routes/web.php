@@ -58,6 +58,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:web', 'auto_check_perm
 
     Route::get('unpaid/{id}', [FineController::class, 'unpaid'])->name('unpaid');
 
+    Route::post('filter-teacher', [OrderController::class,'filterTeacher'])->name('filterTeacher');
+
+    Route::post('filter-status', [OrderController::class,'filterStatus'])->name('filterStatus');
+
+    Route::post('filter-subject', [OrderController::class,'filterSubject'])->name('filterSubject');
+
+    Route::post('date-search', [OrderController::class,'dateSearch'])->name('dateSearch');
+
     /**************************** Users & Roles *******************************/
     Route::resource('users', UserController::class);
     Route::get('/users/profile/{id}', [UserController::class, 'showProfile'])->name('showProfile');

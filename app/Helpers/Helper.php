@@ -3,6 +3,19 @@
 use App\Models\Company;
 use Illuminate\Support\Str;
 
+if (!function_exists('responseJson')) {
+    function responseJson($status, $message, $data = null)
+    {
+        $response = [
+            'status' => $status,
+            'message' => $message,
+            'data' => $data,
+        ];
+        return response()->json($response);
+    }
+}
+
+
 if (!function_exists('json_response')) {
     function json_response($data = null, $message = null, $code = 200)
     {

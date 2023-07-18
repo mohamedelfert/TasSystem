@@ -15,7 +15,8 @@ class Order extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('final_price', 'coupon_name');
+//    protected $fillable = array('final_price', 'coupon_name');
+    Protected $guarded = [];
 
     public function branch()
     {
