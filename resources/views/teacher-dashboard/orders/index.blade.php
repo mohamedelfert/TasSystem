@@ -1,5 +1,5 @@
 @extends('teacher-dashboard.layouts.app')
-@section('title'){!! __('Show Orders') !!}@endsection
+@section('title'){!! __('main.orders') !!}@endsection
 @section('header')@endsection
 @section('breadcrumb')
     @include('teacher-dashboard.layouts.partials._breadcrumb',['level'=>'orders'])
@@ -82,6 +82,7 @@
                                                         <th class="wd-10p border-bottom-0">{!! __('main.price') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.final_price') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.status') !!}</th>
+                                                        <th class="wd-10p border-bottom-0">{!! __('main.options') !!}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -128,6 +129,19 @@
                                                                         <span class="badge badge-pill badge-warning">
                                                                             {{ $order->status }}
                                                                         </span>
+                                                                    @endif
+                                                                </th>
+                                                                <th class="wd-10p border-bottom-0">
+                                                                    @if($order->status === 'pending')
+                                                                        <a href="{{ route('teacher.acceptOrder',$order->id) }}">
+                                                                            <span class="btn btn-success">{!! __('main.accept') !!}</span>
+                                                                        </a>
+                                                                        <a href="{{ route('teacher.cancelOrder',$order->id) }}">
+                                                                            <span class="btn btn-danger">{!! __('main.cancel') !!}</span>
+                                                                        </a>
+                                                                    @else
+                                                                        <span class="btn btn-success disabled">{!! __('main.accept') !!}</span>
+                                                                        <span class="btn btn-danger disabled">{!! __('main.cancel') !!}</span>
                                                                     @endif
                                                                 </th>
                                                             </tr>

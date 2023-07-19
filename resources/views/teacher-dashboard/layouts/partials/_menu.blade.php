@@ -24,6 +24,12 @@
                 </a>
             </li>
 
+            <li class=" nav-item @if(Request::is('teacher/fines')) active  @endif">
+                <a href="{{ route('teacher.fines.index') }}">
+                    <i class="feather icon-filter"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.fines')}}</span>
+                </a>
+            </li>
+
         </ul>
     </div>
 </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Teacher\FineController;
 use App\Http\Controllers\Teacher\HomeController;
 use App\Http\Controllers\Teacher\OrderController;
 use App\Http\Controllers\Teacher\TeacherController;
@@ -15,11 +16,19 @@ Route::prefix('teacher')->name('teacher.')->middleware(['auth:teacher'])->group(
 
     Route::resource('orders',OrderController::class);
 
+    Route::get('accept/{id}', [OrderController::class, 'acceptOrder'])->name('acceptOrder');
+
+    Route::get('cancel/{id}', [OrderController::class, 'cancelOrder'])->name('cancelOrder');
+
     Route::post('filter-status', [OrderController::class,'filterStatus'])->name('filterStatus');
 
     Route::post('filter-subject', [OrderController::class,'filterSubject'])->name('filterSubject');
 
     Route::post('date-search', [OrderController::class,'dateSearch'])->name('dateSearch');
+
+    Route::resource('fines', FineController::class);
+
+    Route::get('pay/{id}', [FineController::class,'payFine'])->name('payFine');
 
     //================= this route for change language ( ar - en ) ===================//
     Route::get('lang/{lang}', function ($lang) {

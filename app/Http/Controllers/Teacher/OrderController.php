@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $orders = Order::with('teacher')->where('teacher_id', auth()->user()->id)
             ->latest()->paginate(10);
@@ -47,5 +47,31 @@ class OrderController extends Controller
             ->get();
         $subjects = Subject::all();
         return view('teacher-dashboard.orders.index', compact('orders', 'from_date', 'to_date', 'subjects'));
+    }
+
+    public function acceptOrder($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->update(['status' => 'accepted']);
+        toast(__('Accepted successfully'), 'success');
+        return back();
+    }
+
+    public function cancelOrder($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->update(['status' => 'cancelled']);
+
+        // fines create
+        $order->fines()->create([
+            'payment_method_id' => 1,
+            'teacher_id' => $order->teacher->id,
+            'price' => $order->price,
+            'status' => 'unpaid',
+            'payment_date' => now(),
+        ]);
+
+        toast(__('Cancelled successfully'), 'success');
+        return back();
     }
 }
