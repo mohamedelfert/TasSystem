@@ -4,9 +4,9 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('teacher.home')}}">{{__('Home')}}</a>
         </li>
-        <li class="breadcrumb-item"><a href="{!! $level !=''?route('teacher.'.$level.'.index'):'#' !!}">{{__(ucfirst($level))}}</a>
+{{--        <li class="breadcrumb-item"><a href="{!! $level !=''?route('teacher.'.$level.'.index'):'#' !!}">{{__(ucfirst($level))}}</a>--}}
+{{--        </li>--}}
+        <li class="breadcrumb-item active">@yield('title')
         </li>
-        {{--        <li class="breadcrumb-item active">@yield('title')--}}
-        {{--        </li>--}}
     </ol>
 </div>

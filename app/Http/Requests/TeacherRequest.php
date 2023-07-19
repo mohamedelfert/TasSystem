@@ -36,11 +36,12 @@ class TeacherRequest extends FormRequest
                 'numeric',
                 Rule::unique('teachers', 'phone')->ignore($this->teacher)
             ],
+            'image' => 'sometimes|nullable|image|mimes:png,jpg,jpeg,gif',
             'country_id' => 'required',
             'address' => 'required',
-            'status' => 'required',
-            'work' => 'required',
-            'language' => 'required'
+            'status' => 'sometimes|nullable',
+            'work' => 'sometimes|nullable',
+            'language' => 'sometimes|nullable'
         ];
     }
 }

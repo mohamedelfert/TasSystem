@@ -63,7 +63,7 @@
                             <span>
                                 <img class="round"
                                      @if(auth()->user()->image != null)
-                                         src = "{{url(auth()->user()->image)}}"
+                                         src = "{{url(auth()->user()->image_path)}}"
                                      @else
                                          src="{{asset('assets/dashboard/resources')}}/app-assets/images/portrait/small/avatar-s-11.jpg"
                                      @endif alt="avatar" height="40" width="40">
@@ -83,7 +83,7 @@
                              <a class="dropdown-item" href="#">
                                  <i class="feather icon-message-square"></i> Chats
                              </a>--}}
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('teacher.teachers.show',auth()->user()->id) }}">
                                 <i class="feather icon-user"></i> {{__('Profile')}}
                             </a>
                             <a class="dropdown-item" href="#">

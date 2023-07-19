@@ -13,7 +13,7 @@
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             <li class=" nav-item @if(Request::is('teacher/home')) active open  @endif">
-                <a href="{{ route('teacher.teacher-home') }}">
+                <a href="{{ route('teacher.home') }}">
                     <i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">{{__('Home')}}</span>
                 </a>
             </li>
