@@ -61,6 +61,7 @@ return [
     'date' => 'Date',
     'accepted' => 'Accepted',
     'cancelled' => 'Cancelled',
+    'pending' => 'Pending',
     'data_added_successfully' => 'Data Add Successfully',
     'data_updated_successfully' => 'Data Updated Successfully',
     'data_deleted_successfully' => 'Data Deleted Successfully',

@@ -18,27 +18,9 @@
                 </a>
             </li>
 
-            <li class=" nav-item @if(Request::is('teacher/pages')) active open  @endif">
-                <a href="#">
-                    <i class="feather icon-layers"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Pages')}}</span>
-                </a>
-            </li>
-
-            <li class=" nav-item @if(Request::is('teacher/contact-us')) active open  @endif">
-                <a href="#">
-                    <i class="feather icon-phone-call"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Contact us Sections')}}</span>
-                </a>
-            </li>
-
-            <li class=" nav-item @if(Request::is('teacher/countries')) active open  @endif">
-                <a href="#">
-                    <i class="feather icon-folder"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('Countries')}}</span>
-                </a>
-            </li>
-
-            <li class=" nav-item @if(Request::is('teacher/system-options')) active open  @endif">
-                <a href="#">
-                    <i class="feather icon-phone-call"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('System options')}}</span>
+            <li class=" nav-item @if(Request::is('teacher/orders')) active  @endif">
+                <a href="{{ route('teacher.orders.index') }}">
+                    <i class="feather icon-octagon"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.orders')}}</span>
                 </a>
             </li>
 

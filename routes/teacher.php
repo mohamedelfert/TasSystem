@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Teacher\HomeController;
+use App\Http\Controllers\Teacher\OrderController;
 use App\Http\Controllers\Teacher\TeacherController;
 use Illuminate\Support\Facades\Route;
 
@@ -11,6 +12,14 @@ Route::prefix('teacher')->name('teacher.')->middleware(['auth:teacher'])->group(
     Route::get('/', [HomeController::class, 'dashboard'])->name('home');
 
     Route::resource('teachers',TeacherController::class);
+
+    Route::resource('orders',OrderController::class);
+
+    Route::post('filter-status', [OrderController::class,'filterStatus'])->name('filterStatus');
+
+    Route::post('filter-subject', [OrderController::class,'filterSubject'])->name('filterSubject');
+
+    Route::post('date-search', [OrderController::class,'dateSearch'])->name('dateSearch');
 
     //================= this route for change language ( ar - en ) ===================//
     Route::get('lang/{lang}', function ($lang) {
