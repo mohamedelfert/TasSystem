@@ -23,6 +23,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="wd-5p border-bottom-0">#</th>
+                                                        <th class="wd-10p border-bottom-0">{!! __('main.subject') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.price') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.status') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.payment_date') !!}</th>
@@ -34,6 +35,9 @@
                                                         @foreach ($fines as $index => $fine)
                                                             <tr>
                                                                 <th class="wd-5p border-bottom-0">{{ $index + 1 }}</th>
+                                                                <th class="wd-10p border-bottom-0">
+                                                                    {{ optional($fine->model->subject)->name }}
+                                                                </th>
                                                                 <th class="wd-10p border-bottom-0">
                                                                     <span class="badge badge-pill badge-warning">
                                                                         {{ $fine->price }} $

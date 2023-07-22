@@ -74,4 +74,23 @@ class OrderController extends Controller
         toast(__('Cancelled successfully'), 'success');
         return back();
     }
+
+    public function newOrders()
+    {
+        $orders = Order::with('teacher')->where('teacher_id', auth()->user()->id)
+            ->where('status', 'pending')
+            ->latest()->paginate(10);
+        $subjects = Subject::all();
+        return view('teacher-dashboard.orders.new-orders', compact('orders', 'subjects'));
+    }
+
+    public function finishedOrders()
+    {
+        $orders = Order::with('teacher')->where('teacher_id', auth()->user()->id)
+            ->where('status', 'accepted')
+            ->where('finished_at','!=',null)
+            ->latest()->paginate(10);
+        $subjects = Subject::all();
+        return view('teacher-dashboard.orders.finished-orders', compact('orders', 'subjects'));
+    }
 }

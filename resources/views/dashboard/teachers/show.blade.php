@@ -113,6 +113,9 @@
                                                                             <span class="badge badge-pill badge-secondary">{!! __('Both - [ Arabic , English ]') !!}</span>
                                                                         @endif
                                                                     </div>
+                                                                    <div>
+                                                                        <label>{!! __('Timezone') !!}</label> : <span class="tx-medium text-dark">{{ $teacher->timezone }}</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>

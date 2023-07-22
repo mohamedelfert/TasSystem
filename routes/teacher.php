@@ -3,6 +3,7 @@
 use App\Http\Controllers\Teacher\FineController;
 use App\Http\Controllers\Teacher\HomeController;
 use App\Http\Controllers\Teacher\OrderController;
+use App\Http\Controllers\Teacher\SlotController;
 use App\Http\Controllers\Teacher\TeacherController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,10 @@ Route::prefix('teacher')->name('teacher.')->middleware(['auth:teacher'])->group(
     Route::resource('teachers',TeacherController::class);
 
     Route::resource('orders',OrderController::class);
+
+    Route::get('new-orders',[OrderController::class,'newOrders'])->name('newOrders');
+
+    Route::get('finished-orders',[OrderController::class,'finishedOrders'])->name('finishedOrders');
 
     Route::get('accept/{id}', [OrderController::class, 'acceptOrder'])->name('acceptOrder');
 
@@ -29,6 +34,8 @@ Route::prefix('teacher')->name('teacher.')->middleware(['auth:teacher'])->group(
     Route::resource('fines', FineController::class);
 
     Route::get('pay/{id}', [FineController::class,'payFine'])->name('payFine');
+
+    Route::resource('slots',SlotController::class);
 
     //================= this route for change language ( ar - en ) ===================//
     Route::get('lang/{lang}', function ($lang) {

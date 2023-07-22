@@ -161,6 +161,7 @@ return [
          */
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Camroncade\Timezone\TimezoneServiceProvider::class,
 
         /*
          * Application Service Providers...

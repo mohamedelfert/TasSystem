@@ -24,9 +24,27 @@
                 </a>
             </li>
 
+            <li class=" nav-item @if(Request::is('teacher/new-orders')) active  @endif">
+                <a href="{{ route('teacher.newOrders') }}">
+                    <i class="feather icon-octagon"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.new_orders')}}</span>
+                </a>
+            </li>
+
+            <li class=" nav-item @if(Request::is('teacher/finished-orders')) active  @endif">
+                <a href="{{ route('teacher.finishedOrders') }}">
+                    <i class="feather icon-octagon"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.finished_orders')}}</span>
+                </a>
+            </li>
+
             <li class=" nav-item @if(Request::is('teacher/fines')) active  @endif">
                 <a href="{{ route('teacher.fines.index') }}">
                     <i class="feather icon-filter"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.fines')}}</span>
+                </a>
+            </li>
+
+            <li class=" nav-item @if(Request::is('teacher/slots')) active  @endif">
+                <a href="{{ route('teacher.slots.index') }}">
+                    <i class="feather icon-watch"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.slots')}}</span>
                 </a>
             </li>
 

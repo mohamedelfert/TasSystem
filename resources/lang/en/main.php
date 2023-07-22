@@ -71,6 +71,7 @@ return [
     'total' => 'Total',
     'orders' => 'Orders',
     'new_orders' => 'New Orders',
+    'finished_orders' => 'Finished Orders',
     'last_edit' => 'Last Edit',
     'price' => 'Price',
     'notes' => 'Notes',

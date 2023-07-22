@@ -134,14 +134,14 @@
                                                                 <th class="wd-10p border-bottom-0">
                                                                     @if($order->status === 'pending')
                                                                         <a href="{{ route('teacher.acceptOrder',$order->id) }}">
-                                                                            <span class="btn btn-success">{!! __('main.accept') !!}</span>
+                                                                            <span class="btn btn-success btn-sm">{!! __('main.accept') !!}</span>
                                                                         </a>
                                                                         <a href="{{ route('teacher.cancelOrder',$order->id) }}">
-                                                                            <span class="btn btn-danger">{!! __('main.cancel') !!}</span>
+                                                                            <span class="btn btn-danger btn-sm">{!! __('main.cancel') !!}</span>
                                                                         </a>
                                                                     @else
-                                                                        <span class="btn btn-success disabled">{!! __('main.accept') !!}</span>
-                                                                        <span class="btn btn-danger disabled">{!! __('main.cancel') !!}</span>
+                                                                        <span class="btn btn-success disabled btn-sm">{!! __('main.accept') !!}</span>
+                                                                        <span class="btn btn-danger disabled btn-sm">{!! __('main.cancel') !!}</span>
                                                                     @endif
                                                                 </th>
                                                             </tr>

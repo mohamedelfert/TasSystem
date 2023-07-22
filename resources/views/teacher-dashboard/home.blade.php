@@ -13,9 +13,6 @@
             <div class="card card-statistics">
                 <div class="card-header">
                     <h4 class="card-title">{{__('Statistics')}}</h4>
-                    <div class="d-flex align-items-center">
-                        Teacher
-                    </div>
                 </div>
 
                 <div class="card-body statistics-body">
@@ -28,8 +25,11 @@
                                     </div>
                                 </div>
                                 <div class="my-auto">
-                                    <h4 class="fw-bolder mb-0">0</h4>
-                                    <p class="card-text font-small-3 mb-0">{{__('Client')}}</p>
+                                    <h4 class="fw-bolder mb-0">
+                                        {{ \App\Models\Order::with('teacher')->where('teacher_id', auth()->user()->id)
+                                            ->where('status','pending')->count() }}
+                                    </h4>
+                                    <p class="card-text font-small-3 mb-0">{{__('main.new_orders')}}</p>
                                 </div>
                             </div>
                         </div>
@@ -41,8 +41,9 @@
                                     </div>
                                 </div>
                                 <div class="my-auto">
-                                    <h4 class="fw-bolder mb-0">0</h4>
-                                    <p class="card-text font-small-3 mb-0">{{__('Orders')}}</p>
+                                    <h4 class="fw-bolder mb-0">
+                                        {{ \App\Models\Order::with('teacher')->where('teacher_id', auth()->user()->id)->count() }}</h4>
+                                    <p class="card-text font-small-3 mb-0">{{__('main.orders')}}</p>
                                 </div>
                             </div>
                         </div>
@@ -54,16 +55,10 @@
                                     </div>
                                 </div>
                                 <div class="my-auto">
-                                    <h4 class="fw-bolder mb-0">0</h4>
-                                    <p class="card-text font-small-3 mb-0">{{__('New orders')}}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-12 col-sm-12 col-12 mb-2 mt-2 mb-xl-0">
-                            <div class="d-flex flex-row">
-                                <div class="my-auto">
-                                    <h4 class="fw-bolder mb-0">Name : </h4>
-                                    <h5 class="card-text mb-0">{{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}</h5>
+                                    <h4 class="fw-bolder mb-0">
+                                        {{ \App\Models\Fine::with('teacher')->where('teacher_id', auth()->user()->id)->count() }}
+                                    </h4>
+                                    <p class="card-text font-small-3 mb-0">{{__('main.fines')}}</p>
                                 </div>
                             </div>
                         </div>
