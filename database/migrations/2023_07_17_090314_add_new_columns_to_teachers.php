@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('teachers', function (Blueprint $table) {
             $table->string('image')->default('default.png');
+            $table->string('place_type')->nullable();
         });
     }
 
@@ -23,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('teachers', function (Blueprint $table) {
             $table->dropColumn('image');
+            $table->dropColumn('place_type');
         });
     }
 };

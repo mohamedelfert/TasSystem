@@ -96,6 +96,9 @@
                                                                             <span class="badge badge-pill badge-danger">{{ $teacher->work }}</span>
                                                                         @endif
                                                                     </div>
+                                                                    <div>
+                                                                        <label>{!! __('main.place_type') !!}</label> : <span class="tx-medium text-dark">{{ $teacher->place_type }}</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="media mb-0">
@@ -105,12 +108,12 @@
                                                                     </div>
                                                                     <div>
                                                                         <label>{!! __('Language') !!}</label> :
-                                                                        @if($teacher->language === 1)
-                                                                            <span class="badge badge-pill badge-success">{!! __('Arabic') !!}</span>
-                                                                        @elseif($teacher->language === 2)
-                                                                            <span class="badge badge-pill badge-primary">{!! __('English') !!}</span>
-                                                                        @elseif($teacher->language === 3)
-                                                                            <span class="badge badge-pill badge-secondary">{!! __('Both - [ Arabic , English ]') !!}</span>
+                                                                        @if($teacher->language === 'arabic')
+                                                                            <span class="badge badge-pill badge-success">{!! __('main.arabic') !!}</span>
+                                                                        @elseif($teacher->language === 'english')
+                                                                            <span class="badge badge-pill badge-primary">{!! __('main.english') !!}</span>
+                                                                        @elseif($teacher->language === 'both')
+                                                                            <span class="badge badge-pill badge-secondary">{!! __('main.both_english_arabic') !!}</span>
                                                                         @endif
                                                                     </div>
                                                                     <div>

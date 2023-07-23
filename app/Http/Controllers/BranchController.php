@@ -17,7 +17,8 @@ class BranchController extends Controller
     public function create()
     {
         $countries = Country::all();
-        return view('dashboard.branches.create', compact('countries'));
+        $branch = new Branch();
+        return view('dashboard.branches.create', compact('countries','branch'));
     }
 
     public function store(BranchRequest $request)

@@ -14,13 +14,13 @@ class CreateTeachersTable extends Migration {
 			$table->string('email')->unique();
 			$table->string('phone')->unique();
 			$table->string('password');
-			$table->text('address');
-			$table->enum('status', array('active', 'inactive'));
-			$table->enum('work', array('yes', 'no'));
-			$table->timestamps();
-			$table->softDeletes();
-			$table->bigInteger('country_id');
-			$table->integer('language')->nullable();
+			$table->text('address')->nullable();
+			$table->enum('status', array('active', 'inactive'))->default('inactive');
+			$table->enum('work', array('yes', 'no'))->default('no');
+			$table->bigInteger('country_id')->nullable();
+			$table->string('language')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
 		});
 	}
 

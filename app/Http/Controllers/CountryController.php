@@ -15,7 +15,8 @@ class CountryController extends Controller
 
     public function create()
     {
-        return view('dashboard.countries.create');
+        $country = new Country;
+        return view('dashboard.countries.create',compact('country'));
     }
 
     public function store(CountryRequest $request)

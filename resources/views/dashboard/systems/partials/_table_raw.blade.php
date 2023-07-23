@@ -1,6 +1,6 @@
 <tr>
     <td>{!! $loop->index +1 !!}</td>
-    <td>{!! $system->name !!}</td>
+    <td>{!! session('lang') == 'ar' ? $system->getTranslation('name', 'ar') : $system->getTranslation('name', 'en') !!}</td>
     <td>
 
         <div class="btn-group" role="group" aria-label="Vertical button group">
@@ -9,7 +9,7 @@
                 <div class="btn-group" role="group">
                     @component('dashboard.layouts.partials.buttons._edit_button',[
                             'route' => route('admin.systems.edit',$system->id),
-                            'tooltip' => __('Edit '.$system['name']),
+                            'tooltip' => __('main.edit'),
                              ])
                     @endcomponent
                 </div>
@@ -20,7 +20,7 @@
                     @component('dashboard.layouts.partials.buttons._delete_button',[
                                 'id'=>$system->id,
                                 'route' => route('admin.systems.destroy',$system->id) ,
-                                'tooltip' => __('Delete'),
+                                'tooltip' => __('main.delete'),
                                  ])
                     @endcomponent
                 </div>

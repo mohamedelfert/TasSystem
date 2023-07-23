@@ -23,14 +23,16 @@ class BranchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => [
+            'name.*' => [
                 'required',
+                'string',
                 'min:5',
                 Rule::unique('branches','name')->ignore($this->branch)
             ],
             'address' => 'required',
             'email' => [
-                'required',
+                'sometimes',
+                'nullable',
                 'email',
                 Rule::unique('branches','email')->ignore($this->branch)
             ],

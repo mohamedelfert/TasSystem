@@ -20,7 +20,8 @@ class SystemController extends Controller
      */
     public function create()
     {
-        return view('dashboard.systems.create');
+        $system = new System;
+        return view('dashboard.systems.create',compact('system'));
     }
 
     /**

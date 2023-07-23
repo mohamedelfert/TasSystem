@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 @section('title')
-    {!! __('Edit System') !!}
+    {!! __('main.edit_system') !!}
 @endsection
 @section('header')@endsection
 @section('breadcrumb')

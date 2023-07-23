@@ -1,6 +1,6 @@
 <tr>
     <td>{!! $loop->index +1 !!}</td>
-    <td>{!! $branch->name !!}</td>
+    <td>{!! session('lang') == 'ar' ? $branch->getTranslation('name', 'ar') : $branch->getTranslation('name', 'en') !!}</td>
     <td>{!! $branch->phone !!}</td>
     <td>{!! $branch->email !!}</td>
     <td>
@@ -18,7 +18,7 @@
                 <div class="btn-group" role="group">
                     @component('dashboard.layouts.partials.buttons._show_button',[
                                 'route' => route('admin.branches.show',$branch->id),
-                                'tooltip' => __('Edit '.$branch['name']),
+                                'tooltip' => __('main.show'),
                                  ])
                     @endcomponent
                 </div>
@@ -28,7 +28,7 @@
                 <div class="btn-group" role="group">
                     @component('dashboard.layouts.partials.buttons._edit_button',[
                                 'route' => route('admin.branches.edit',$branch->id),
-                                'tooltip' => __('Edit '.$branch['name']),
+                                'tooltip' => __('main.edit'),
                                  ])
                     @endcomponent
                 </div>
@@ -39,7 +39,7 @@
                     @component('dashboard.layouts.partials.buttons._delete_button',[
                                 'id'=>$branch->id,
                                 'route' => route('admin.branches.destroy',$branch->id) ,
-                                'tooltip' => __('Delete'),
+                                'tooltip' => __('main.delete'),
                                  ])
                     @endcomponent
                 </div>

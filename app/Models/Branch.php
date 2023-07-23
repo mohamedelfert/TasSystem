@@ -4,9 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Translatable\HasTranslations;
 
 class Branch extends Model
 {
+    use HasTranslations;
+
+    public $translatable = ['name'];
 
     protected $table = 'branches';
     public $timestamps = true;

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Translatable\HasTranslations;
 
 class Teacher extends Authenticatable
 {
@@ -25,12 +26,12 @@ class Teacher extends Authenticatable
 
     public function subjects()
     {
-        return $this->belongsToMany(Subject::class, 'subject_teacher', 'subject_id', 'teacher_id');
+        return $this->belongsToMany(Subject::class, 'subject_teacher', 'teacher_id', 'subject_id');
     }
 
-    public function branchs()
+    public function branches()
     {
-        return $this->belongsToMany(Branch::class, 'branch_teacher', 'branch_id', 'teacher_id');
+        return $this->belongsToMany(Branch::class, 'branch_teacher', 'teacher_id', 'branch_id');
     }
 
     public function fines()

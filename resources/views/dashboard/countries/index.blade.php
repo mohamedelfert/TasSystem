@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title'){!! __('Countries') !!}@endsection
+@section('title'){!! __('main.countries') !!}@endsection
 @section('header')@endsection
 @section('breadcrumb')
         @include('dashboard.layouts.partials._breadcrumb',['level'=>'countries'])

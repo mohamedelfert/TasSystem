@@ -23,8 +23,7 @@ class SubjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'price' => ['required', 'numeric'],
+            'name.*' => 'required|string',
             'system_id' => 'required'
         ];
     }

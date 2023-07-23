@@ -39,8 +39,6 @@ class TeacherRequest extends FormRequest
             'image' => 'sometimes|nullable|image|mimes:png,jpg,jpeg,gif',
             'country_id' => 'required',
             'address' => 'required',
-            'status' => 'sometimes|nullable',
-            'work' => 'sometimes|nullable',
             'language' => 'sometimes|nullable'
         ];
     }

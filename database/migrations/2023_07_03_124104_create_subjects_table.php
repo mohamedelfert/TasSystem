@@ -10,7 +10,6 @@ class CreateSubjectsTable extends Migration {
 		Schema::create('subjects', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('name');
-			$table->decimal('price', 8,2);
 			$table->bigInteger('system_id');
 			$table->softDeletes();
 			$table->timestamps();

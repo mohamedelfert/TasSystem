@@ -23,8 +23,9 @@ class SystemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => [
+            'name.*' => [
                 'required',
+                'string',
                 Rule::unique('systems', 'name')->ignore($this->system)
             ]
         ];

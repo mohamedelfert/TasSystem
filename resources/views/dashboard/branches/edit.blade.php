@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 @section('title')
-    {!! __('Edit Branch') !!}
+    {!! __('main.edit_branch') !!}
 @endsection
 @section('header')@endsection
 @section('breadcrumb')

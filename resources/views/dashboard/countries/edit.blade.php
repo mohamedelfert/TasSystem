@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 @section('title')
-    {!! __('Edit Country') !!}
+    {!! __('main.edit_country') !!}
 @endsection
 @section('header')@endsection
 @section('breadcrumb')

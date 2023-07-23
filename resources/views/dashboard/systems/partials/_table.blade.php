@@ -2,8 +2,8 @@
     <thead>
     <tr>
         <th scope="col">{{__('#') }}</th>
-        <th scope="col">{{__('System Name')}}</th>
-        <th scope="col">{{__('Options')}}</th>
+        <th scope="col">{{__('main.system')}}</th>
+        <th scope="col">{{__('main.options')}}</th>
     </thead>
     <tbody>
     @foreach($systems as $system)

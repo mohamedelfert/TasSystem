@@ -16,7 +16,8 @@ class SubjectController extends Controller
 
     public function create()
     {
-        return view('dashboard.subjects.create');
+        $subject = new Subject;
+        return view('dashboard.subjects.create',compact('subject'));
     }
 
     public function store(SubjectRequest $request)

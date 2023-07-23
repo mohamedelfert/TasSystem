@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Teacher;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class TeacherTableSeeder extends Seeder
@@ -20,10 +19,8 @@ class TeacherTableSeeder extends Seeder
             'password' => bcrypt('123456789'),
             'phone' => '01121548710',
             'address' => 'cairo',
-            'status' => 'active',
-            'work' => 'yes',
-            'country_id' => '1',
-            'language' => '1',
+            'status' => 'inactive',
+            'work' => 'no',
         ]);
     }
 }

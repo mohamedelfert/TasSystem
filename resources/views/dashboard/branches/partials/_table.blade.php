@@ -2,11 +2,11 @@
     <thead>
     <tr>
         <th scope="col">{{__('#') }}</th>
-        <th scope="col">{{__('Branch Name')}}</th>
-        <th scope="col">{{__('phone')}}</th>
-        <th scope="col">{{__('email')}}</th>
-        <th scope="col">{{__('status')}}</th>
-        <th scope="col">{{__('Options')}}</th>
+        <th scope="col">{{__('main.name')}}</th>
+        <th scope="col">{{__('main.phone')}}</th>
+        <th scope="col">{{__('main.email')}}</th>
+        <th scope="col">{{__('main.status')}}</th>
+        <th scope="col">{{__('main.options')}}</th>
     </thead>
     <tbody>
     @foreach($branches as $branch)

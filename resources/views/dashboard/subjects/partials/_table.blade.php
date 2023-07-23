@@ -2,10 +2,9 @@
     <thead>
     <tr>
         <th scope="col">{{__('#') }}</th>
-        <th scope="col">{{__('Subject Name')}}</th>
-        <th scope="col">{{__('Price')}}</th>
-        <th scope="col">{{__('System')}}</th>
-        <th scope="col">{{__('Options')}}</th>
+        <th scope="col">{{__('main.subject')}}</th>
+        <th scope="col">{{__('main.system')}}</th>
+        <th scope="col">{{__('main.options')}}</th>
     </thead>
     <tbody>
     @foreach($subjects as $subject)

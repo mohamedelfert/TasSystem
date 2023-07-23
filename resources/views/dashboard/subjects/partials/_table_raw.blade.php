@@ -1,7 +1,6 @@
 <tr>
     <td>{!! $loop->index +1 !!}</td>
-    <td>{!! $subject->name !!}</td>
-    <td>{!! $subject->price !!} $</td>
+    <td>{!! session('lang') == 'ar' ? $subject->getTranslation('name', 'ar') : $subject->getTranslation('name', 'en') !!}</td>
     <td>{!! $subject->system->name !!}</td>
     <td>
 
@@ -11,7 +10,7 @@
                 <div class="btn-group" role="group">
                     @component('dashboard.layouts.partials.buttons._show_button',[
                                 'route' => route('admin.subjects.show',$subject->id),
-                                'tooltip' => __('Edit '.$subject['name']),
+                                'tooltip' => __('main.show'),
                                  ])
                     @endcomponent
                 </div>
@@ -21,7 +20,7 @@
                 <div class="btn-group" role="group">
                     @component('dashboard.layouts.partials.buttons._edit_button',[
                                 'route' => route('admin.subjects.edit',$subject->id),
-                                'tooltip' => __('Edit '.$subject['name']),
+                                'tooltip' => __('main.edit'),
                                  ])
                     @endcomponent
                 </div>
@@ -32,7 +31,7 @@
                     @component('dashboard.layouts.partials.buttons._delete_button',[
                                 'id'=>$subject->id,
                                 'route' => route('admin.subjects.destroy',$subject->id) ,
-                                'tooltip' => __('Delete'),
+                                'tooltip' => __('main.delete'),
                                  ])
                     @endcomponent
                 </div>

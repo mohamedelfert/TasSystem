@@ -4,9 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Translatable\HasTranslations;
 
 class System extends Model
 {
+    use HasTranslations;
+
+    public $translatable = ['name'];
 
     protected $table = 'systems';
     public $timestamps = true;

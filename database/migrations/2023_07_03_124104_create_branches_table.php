@@ -14,11 +14,11 @@ class CreateBranchesTable extends Migration {
 			$table->string('email');
 			$table->string('phone');
 			$table->enum('status', array('open', 'close'));
-			$table->timestamps();
-			$table->softDeletes();
 			$table->bigInteger('country_id');
 			$table->decimal('lat', 10,7);
 			$table->decimal('lng', 10,7);
+            $table->timestamps();
+            $table->softDeletes();
 		});
 	}
 
