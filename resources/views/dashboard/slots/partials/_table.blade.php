@@ -2,10 +2,9 @@
     <thead>
     <tr>
         <th scope="col">{{__('#') }}</th>
-        <th scope="col">{{__('Slot Name')}}</th>
-        <th scope="col">{{__('Start At')}}</th>
-        <th scope="col">{{__('End At')}}</th>
-        <th scope="col">{{__('Options')}}</th>
+        <th scope="col">{{__('main.start_at')}}</th>
+        <th scope="col">{{__('main.end_at')}}</th>
+        <th scope="col">{{__('main.options')}}</th>
     </thead>
     <tbody>
     @foreach($slots as $slot)

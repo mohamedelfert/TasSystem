@@ -23,10 +23,6 @@ class SlotRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => [
-                'required',
-                Rule::unique('slots', 'name')->ignore($this->slot)
-            ],
             'start_at' => 'required',
             'end_at' => 'required',
         ];

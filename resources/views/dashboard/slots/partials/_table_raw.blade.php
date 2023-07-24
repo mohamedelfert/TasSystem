@@ -1,6 +1,5 @@
 <tr>
     <td>{!! $loop->index +1 !!}</td>
-    <td>{!! $slot->name !!}</td>
     <td>{{ Carbon\Carbon::parse($slot->start_at)->format('g:i A') }}</td>
     <td>{{ Carbon\Carbon::parse($slot->end_at)->format('g:i A') }}</td>
     <td>
@@ -11,7 +10,7 @@
                 <div class="btn-group" role="group">
                     @component('dashboard.layouts.partials.buttons._edit_button',[
                             'route' => route('admin.slots.edit',$slot->id),
-                            'tooltip' => __('Edit '.$slot['name']),
+                            'tooltip' => __('main.edit'),
                              ])
                     @endcomponent
                 </div>
@@ -22,7 +21,7 @@
                     @component('dashboard.layouts.partials.buttons._delete_button',[
                                 'id'=>$slot->id,
                                 'route' => route('admin.slots.destroy',$slot->id) ,
-                                'tooltip' => __('Delete'),
+                                'tooltip' => __('main.delete'),
                                  ])
                     @endcomponent
                 </div>

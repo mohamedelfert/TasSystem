@@ -14,7 +14,7 @@ class Slot extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = array('name', 'start_at', 'end_at');
+    protected $fillable = array('start_at', 'end_at');
 
     public function slotTeachers()
     {

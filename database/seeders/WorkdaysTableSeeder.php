@@ -12,9 +12,19 @@ class WorkdaysTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $workdays = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
-        foreach ($workdays as $workday) {
-            Workday::insert(['day' => $workday]);
+        $workdays = [
+            'saturday' => 'السبت',
+            'sunday' => 'الاحد',
+            'monday' => 'الاثنين',
+            'tuesday' => 'الثلاثاء',
+            'wednesday' => 'الاربعاء',
+            'thursday' => 'الخميس',
+            'friday' => 'الجمعه'
+        ];
+        foreach ($workdays as $key => $value) {
+            Workday::insert([
+                'day' => json_encode(['en' => $key, 'ar' => $value])
+            ]);
         }
     }
 }

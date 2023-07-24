@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 @section('title')
-    {!! __('Edit Slot') !!}
+    {!! __('main.edit_slot') !!}
 @endsection
 @section('header')@endsection
 @section('breadcrumb')

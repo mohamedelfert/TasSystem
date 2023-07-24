@@ -149,6 +149,8 @@ return [
     'add' => 'Add',
     'back' => 'Back',
     'show' => 'Show',
+    'save' => 'Save',
+    'reset' => 'Reset',
     'delete' => 'Delete',
     'control' => 'Control',
     'options' => 'Options',

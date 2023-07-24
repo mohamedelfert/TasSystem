@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title'){!! __('Create Slot') !!}@endsection
+@section('title'){!! __('main.create_slot') !!}@endsection
 @section('header')@endsection
 @section('breadcrumb')
     @include('dashboard.layouts.partials._breadcrumb',['level'=>'slots'])
