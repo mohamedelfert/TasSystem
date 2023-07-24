@@ -18,16 +18,16 @@ Route::middleware('guest')->group(function () {
     Route::post('register', [RegisteredUserController::class, 'store']);
 
     Route::get('/admin/login', [AuthenticatedSessionController::class, 'adminLoginForm'])
-        ->name('login-admin.show');
+        ->name('adminLoginForm');
 
     Route::get('/teacher/login', [AuthenticatedSessionController::class, 'teacherLoginForm'])
-        ->name('teacher-admin.show');
+        ->name('teacherLoginForm');
 
-    Route::post('/admin/login', [AuthenticatedSessionController::class, 'adminStore'])
-        ->name('admin-login');
+    Route::post('/admin/login', [AuthenticatedSessionController::class, 'adminLogin'])
+        ->name('adminLogin');
 
-    Route::post('/teacher/login', [AuthenticatedSessionController::class, 'teacherStore'])
-        ->name('teacher-login');
+    Route::post('/teacher/login', [AuthenticatedSessionController::class, 'teacherLogin'])
+        ->name('teacherLogin');
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');
@@ -61,9 +61,9 @@ Route::middleware('auth')->group(function () {
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
-    Route::get('/logout/admin', [AuthenticatedSessionController::class, 'adminDestroy'])
+    Route::post('/logout', [AuthenticatedSessionController::class, 'adminLogout'])
         ->name('adminLogout');
-
-    Route::get('/logout/teacher', [AuthenticatedSessionController::class, 'teacherDestroy'])
-        ->name('teacherLogout');
 });
+
+Route::post('/logout-teacher', [AuthenticatedSessionController::class, 'teacherLogout'])
+    ->middleware('auth:teacher')->name('teacherLogout');

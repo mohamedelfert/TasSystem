@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\AuthTrait;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -20,48 +23,54 @@ class AuthenticatedSessionController extends Controller
     {
         return view('auth.teacher-login');
     }
-
-    /**
-     * Handle an incoming authentication request.
-     */
-    public function adminStore(Request $request)
+    
+    public function adminLogin(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'email' => 'required|string|email',
-            'password' => 'required|string|min:6'
+            'password' => 'required|string'
         ]);
 
-        $creds = $request->only('email', 'password');
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
-        if (Auth::guard('web')->attempt($creds)) {
+        $creeds = $request->only('email', 'password');
+
+        if (Auth::guard('web')->attempt($creeds)) {
             $request->session()->regenerate();
             return $this->redirect($request);
-        } else {
-            return redirect()->back()->with('fail', 'Incorrect credentials');
         }
+
+        return redirect()->back()->withErrors(['errors' => 'Invalid Email Or Password']);
     }
 
-    public function teacherStore(Request $request)
+    public function teacherLogin(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'email' => 'required|string|email',
-            'password' => 'required|string|min:6'
+            'password' => 'required|string'
         ]);
 
-        $creds = $request->only('email', 'password');
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
-        if (Auth::guard('teacher')->attempt($creds)) {
+        $creeds = $request->only('email', 'password');
+
+        if (Auth::guard('teacher')->attempt($creeds)) {
             $request->session()->regenerate();
             return $this->redirect($request);
-        } else {
-            return redirect()->back()->with('fail', 'Incorrect credentials');
         }
+
+        return redirect()->back()->withErrors(['errors' => 'Invalid Email Or Password']);
     }
 
-    /**
-     * Destroy an authenticated session.
-     */
-    public function adminDestroy(Request $request)
+    public function adminLogout(Request $request)
     {
         Auth::guard('web')->logout();
 
@@ -72,7 +81,7 @@ class AuthenticatedSessionController extends Controller
         return redirect('/');
     }
 
-    public function teacherDestroy(Request $request)
+    public function teacherLogout(Request $request)
     {
         Auth::guard('teacher')->logout();
 
