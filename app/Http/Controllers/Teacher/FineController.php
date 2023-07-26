@@ -22,7 +22,7 @@ class FineController extends Controller
             'status' => 'paid',
             'payment_date' => now()
         ]);
-        toast(__('Fine Paid successfully'), 'success');
+        toast(__('main.fine_paid_successfully'), 'success');
         return back();
     }
 }

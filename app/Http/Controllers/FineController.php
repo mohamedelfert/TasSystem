@@ -17,7 +17,7 @@ class FineController extends Controller
     {
         $fine = Fine::findOrFail($id);
         $fine->update(['status' => 'unpaid']);
-        toast(__('Updated successfully'), 'success');
+        toast(__('main.data_updated_successfully'), 'success');
         return back();
     }
 
@@ -25,7 +25,7 @@ class FineController extends Controller
     {
         $fine = Fine::findOrFail($id);
         $fine->update(['status' => 'paid']);
-        toast(__('Updated successfully'), 'success');
+        toast(__('main.data_updated_successfully'), 'success');
         return back();
     }
 }

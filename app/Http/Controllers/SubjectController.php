@@ -23,7 +23,7 @@ class SubjectController extends Controller
     public function store(SubjectRequest $request)
     {
         Subject::create($request->all());
-        toast(__('Added successfully'), 'success');
+        toast(__('main.data_added_successfully'), 'success');
         return redirect(route('admin.subjects.index'));
     }
 
@@ -42,7 +42,7 @@ class SubjectController extends Controller
     public function update(SubjectRequest $request, Subject $subject)
     {
         $subject->update($request->all());
-        toast(__('Edited successfully'), 'success');
+        toast(__('main.data_updated_successfully'), 'success');
         return redirect(route('admin.subjects.index'));
     }
 
@@ -50,7 +50,7 @@ class SubjectController extends Controller
     {
         $subject = Subject::findOrFail($id);
         $subject->delete();
-        toast(__('Deleted successfully'), 'success');
+        toast(__('main.data_deleted_successfully'), 'success');
         return redirect(route('admin.subjects.index'));
     }
 }

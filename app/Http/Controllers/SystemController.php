@@ -31,7 +31,7 @@ class SystemController extends Controller
     {
         System::create($request->all());
 
-        toast(__('Added successfully'), 'success');
+        toast(__('main.data_added_successfully'), 'success');
         return redirect(route('admin.systems.index'));
     }
 
@@ -58,7 +58,7 @@ class SystemController extends Controller
     public function update(SystemRequest $request, System $system)
     {
         $system->update($request->all());
-        toast(__('Edited successfully'), 'success');
+        toast(__('main.data_updated_successfully'), 'success');
         return redirect(route('admin.systems.index'));
     }
 
@@ -69,7 +69,7 @@ class SystemController extends Controller
     {
         $system = System::findOrFail($id);
         $system->delete();
-        toast(__('Deleted successfully'), 'success');
+        toast(__('main.data_deleted_successfully'), 'success');
         return redirect(route('admin.systems.index'));
     }
 }

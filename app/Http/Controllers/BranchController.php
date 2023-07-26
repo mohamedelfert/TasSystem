@@ -24,7 +24,7 @@ class BranchController extends Controller
     public function store(BranchRequest $request)
     {
         Branch::create($request->all());
-        toast(__('Added successfully'), 'success');
+        toast(__('main.data_added_successfully'), 'success');
         return redirect(route('admin.branches.index'));
     }
 
@@ -43,7 +43,7 @@ class BranchController extends Controller
     public function update(BranchRequest $request, Branch $branch)
     {
         $branch->update($request->all());
-        toast(__('Edited successfully'), 'success');
+        toast(__('main.data_updated_successfully'), 'success');
         return redirect(route('admin.branches.index'));
     }
 
@@ -51,7 +51,7 @@ class BranchController extends Controller
     {
         $branch = Branch::findOrFail($id);
         $branch->delete();
-        toast(__('Deleted successfully'), 'success');
+        toast(__('main.data_deleted_successfully'), 'success');
         return redirect(route('admin.branches.index'));
     }
 }

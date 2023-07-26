@@ -53,7 +53,7 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
         $order->update(['status' => 'accepted']);
-        toast(__('Accepted successfully'), 'success');
+        toast(__('main.data_accepted_successfully'), 'success');
         return back();
     }
 
@@ -71,7 +71,7 @@ class OrderController extends Controller
             'payment_date' => now(),
         ]);
 
-        toast(__('Cancelled successfully'), 'success');
+        toast(__('main.data_cancelled_successfully'), 'success');
         return back();
     }
 

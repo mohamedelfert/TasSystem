@@ -39,7 +39,7 @@ class UserController extends Controller
         $user = User::create($data);
         $user->assignRole($request->input('role_name'));
 
-        toast(__('Added successfully'), 'success');
+        toast(__('main.data_added_successfully'), 'success');
         return redirect(route('admin.users.index'));
     }
 
@@ -81,7 +81,7 @@ class UserController extends Controller
         DB::table('model_has_roles')->where('model_id', $user->id)->delete();
         $user->assignRole($request->input('role_name'));
 
-        toast(__('Edited successfully'), 'success');
+        toast(__('main.data_updated_successfully'), 'success');
         return redirect(route('admin.users.index'));
     }
 
@@ -91,7 +91,7 @@ class UserController extends Controller
             Storage::disk('public_uploads')->delete('/users_images/' . $user->image);
         }
         $user->delete();
-        toast(__('Deleted successfully'), 'success');
+        toast(__('main.data_deleted_successfully'), 'success');
         return redirect(route('admin.users.index'));
     }
 
@@ -157,7 +157,7 @@ class UserController extends Controller
 
         $user->update($data);
 
-        toast(__('Updated successfully'), 'success');
+        toast(__('main.data_updated_successfully'), 'success');
         return redirect(route('admin.home'));
     }
 }

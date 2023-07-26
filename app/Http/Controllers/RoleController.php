@@ -33,7 +33,7 @@ class RoleController extends Controller
         $data = Role::create(['name' => $request->input('name'), 'display_name' => $request->input('display_name')]);
         $data->syncPermissions($request->input('permissions'));
 
-        toast(__('Added successfully'), 'success');
+        toast(__('main.data_added_successfully'), 'success');
         return redirect(route('admin.roles.index'));
     }
 
@@ -64,14 +64,14 @@ class RoleController extends Controller
 
         $role->syncPermissions($request->input('permissions'));
 
-        toast(__('Updated successfully'), 'success');
+        toast(__('main.data_updated_successfully'), 'success');
         return redirect(route('admin.roles.index'));
     }
 
     public function destroy($id)
     {
         Role::findOrFail($id)->delete();
-        toast(__('Deleted successfully'), 'success');
+        toast(__('main.data_deleted_successfully'), 'success');
         return redirect(route('admin.roles.index'));
     }
 

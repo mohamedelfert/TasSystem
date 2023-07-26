@@ -2,11 +2,11 @@
     <thead>
     <tr>
         <th scope="col">{{__('#') }}</th>
-        <th scope="col">{{__('Payment Method')}}</th>
-        <th scope="col">{{__('Options')}}</th>
+        <th scope="col">{{__('main.payment_method')}}</th>
+        <th scope="col">{{__('main.options')}}</th>
     </thead>
     <tbody>
-    @foreach($paymentMethods as $method)
+    @foreach($paymentMethods as $paymentMethod)
         @include('dashboard.payment-methods.partials._table_raw')
     @endforeach
     </tbody>

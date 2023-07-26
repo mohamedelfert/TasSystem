@@ -351,7 +351,7 @@ class PermissionsTableSeeder extends Seeder
                 'guard_name' => 'web',
                 'routes' => 'admin.fines.index',
             ],[
-                'id' => '75',
+                'id' => '57',
                 'name' => 'filter-teacher',
                 'display_name' => 'الطلبات',
                 'guard_name' => 'web',

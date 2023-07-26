@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 @section('title')
-    {!! __('Edit Payment Method') !!}
+    {!! __('main.edit_payment_method') !!}
 @endsection
 @section('header')@endsection
 @section('breadcrumb')

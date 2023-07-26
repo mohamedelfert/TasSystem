@@ -32,7 +32,7 @@ class TeacherController extends Controller
         $data['password'] = Hash::make($request->password);
         $data['timezone'] = $request->timezone;
         Teacher::create($data);
-        toast(__('Added successfully'), 'success');
+        toast(__('main.data_added_successfully'), 'success');
         return redirect(route('admin.teachers.index'));
     }
 
@@ -56,7 +56,7 @@ class TeacherController extends Controller
             $data['password'] = Hash::make($request->password);
         }
         $teacher->update($data);
-        toast(__('Edited successfully'), 'success');
+        toast(__('main.data_updated_successfully'), 'success');
         return redirect(route('admin.teachers.index'));
     }
 
@@ -65,7 +65,7 @@ class TeacherController extends Controller
     {
         $teacher = Teacher::findOrFail($id);
         $teacher->delete();
-        toast(__('Deleted successfully'), 'success');
+        toast(__('main.data_deleted_successfully'), 'success');
         return redirect(route('admin.teachers.index'));
     }
 }

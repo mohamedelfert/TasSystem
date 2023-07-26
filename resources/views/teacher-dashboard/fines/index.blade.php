@@ -74,7 +74,7 @@
                                                         <table class="table table-hover" id="example1" data-page-length='50' style=" text-align: center;">
                                                             <tbody>
                                                             <tr>
-                                                                <td colspan="4" class="text-center text-danger">{!! __('No Data Found') !!}</td>
+                                                                <td colspan="4" class="text-center text-danger">{!! __('main.no_data_found') !!}</td>
                                                             </tr>
                                                             </tbody>
                                                         </table>

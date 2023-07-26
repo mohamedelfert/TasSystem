@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title'){!! __('Payment Methods') !!}@endsection
+@section('title'){!! __('main.payment_methods') !!}@endsection
 @section('header')@endsection
 @section('breadcrumb')
         @include('dashboard.layouts.partials._breadcrumb',['level'=>'payment-methods'])

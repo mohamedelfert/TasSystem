@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title'){!! __('Show Fines') !!}@endsection
+@section('title'){!! __('main.fines') !!}@endsection
 @section('header')@endsection
 @section('breadcrumb')
     @include('dashboard.layouts.partials._breadcrumb',['level'=>'fines'])
@@ -13,7 +13,7 @@
                         <div class="example">
                             <div class="panel panel-primary tabs-style-2">
                                 <div class=" tab-menu-heading">
-                                    {!! __('Show All Fines') !!}
+                                    {!! __('main.all_fines') !!}
                                 </div>
                                 <hr>
                                 <div class="panel-body tabs-menu-body main-content-body-right border">
@@ -23,9 +23,9 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="wd-5p border-bottom-0">#</th>
-                                                        <th class="wd-10p border-bottom-0">{!! __('Teacher Name') !!}</th>
-                                                        <th class="wd-10p border-bottom-0">{!! __('Price') !!}</th>
-                                                        <th class="wd-10p border-bottom-0">{!! __('status') !!}</th>
+                                                        <th class="wd-10p border-bottom-0">{!! __('main.teacher_name') !!}</th>
+                                                        <th class="wd-10p border-bottom-0">{!! __('main.price') !!}</th>
+                                                        <th class="wd-10p border-bottom-0">{!! __('main.status') !!}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -56,7 +56,7 @@
                                                         <table class="table table-hover" id="example1" data-page-length='50' style=" text-align: center;">
                                                             <tbody>
                                                             <tr>
-                                                                <td colspan="4" class="text-center text-danger">{!! __('No Data Found') !!}</td>
+                                                                <td colspan="4" class="text-center text-danger">{!! __('main.no_data_found') !!}</td>
                                                             </tr>
                                                             </tbody>
                                                         </table>

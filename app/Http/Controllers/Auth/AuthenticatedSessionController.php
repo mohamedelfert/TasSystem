@@ -23,7 +23,7 @@ class AuthenticatedSessionController extends Controller
     {
         return view('auth.teacher-login');
     }
-    
+
     public function adminLogin(Request $request)
     {
         $validator = Validator::make($request->all(), [

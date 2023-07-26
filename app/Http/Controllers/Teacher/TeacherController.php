@@ -57,7 +57,7 @@ class TeacherController extends Controller
 
         $teacher->update($data);
 
-        toast(__('Updated successfully'), 'success');
+        toast(__('main.data_updated_successfully'), 'success');
         return redirect(route('teacher.teachers.show', compact('teacher')));
     }
 }

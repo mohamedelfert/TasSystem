@@ -22,7 +22,7 @@ class CountryController extends Controller
     public function store(CountryRequest $request)
     {
         Country::create($request->all());
-        toast(__('Added successfully'), 'success');
+        toast(__('main.data_added_successfully'), 'success');
         return redirect(route('admin.countries.index'));
     }
 
@@ -40,7 +40,7 @@ class CountryController extends Controller
     public function update(CountryRequest $request, Country $country)
     {
         $country->update($request->all());
-        toast(__('Edited successfully'), 'success');
+        toast(__('main.data_updated_successfully'), 'success');
         return redirect(route('admin.countries.index'));
     }
 
@@ -48,7 +48,7 @@ class CountryController extends Controller
     {
         $country = Country::findOrFail($id);
         $country->delete();
-        toast(__('Deleted successfully'), 'success');
+        toast(__('main.data_deleted_successfully'), 'success');
         return redirect(route('admin.countries.index'));
     }
 }

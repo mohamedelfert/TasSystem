@@ -1,5 +1,5 @@
 @extends('teacher-dashboard.layouts.app')
-@section('title'){!! __('Home') !!}@endsection
+@section('title'){!! __('main.home') !!}@endsection
 @section('header')
     <link rel="stylesheet" type="text/css" href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/app-assets/css/core/menu/menu-types/vertical-menu.min.css">
     <link rel="stylesheet" type="text/css" href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/app-assets/css/pages/dashboard-ecommerce.min.css">
@@ -12,7 +12,7 @@
         <div class="col-xl-12 col-md-12 col-12">
             <div class="card card-statistics">
                 <div class="card-header">
-                    <h4 class="card-title">{{__('Statistics')}}</h4>
+                    <h4 class="card-title">{{__('main.statistics')}}</h4>
                 </div>
 
                 <div class="card-body statistics-body">

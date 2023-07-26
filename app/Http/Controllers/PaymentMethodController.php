@@ -15,13 +15,14 @@ class PaymentMethodController extends Controller
 
     public function create()
     {
-        return view('dashboard.payment-methods.create');
+        $paymentMethod = new PaymentMethod();
+        return view('dashboard.payment-methods.create',compact('paymentMethod'));
     }
 
     public function store(PaymentMethodRequest $request)
     {
         PaymentMethod::create($request->all());
-        toast(__('Added successfully'), 'success');
+        toast(__('main.data_added_successfully'), 'success');
         return redirect(route('admin.payment-methods.index'));
     }
 
@@ -39,7 +40,7 @@ class PaymentMethodController extends Controller
     public function update(PaymentMethodRequest $request, PaymentMethod $payment_method)
     {
         $payment_method->update($request->all());
-        toast(__('Edited successfully'), 'success');
+        toast(__('main.data_updated_successfully'), 'success');
         return redirect(route('admin.payment-methods.index'));
     }
 
@@ -47,7 +48,7 @@ class PaymentMethodController extends Controller
     {
         $paymentMethod = PaymentMethod::findOrFail($id);
         $paymentMethod->delete();
-        toast(__('Deleted successfully'), 'success');
+        toast(__('main.data_deleted_successfully'), 'success');
         return redirect(route('admin.payment-methods.index'));
     }
 }

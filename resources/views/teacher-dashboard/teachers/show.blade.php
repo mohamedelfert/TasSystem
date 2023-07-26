@@ -15,7 +15,7 @@
                                 <div class=" tab-menu-heading">
                                     <div class="tabs-menu1">
                                         <ul class="nav panel-tabs main-nav-line">
-                                            <li><a href="#tab1" class="nav-link active" data-toggle="tab">{!! __('Teacher Information') !!}</a></li>
+                                            <li><a href="#tab1" class="nav-link active" data-toggle="tab">{!! __('main.teacher_info') !!}</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -31,7 +31,7 @@
                                                                      src="{{ $teacher->image_path }}"
                                                                  @else
                                                                      src="{{asset('assets/dashboard/resources')}}/app-assets/images/portrait/small/avatar-s-11.jpg"
-                                                                 @endif alt="{!! __('Teacher Image') !!}" style="width: 210px;height: 140px;">
+                                                                 @endif alt="{!! __('main.image') !!}" style="width: 210px;height: 140px;">
                                                         </p>
                                                     </div>
                                                     <div class="col-12 col-md-12 col-lg-8 order-2 order-md-2">
@@ -39,23 +39,23 @@
                                                             <div class="media">
                                                                 <div class="media-body">
                                                                     <div>
-                                                                        <label>{!! __('Full Name') !!}</label> : <span class="tx-medium text-primary">{{ $teacher->first_name .' '. $teacher->last_name }}</span>
+                                                                        <label>{!! __('main.fullName') !!}</label> : <span class="tx-medium text-primary">{{ $teacher->first_name .' '. $teacher->last_name }}</span>
                                                                     </div>
                                                                     <div>
-                                                                        <label>{!! __('Email') !!}</label> : <span class="tx-medium text-primary">{{ $teacher->email }}</span>
+                                                                        <label>{!! __('main.email') !!}</label> : <span class="tx-medium text-primary">{{ $teacher->email }}</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="media">
                                                                 <div class="media-body">
                                                                     <div>
-                                                                        <label>{!! __('Phone') !!}</label> : <span class="tx-medium text-danger">{{ $teacher->phone }}</span>
+                                                                        <label>{!! __('main.phone') !!}</label> : <span class="tx-medium text-danger">{{ $teacher->phone }}</span>
                                                                     </div>
                                                                     <div>
-                                                                        <label>{!! __('Address') !!}</label> : <span class="tx-medium text-info">{{ $teacher->address }}</span>
+                                                                        <label>{!! __('main.address') !!}</label> : <span class="tx-medium text-info">{{ $teacher->address }}</span>
                                                                     </div>
                                                                     <div>
-                                                                        <label>{!! __('Status') !!}</label> :
+                                                                        <label>{!! __('main.status') !!}</label> :
                                                                         @if($teacher->status === 'active')
                                                                             <span class="badge badge-pill badge-success">{{ $teacher->status }}</span>
                                                                         @elseif($teacher->status === 'inactive')
@@ -63,7 +63,7 @@
                                                                         @endif
                                                                     </div>
                                                                     <div>
-                                                                        <label>{!! __('Work') !!}</label> :
+                                                                        <label>{!! __('main.work') !!}</label> :
                                                                         @if($teacher->work === 'yes')
                                                                             <span class="badge badge-pill badge-success">{{ $teacher->work }}</span>
                                                                         @elseif($teacher->work === 'no')
@@ -75,16 +75,16 @@
                                                             <div class="media mb-0">
                                                                 <div class="media-body">
                                                                     <div>
-                                                                        <label>{!! __('Country') !!}</label> : <span class="tx-medium text-dark">{{ optional($teacher->country)->name }}</span>
+                                                                        <label>{!! __('main.country') !!}</label> : <span class="tx-medium text-dark">{{ optional($teacher->country)->name }}</span>
                                                                     </div>
                                                                     <div>
                                                                         <label>{!! __('Language') !!}</label> :
-                                                                        @if($teacher->language === 1)
-                                                                            <span class="badge badge-pill badge-success">{!! __('Arabic') !!}</span>
-                                                                        @elseif($teacher->language === 2)
-                                                                            <span class="badge badge-pill badge-primary">{!! __('English') !!}</span>
-                                                                        @elseif($teacher->language === 3)
-                                                                            <span class="badge badge-pill badge-secondary">{!! __('Both - [ Arabic , English ]') !!}</span>
+                                                                        @if($teacher->language === 'arabic')
+                                                                            <span class="badge badge-pill badge-success">{!! $teacher->language !!}</span>
+                                                                        @elseif($teacher->language === 'english')
+                                                                            <span class="badge badge-pill badge-primary">{!! $teacher->language !!}</span>
+                                                                        @elseif($teacher->language === 'both')
+                                                                            <span class="badge badge-pill badge-secondary">{!! $teacher->language !!}</span>
                                                                         @endif
                                                                     </div>
                                                                 </div>
