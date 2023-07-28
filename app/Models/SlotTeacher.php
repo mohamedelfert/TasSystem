@@ -14,7 +14,8 @@ class SlotTeacher extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-//	protected $fillable = array('teacher_id');
+//    protected $fillable = array('slot_id', 'workday_id', 'teacher_id');
+
     protected $guarded = [];
 
     public function teacher()

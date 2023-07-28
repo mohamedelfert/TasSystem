@@ -30,8 +30,18 @@
                                                         <label for="place_type"> {{__('main.online_and_center')}}</label>
                                                     </div>
                                                     <div class="form-group col-md-9">
-                                                        {!! Form::select('place_type',['online_center'=>__('main.online_and_center'),'online'=>__('main.online'),'center'=>__('main.center')]
-                                                            ,request()->place_type ?? null,['class'=>'form-control mb-2','id'=>'place_type',disable_on_show()]) !!}
+                                                        <select name="place_type" id="place_type" class="form-control">
+                                                            <option value="" disabled>{{__('main.select_place_type')}}</option>
+                                                            <option value="online_center" {{($teacher->place_type === 'online_center') ? 'selected':''}}>
+                                                                {{ __('main.online_and_center') }}
+                                                            </option>
+                                                            <option value="online" {{($teacher->place_type === 'online') ? 'selected':''}}>
+                                                                {{ __('main.online') }}
+                                                            </option>
+                                                            <option value="center" {{($teacher->place_type === 'center') ? 'selected':''}}>
+                                                                {{ __('main.center') }}
+                                                            </option>
+                                                        </select>
                                                         {{input_error($errors,'place_type')}}
                                                     </div>
                                                 </div>
@@ -65,17 +75,17 @@
                                                     <div class="form-group py-1 col-md-9">
                                                         <label
                                                             class="block text-gray-500 font-semibold sm:border-r sm:pr-4">
-                                                            <input name="language" class="leading-tight" type="radio" value="arabic">
+                                                            <input name="language" class="leading-tight" type="radio" value="arabic" {{ $teacher->language === 'arabic' ? 'checked':'' }}>
                                                             <span class="text-primary">@lang('main.fully_arabic')</span>
                                                         </label>
                                                         <label
                                                             class="block text-gray-500 font-semibold sm:border-r sm:pr-4">
-                                                            <input name="language" class="leading-tight" type="radio" value="english">
+                                                            <input name="language" class="leading-tight" type="radio" value="english" {{ $teacher->language === 'english' ? 'checked':'' }}>
                                                             <span class="text-primary">@lang('main.fully_english')</span>
                                                         </label>
                                                         <label
                                                             class="block text-gray-500 font-semibold sm:border-r sm:pr-4">
-                                                            <input name="language" class="leading-tight" type="radio" value="both">
+                                                            <input name="language" class="leading-tight" type="radio" value="both" {{ $teacher->language === 'both' ? 'checked':'' }}>
                                                             <span class="text-primary">@lang('main.both_english_arabic')</span>
                                                         </label>
                                                         {{input_error($errors,'language')}}
@@ -106,9 +116,17 @@
                                                                 @foreach ($workdays as $workday)
                                                                     <th class="wd-10p border-bottom-0">
                                                                         <label class="block text-gray-500 font-semibold sm:border-r sm:pr-4">
-                                                                            <input name="slots[{{ $slot->id }}][{{ $workday->id }}]"
-                                                                                   value="{{ $workday->id }}" class="leading-tight" type="checkbox">
-{{--                                                                            {{ Form::checkbox("slots[$slot->id][$workday->id]", $workday->id,in_array($workday->id, $slotTeachers) && in_array($slot->id, $slotTeachers) ? true : false, ['class' => 'name']) }}--}}
+                                                                            @php
+                                                                                $count = \App\Models\SlotTeacher::where('teacher_id',auth()->guard('teacher')->id())->where('slot_id',$slot->id)->where('workday_id',$workday->id)->count();
+                                                                            @endphp
+
+                                                                            @if($count > 0)
+                                                                                <input name="slots[{{ $slot->id }}][{{ $workday->id }}]" value="{{ $workday->id }}" class="leading-tight"
+                                                                                       type="checkbox" checked="checked">
+                                                                            @else
+                                                                                <input name="slots[{{ $slot->id }}][{{ $workday->id }}]" value="{{ $workday->id }}" class="leading-tight"
+                                                                                       type="checkbox">
+                                                                            @endif
                                                                         </label>
                                                                     </th>
                                                                 @endforeach

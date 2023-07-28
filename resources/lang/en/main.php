@@ -57,6 +57,7 @@ return [
     'data_cancelled_successfully' => 'Data Cancelled Successfully',
     'teacher_name' => 'Teacher Name',
     'all_fines' => 'All Fines',
+    'select_place_type' => 'Select Place Type',
     'name' => 'Name',
     'phone' => 'Phone',
     'address' => 'Address',

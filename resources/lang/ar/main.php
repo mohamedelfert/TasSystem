@@ -168,6 +168,7 @@ return [
     'data_accepted_successfully' => 'تم القبول بنجاح',
     'data_cancelled_successfully' => 'تم الرفض البيانات',
     'all_fines' => 'جميع الغرامات',
+    'select_place_type' => 'اختر المكان',
     'teacher_name' => 'اسم العلم',
     'payment_date' => 'تاريخ الدفع',
     'teachers' => 'المدرسين',

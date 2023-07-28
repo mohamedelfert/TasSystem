@@ -237,9 +237,11 @@
                                                                                     @foreach ($workdays as $workday)
                                                                                         <th class="wd-10p border-bottom-0">
                                                                                             <label class="block text-gray-500 font-semibold sm:border-r sm:pr-4">
+                                                                                                @php
+                                                                                                    $count = \App\Models\SlotTeacher::where('teacher_id',auth()->guard('teacher')->id())->where('slot_id',$slot->id)->where('workday_id',$workday->id)->count()
+                                                                                                @endphp
                                                                                                 <input name="slots[{{ $slot->id }}][{{ $workday->id }}]" value="{{ $workday->id }}" class="leading-tight"
-                                                                                                       type="checkbox" disabled>
-{{--                                                                                                {{ Form::checkbox("slots[$slot->id][$workday->id]", $workday->id, in_array($slot->id, $slotWorkdays) ? true : false, ['class' => 'name','disabled'=>true]) }}--}}
+                                                                                                       type="checkbox" disabled @if($count > 0) checked @endif>
                                                                                             </label>
                                                                                         </th>
                                                                                     @endforeach
@@ -253,10 +255,29 @@
                                                             <div class="media mb-0">
                                                                 <div class="media-body">
                                                                     <div class="col-12 mb-3">
-                                                                        <a href="{{ route('teacher.slots.edit',auth()->user()->id) }}"
-                                                                           class="btn btn-success float-right" title="@lang('main.edit')">
-                                                                            <i class="fa fa-edit"> @lang('main.edit') </i>
-                                                                        </a>
+                                                                        @if(auth()->user()->status === 'inactive')
+                                                                            <a href="{{ route('teacher.slots.create') }}"
+                                                                               class="btn btn-primary float-right ml-1" title="@lang('main.create')">
+                                                                                <i class="fa fa-plus"> @lang('main.create') </i>
+                                                                            </a>
+                                                                        @else
+                                                                            <a href="#"
+                                                                               class="btn btn-primary float-right ml-1 disabled" title="@lang('main.create')">
+                                                                                <i class="fa fa-plus"> @lang('main.create') </i>
+                                                                            </a>
+                                                                        @endif
+
+                                                                        @if(auth()->user()->status === 'active')
+                                                                            <a href="{{ route('teacher.slots.edit',auth()->user()->id) }}"
+                                                                               class="btn btn-success float-right" title="@lang('main.edit')">
+                                                                                <i class="fa fa-edit"> @lang('main.edit') </i>
+                                                                            </a>
+                                                                        @else
+                                                                            <a href="#"
+                                                                               class="btn btn-success float-right disabled" title="@lang('main.edit')">
+                                                                                <i class="fa fa-edit"> @lang('main.edit') </i>
+                                                                            </a>
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
