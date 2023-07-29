@@ -36,35 +36,68 @@ class SlotController extends Controller
 
     public function store(SlotTeacherRequest $request)
     {
-        $teacher = Teacher::findOrFail(auth()->guard('teacher')->id());
-        $teacher['language'] = $request->language;
-        $teacher['place_type'] = $request->place_type;
-        $teacher->update();
+        $slots = $request->input('slots', []);
 
-        if ($request->has('subjects')) {
-            $request->user()->subjects()->sync($request->subjects);
-        }
+//        return $slots;
 
-        if ($request->has('branches')) {
-            $request->user()->branches()->sync($request->branches);
-        }
+        $count = 0;
 
-        foreach ($request->input('slots', []) as $key => $values) {
-            foreach ($values as $value) {
-                SlotTeacher::create([
-                    'slot_id' => $key,
-                    'workday_id' => $value,
-                    'teacher_id' => auth()->user()->id
-                ]);
+        foreach ($slots as $array) {
+            foreach ($array as $sub) {
+                $count++;
             }
         }
+//        return $count;
 
-        $teacher['status'] = 'active';
-        $teacher['work'] = 'yes';
-        $teacher->update();
+//        foreach ($slots as $key => $value) {
+//            for ($i = 5; $i <= 7; $i++) {
+//                $slot = Slot::findOrFail($key);
+//                $start_at = $slot->start_at;
+//                $start = '13:30:00';
+//                $end = '16:00:00';
+//                if ($start_at >= $start && $start_at <= $end) {
+//                    return 'yes ';
+//                } else {
+//                    return 'no ';
+//                }
+//                $i++;
+//            }
+//        }
 
-        toast(__('main.data_added_successfully'), 'success');
-        return redirect(route('teacher.slots.index'));
+        if ($count >= 14) {
+            $teacher = Teacher::findOrFail(auth()->guard('teacher')->id());
+            $teacher['language'] = $request->language;
+            $teacher['place_type'] = $request->place_type;
+            $teacher->update();
+
+            if ($request->has('subjects')) {
+                $request->user()->subjects()->sync($request->subjects);
+            }
+
+            if ($request->has('branches')) {
+                $request->user()->branches()->sync($request->branches);
+            }
+
+            foreach ($slots as $key => $values) {
+                foreach ($values as $value) {
+                    SlotTeacher::create([
+                        'slot_id' => $key,
+                        'workday_id' => $value,
+                        'teacher_id' => auth()->user()->id
+                    ]);
+                }
+            }
+
+            $teacher['status'] = 'active';
+            $teacher['work'] = 'yes';
+            $teacher->update();
+
+            toast(__('main.data_added_successfully'), 'success');
+            return redirect(route('teacher.slots.index'));
+        } else {
+            toast(__('main.slots_less_than_14_slot'), 'error');
+            return redirect()->back()->withErrors(['errors' => trans('main.slots_less_than_14_slot')]);
+        }
     }
 
     public function edit($id)
@@ -77,64 +110,53 @@ class SlotController extends Controller
 
     public function update(SlotTeacherRequest $request, $id)
     {
-//        $slots = $request->input('slots',[]);
-//
-////        $count = count($slots);
-//
-//        foreach ($slots as $key => $values) {
-//            $slot = Slot::findOrFail($key);
-//            $start_at = $slot->start_at;
-//            $count = count($values);
-//            return $count;
-//            foreach ($values as $value) {
-//                return $value;
-//            }
-//        }
+        $slots = $request->input('slots', []);
 
-//        foreach ($slots as $key => $value) {
-//            for ($i = $key; $i < $count; $i++) {
-//                $slot = Slot::findOrFail($key);
-//                $start_at = $slot->start_at;
-//                if ($start_at == '16:00:00') {
-//                    return 'yes ';
-//                } else {
-//                    return 'no ';
-//                }
-//                $i++;
-//            }
-//        }
+//        return $slots;
 
+        $count = 0;
 
-        $teacher = Teacher::findOrFail($id);
-        $teacher['language'] = $request->language;
-        $teacher['place_type'] = $request->place_type;
-        $teacher->update();
-
-        if ($request->has('subjects')) {
-            $request->user()->subjects()->sync($request->subjects);
-        }
-
-        if ($request->has('branches')) {
-            $request->user()->branches()->sync($request->branches);
-        }
-
-        foreach ($request->input('slots', []) as $key => $values) {
-            $slot = Slot::findOrFail($key);
-
-            foreach ($values as $value) {
-                SlotTeacher::updateOrCreate([
-                    'slot_id' => $key,
-                    'workday_id' => $value,
-                    'teacher_id' => auth()->user()->id
-                ]);
+        foreach ($slots as $array) {
+            foreach ($array as $sub) {
+                $count++;
             }
         }
 
-        $teacher['status'] = 'active';
-        $teacher['work'] = 'yes';
-        $teacher->update();
+        if ($count >= 14) {
+            $teacher = Teacher::findOrFail($id);
+            $teacher['language'] = $request->language;
+            $teacher['place_type'] = $request->place_type;
+            $teacher->update();
 
-        toast(__('main.data_added_successfully'), 'success');
-        return redirect(route('teacher.slots.index'));
+            if ($request->has('subjects')) {
+                $request->user()->subjects()->sync($request->subjects);
+            }
+
+            if ($request->has('branches')) {
+                $request->user()->branches()->sync($request->branches);
+            }
+
+            foreach ($request->input('slots', []) as $key => $values) {
+                $slot = Slot::findOrFail($key);
+
+                foreach ($values as $value) {
+                    SlotTeacher::updateOrCreate([
+                        'slot_id' => $key,
+                        'workday_id' => $value,
+                        'teacher_id' => auth()->user()->id
+                    ]);
+                }
+            }
+
+            $teacher['status'] = 'active';
+            $teacher['work'] = 'yes';
+            $teacher->update();
+
+            toast(__('main.data_updated_successfully'), 'success');
+            return redirect(route('teacher.slots.index'));
+        } else {
+            toast(__('main.slots_less_than_14_slot'), 'error');
+            return redirect()->back()->withErrors(['errors' => trans('main.slots_less_than_14_slot')]);
+        }
     }
 }

@@ -58,6 +58,7 @@ return [
     'teacher_name' => 'Teacher Name',
     'all_fines' => 'All Fines',
     'select_place_type' => 'Select Place Type',
+    'slots_less_than_14_slot' => 'Slots Less Than 14 Slot, Please Enter 14 Slot And Try Again',
     'name' => 'Name',
     'phone' => 'Phone',
     'address' => 'Address',

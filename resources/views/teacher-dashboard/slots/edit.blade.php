@@ -21,6 +21,17 @@
                                 <div class="panel-body tabs-menu-body main-content-body-right border">
                                     <div class="card-body">
                                         <div class="table-responsive">
+
+                                            @if ($errors->any())
+                                                <div class="alert alert-danger">
+                                                    <ul>
+                                                        @foreach ($errors->all() as $error)
+                                                            <li>{{ $error }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif
+
                                             <form method="post" action="{{ route('teacher.slots.update',$teacher->id) }}">
                                                 @csrf
                                                 {{ method_field('PUT') }}
