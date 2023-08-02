@@ -4,12 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SlotRequest;
 use App\Models\Slot;
+use Illuminate\Http\Request;
 
 class SlotController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $slots = Slot::latest()->get();
+        $slots = Slot::select("*");
+
+        if ($request->has('view_deleted')) {
+            $slots = $slots->onlyTrashed();
+        }
+
+        $slots = $slots->latest()->get();
+
         return view('dashboard.slots.index', compact('slots'));
     }
 
@@ -49,6 +57,18 @@ class SlotController extends Controller
         $slot->delete();
         toast(__('main.data_deleted_successfully'), 'success');
         return redirect(route('admin.slots.index'));
+    }
+
+    public function restore($id)
+    {
+        Slot::withTrashed()->find($id)->restore();
+        return back();
+    }
+
+    public function restoreAll()
+    {
+        Slot::onlyTrashed()->restore();
+        return back();
     }
 }
 

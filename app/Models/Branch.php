@@ -8,18 +8,16 @@ use Spatie\Translatable\HasTranslations;
 
 class Branch extends Model
 {
-    use HasTranslations;
+    use HasTranslations, SoftDeletes;
 
     public $translatable = ['name'];
 
     protected $table = 'branches';
-    public $timestamps = true;
-
-    use SoftDeletes;
-
-    protected $dates = ['deleted_at'];
-//	protected $fillable = array('name', 'address', 'email', 'phone', 'status');
     protected $guarded = [];
+    //	protected $fillable = array('name', 'address', 'email', 'phone', 'status');
+
+    public $timestamps = true;
+    protected $dates = ['deleted_at'];
 
     public function teachers()
     {

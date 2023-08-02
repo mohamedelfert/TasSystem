@@ -5,7 +5,6 @@
         @include('dashboard.layouts.partials._breadcrumb',['level'=>'workdays'])
 @endsection
 @section('btn')
-        @include('dashboard.layouts.partials._add_icon',['route'=>'workdays'])
 @endsection
 @section('content')
     <section id="column-selectors">

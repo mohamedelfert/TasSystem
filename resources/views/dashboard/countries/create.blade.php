@@ -14,6 +14,17 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body card-dashboard">
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                             {!! Form::open(['method'=>'post','route'=>'admin.countries.store','class'=>'form','enctype' => 'multipart/form-data']) !!}
                             @csrf()
                             <div class="row">
@@ -31,5 +42,5 @@
 @endsection
 @section('js-validation')
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
-
+{{--    {!! JsValidator::formRequest('App\Http\Requests\CountryRequest', '.form'); !!}--}}
 @endsection

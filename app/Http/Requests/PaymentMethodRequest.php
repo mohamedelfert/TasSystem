@@ -23,7 +23,7 @@ class PaymentMethodRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => [
+            'name.*' => [
                 'required',
                 Rule::unique('payment_methods', 'name')->ignore($this->payment_method)
             ]

@@ -8,15 +8,14 @@ use PhpParser\Node\Expr\AssignOp\Mod;
 
 class Order extends Model
 {
-
-    protected $table = 'orders';
-    public $timestamps = true;
-
     use SoftDeletes;
 
+    protected $table = 'orders';
+    protected $guarded = [];
+    //    protected $fillable = array('final_price', 'coupon_name');
+
+    public $timestamps = true;
     protected $dates = ['deleted_at'];
-//    protected $fillable = array('final_price', 'coupon_name');
-    Protected $guarded = [];
 
     public function branch()
     {

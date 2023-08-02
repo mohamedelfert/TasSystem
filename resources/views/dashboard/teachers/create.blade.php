@@ -14,6 +14,17 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body card-dashboard">
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                             {!! Form::open(['method'=>'post','route'=>'admin.teachers.store','class'=>'form','enctype' => 'multipart/form-data']) !!}
                             @csrf()
                             <div class="row">

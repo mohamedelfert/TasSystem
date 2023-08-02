@@ -11,14 +11,14 @@
 </div>
 
 <div class="form-group py-1 col-md-6">
-    <label for="formInputRole"> {{__('main.code')}}</label>
-    {!! Form::text('code',null,['class'=>'form-control col','placeholder'=>__("main.code"),
+    <label for="code"> {{__('main.code')}}</label>
+    {!! Form::text('code',null,['id'=>'code','class'=>'form-control col','placeholder'=>__("main.code"),
         isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
     {{input_error($errors,'code')}}
 </div>
 
 <div class="form-group py-1 col-md-6">
-    <label for="formInputRole"> {{__('main.select_status')}}</label>
+    <label for="status"> {{__('main.select_status')}}</label>
     {!! Form::select('status',['active'=>__('main.active'),'inactive'=>__('main.inactive')] ,null,['class'=>'form-control mb-2','id'=>'status',disable_on_show()]) !!}
     {{input_error($errors,'status')}}
 </div>

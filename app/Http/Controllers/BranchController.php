@@ -5,12 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BranchRequest;
 use App\Models\Branch;
 use App\Models\Country;
+use Illuminate\Http\Request;
 
 class BranchController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $branches = Branch::latest()->get();
+        $branches = Branch::select("*");
+
+        if ($request->has('view_deleted')) {
+            $branches = $branches->onlyTrashed();
+        }
+
+        $branches = $branches->latest()->get();
+
         return view('dashboard.branches.index', compact('branches'));
     }
 
@@ -18,7 +26,7 @@ class BranchController extends Controller
     {
         $countries = Country::all();
         $branch = new Branch();
-        return view('dashboard.branches.create', compact('countries','branch'));
+        return view('dashboard.branches.create', compact('countries', 'branch'));
     }
 
     public function store(BranchRequest $request)
@@ -53,5 +61,17 @@ class BranchController extends Controller
         $branch->delete();
         toast(__('main.data_deleted_successfully'), 'success');
         return redirect(route('admin.branches.index'));
+    }
+
+    public function restore($id)
+    {
+        Branch::withTrashed()->find($id)->restore();
+        return back();
+    }
+
+    public function restoreAll()
+    {
+        Branch::onlyTrashed()->restore();
+        return back();
     }
 }

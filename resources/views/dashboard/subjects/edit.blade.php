@@ -16,6 +16,17 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body card-dashboard">
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                             {!! Form::model($subject,['method'=>'put','route'=>['admin.subjects.update',$subject->id],'class'=>'form','enctype' => 'multipart/form-data']  ) !!}
                             @csrf()
                             <div class="row">

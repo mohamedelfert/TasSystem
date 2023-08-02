@@ -8,16 +8,14 @@ use Spatie\Translatable\HasTranslations;
 
 class Country extends Model
 {
-    use HasTranslations;
+    use HasTranslations, SoftDeletes;
 
     public $translatable = ['name'];
 
     protected $table = 'countries';
-    public $timestamps = true;
     protected $guarded = [];
 
-    use SoftDeletes;
-
+    public $timestamps = true;
     protected $dates = ['deleted_at'];
 
     public function teachers()

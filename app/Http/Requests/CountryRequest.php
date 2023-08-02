@@ -26,8 +26,12 @@ class CountryRequest extends FormRequest
             'name.*' => [
                 'required',
                 'string',
-                Rule::unique('countries','name')->ignore($this->country)
-            ]
+                Rule::unique('countries', 'name')->ignore($this->country)
+            ],
+            'code' => 'required|numeric',
+            'status' => 'required',
         ];
     }
+
+
 }

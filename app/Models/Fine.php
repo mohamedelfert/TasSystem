@@ -7,15 +7,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Fine extends Model
 {
-
-    protected $table = 'fines';
-    public $timestamps = true;
-
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
-//    protected $fillable = array('price');
+    protected $table = 'fines';
     protected $guarded = [];
+    //    protected $fillable = array('price');
+
+    public $timestamps = true;
+    protected $dates = ['deleted_at'];
 
     public function payment_method()
     {

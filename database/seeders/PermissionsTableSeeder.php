@@ -350,30 +350,66 @@ class PermissionsTableSeeder extends Seeder
                 'display_name' => 'الغرامات',
                 'guard_name' => 'web',
                 'routes' => 'admin.fines.index',
-            ],[
+            ], [
                 'id' => '57',
                 'name' => 'filter-teacher',
                 'display_name' => 'الطلبات',
                 'guard_name' => 'web',
                 'routes' => 'admin.filterTeacher',
-            ],[
+            ], [
                 'id' => '58',
                 'name' => 'filter-subject',
                 'display_name' => 'الطلبات',
                 'guard_name' => 'web',
                 'routes' => 'admin.filterSubject',
-            ],[
+            ], [
                 'id' => '59',
                 'name' => 'filter-status',
                 'display_name' => 'الطلبات',
                 'guard_name' => 'web',
                 'routes' => 'admin.filterStatus',
-            ],[
+            ], [
                 'id' => '60',
                 'name' => 'date-search',
                 'display_name' => 'الطلبات',
                 'guard_name' => 'web',
                 'routes' => 'admin.dateSearch',
+            ], [
+                'id' => '61',
+                'name' => 'country-restore',
+                'display_name' => 'استعاده',
+                'guard_name' => 'web',
+                'routes' => 'admin.restoreCountry',
+            ], [
+                'id' => '62',
+                'name' => 'country-restoreAll',
+                'display_name' => 'استعاده الجميع',
+                'guard_name' => 'web',
+                'routes' => 'admin.restoreAllCountries',
+            ],[
+                'id' => '63',
+                'name' => 'branch-restore',
+                'display_name' => 'استعاده',
+                'guard_name' => 'web',
+                'routes' => 'admin.restoreBranch',
+            ], [
+                'id' => '64',
+                'name' => 'branch-restoreAll',
+                'display_name' => 'استعاده الجميع',
+                'guard_name' => 'web',
+                'routes' => 'admin.restoreAllBranches',
+            ],[
+                'id' => '65',
+                'name' => 'slot-restore',
+                'display_name' => 'استعاده',
+                'guard_name' => 'web',
+                'routes' => 'admin.restoreSlot',
+            ], [
+                'id' => '66',
+                'name' => 'slot-restoreAll',
+                'display_name' => 'استعاده الجميع',
+                'guard_name' => 'web',
+                'routes' => 'admin.restoreAllSlots',
             ],
         ];
 

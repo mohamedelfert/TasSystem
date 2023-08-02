@@ -130,14 +130,9 @@
                                                                             @php
                                                                                 $count = \App\Models\SlotTeacher::where('teacher_id',auth()->guard('teacher')->id())->where('slot_id',$slot->id)->where('workday_id',$workday->id)->count();
                                                                             @endphp
+                                                                            <input name="slots[{{ $slot->id }}][{{ $workday->id }}]" value="{{ $workday->id }}" class="leading-tight"
+                                                                                   type="checkbox" @checked($count > 0)>
 
-                                                                            @if($count > 0)
-                                                                                <input name="slots[{{ $slot->id }}][{{ $workday->id }}]" value="{{ $workday->id }}" class="leading-tight"
-                                                                                       type="checkbox" checked="checked">
-                                                                            @else
-                                                                                <input name="slots[{{ $slot->id }}][{{ $workday->id }}]" value="{{ $workday->id }}" class="leading-tight"
-                                                                                       type="checkbox">
-                                                                            @endif
                                                                         </label>
                                                                     </th>
                                                                 @endforeach

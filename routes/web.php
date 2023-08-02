@@ -35,10 +35,16 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:web', 'auto_check_perm
     Route::get('/', [HomeController::class, 'dashboard'])->name('home');
 
     Route::resource('countries', CountryController::class);
+    Route::get('countries/restore/one/{id}', [CountryController::class, 'restore'])->name('restoreCountry');
+    Route::get('countries/restoreAllCountries', [CountryController::class, 'restoreAll'])->name('restoreAllCountries');
 
     Route::resource('branches', BranchController::class);
+    Route::get('branches/restore/one/{id}', [BranchController::class, 'restore'])->name('restoreBranch');
+    Route::get('branches/restoreAllBranches', [BranchController::class, 'restoreAll'])->name('restoreAllBranches');
 
     Route::resource('slots', SlotController::class);
+    Route::get('slots/restore/one/{id}', [SlotController::class, 'restore'])->name('restoreSlot');
+    Route::get('slots/restoreAllSlots', [SlotController::class, 'restoreAll'])->name('restoreAllSlots');
 
     Route::resource('workdays', WorkdayController::class);
 
