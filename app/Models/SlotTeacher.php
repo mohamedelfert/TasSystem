@@ -16,7 +16,7 @@ class SlotTeacher extends Model
     protected $dates = ['deleted_at'];
 //    protected $fillable = array('slot_id', 'workday_id', 'teacher_id');
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function teacher()
     {

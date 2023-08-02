@@ -8,16 +8,23 @@ use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $subjects = Subject::latest()->get();
+        $subjects = new Subject();
+
+        if ($request->has('view_deleted')) {
+            $subjects =  $subjects->onlyTrashed();
+        }
+
+        $subjects = $subjects->latest()->get();
+
         return view('dashboard.subjects.index', compact('subjects'));
     }
 
     public function create()
     {
         $subject = new Subject;
-        return view('dashboard.subjects.create',compact('subject'));
+        return view('dashboard.subjects.create', compact('subject'));
     }
 
     public function store(SubjectRequest $request)
@@ -52,5 +59,17 @@ class SubjectController extends Controller
         $subject->delete();
         toast(__('main.data_deleted_successfully'), 'success');
         return redirect(route('admin.subjects.index'));
+    }
+
+    public function restore($id)
+    {
+        Subject::withTrashed()->find($id)->restore();
+        return back();
+    }
+
+    public function restoreAll()
+    {
+        Subject::onlyTrashed()->restore();
+        return back();
     }
 }

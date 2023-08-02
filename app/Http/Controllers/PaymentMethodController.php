@@ -4,19 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PaymentMethodRequest;
 use App\Models\PaymentMethod;
+use Illuminate\Http\Request;
 
 class PaymentMethodController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $paymentMethods = PaymentMethod::latest()->get();
+        $paymentMethods = new PaymentMethod();
+
+        if ($request->has('view_deleted')) {
+            $paymentMethods = $paymentMethods->onlyTrashed();
+        }
+
+        $paymentMethods = $paymentMethods->latest()->get();
+
         return view('dashboard.payment-methods.index', compact('paymentMethods'));
     }
 
     public function create()
     {
         $paymentMethod = new PaymentMethod();
-        return view('dashboard.payment-methods.create',compact('paymentMethod'));
+        return view('dashboard.payment-methods.create', compact('paymentMethod'));
     }
 
     public function store(PaymentMethodRequest $request)
@@ -24,11 +32,6 @@ class PaymentMethodController extends Controller
         PaymentMethod::create($request->all());
         toast(__('main.data_added_successfully'), 'success');
         return redirect(route('admin.payment-methods.index'));
-    }
-
-    public function show($id)
-    {
-        //
     }
 
     public function edit($id)
@@ -50,5 +53,17 @@ class PaymentMethodController extends Controller
         $paymentMethod->delete();
         toast(__('main.data_deleted_successfully'), 'success');
         return redirect(route('admin.payment-methods.index'));
+    }
+
+    public function restore($id)
+    {
+        PaymentMethod::withTrashed()->find($id)->restore();
+        return back();
+    }
+
+    public function restoreAll()
+    {
+        PaymentMethod::onlyTrashed()->restore();
+        return back();
     }
 }

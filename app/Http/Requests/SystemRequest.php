@@ -26,6 +26,7 @@ class SystemRequest extends FormRequest
             'name.*' => [
                 'required',
                 'string',
+                'regex:/^[a-zA-Z\p{Arabic}\s]+$/',
                 Rule::unique('systems', 'name')->ignore($this->system)
             ]
         ];

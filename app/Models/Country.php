@@ -13,7 +13,7 @@ class Country extends Model
     public $translatable = ['name'];
 
     protected $table = 'countries';
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public $timestamps = true;
     protected $dates = ['deleted_at'];

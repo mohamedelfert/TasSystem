@@ -13,7 +13,7 @@ class PaymentMethod extends Model
     public $translatable = ['name'];
 
     protected $table = 'payment_methods';
-    protected $guarded = [];
+    protected $guarded = ['id'];
 //    protected $fillable = array('name');
 
     public $timestamps = true;

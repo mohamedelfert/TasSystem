@@ -10,9 +10,16 @@ use Illuminate\Support\Facades\Hash;
 
 class TeacherController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $teachers = Teacher::latest()->get();
+        $teachers = new Teacher();
+
+        if ($request->has('view_deleted')) {
+            $teachers = $teachers->onlyTrashed();
+        }
+
+        $teachers = $teachers->latest()->get();
+
         return view('dashboard.teachers.index', compact('teachers'));
     }
 
@@ -60,12 +67,23 @@ class TeacherController extends Controller
         return redirect(route('admin.teachers.index'));
     }
 
-
     public function destroy($id)
     {
         $teacher = Teacher::findOrFail($id);
         $teacher->delete();
         toast(__('main.data_deleted_successfully'), 'success');
         return redirect(route('admin.teachers.index'));
+    }
+
+    public function restore($id)
+    {
+        Teacher::withTrashed()->find($id)->restore();
+        return back();
+    }
+
+    public function restoreAll()
+    {
+        Teacher::onlyTrashed()->restore();
+        return back();
     }
 }

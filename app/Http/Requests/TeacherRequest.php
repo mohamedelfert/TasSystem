@@ -23,8 +23,8 @@ class TeacherRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required',
-            'last_name' => 'required',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
             'email' => [
                 'required',
                 'email',
@@ -34,6 +34,8 @@ class TeacherRequest extends FormRequest
             'phone' => [
                 'required',
                 'numeric',
+                'regex:/^\+\d{1,3}([0-9\s\-\+\(\)]*)$/',
+                'min:10',
                 Rule::unique('teachers', 'phone')->ignore($this->teacher)
             ],
             'image' => 'sometimes|nullable|image|mimes:png,jpg,jpeg,gif',

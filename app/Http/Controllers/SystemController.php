@@ -9,24 +9,25 @@ use Illuminate\Http\Request;
 class SystemController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $systems = System::latest()->get();
+        $systems = new System();
+
+        if ($request->has('view_deleted')) {
+            $systems =  $systems->onlyTrashed();
+        }
+
+        $systems = $systems->latest()->get();
+
         return view('dashboard.systems.index', compact('systems'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $system = new System;
-        return view('dashboard.systems.create',compact('system'));
+        return view('dashboard.systems.create', compact('system'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(SystemRequest $request)
     {
         System::create($request->all());
@@ -35,26 +36,12 @@ class SystemController extends Controller
         return redirect(route('admin.systems.index'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
         $system = System::findOrFail($id);
         return view('dashboard.systems.edit', compact('system'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(SystemRequest $request, System $system)
     {
         $system->update($request->all());
@@ -62,14 +49,23 @@ class SystemController extends Controller
         return redirect(route('admin.systems.index'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         $system = System::findOrFail($id);
         $system->delete();
         toast(__('main.data_deleted_successfully'), 'success');
         return redirect(route('admin.systems.index'));
+    }
+
+    public function restore($id)
+    {
+        System::withTrashed()->find($id)->restore();
+        return back();
+    }
+
+    public function restoreAll()
+    {
+        System::onlyTrashed()->restore();
+        return back();
     }
 }

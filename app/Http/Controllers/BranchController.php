@@ -11,7 +11,7 @@ class BranchController extends Controller
 {
     public function index(Request $request)
     {
-        $branches = Branch::select("*");
+        $branches = new Branch();
 
         if ($request->has('view_deleted')) {
             $branches = $branches->onlyTrashed();

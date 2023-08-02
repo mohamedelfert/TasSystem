@@ -10,7 +10,7 @@ class CountryController extends Controller
 {
     public function index(Request $request)
     {
-        $countries = Country::select("*");
+        $countries = new Country();
 
         if ($request->has('view_deleted')) {
             $countries =  $countries->onlyTrashed();
@@ -29,18 +29,9 @@ class CountryController extends Controller
 
     public function store(CountryRequest $request)
     {
-        Country::create([
-            'name' => ['ar' => $request->name['ar'], 'en' => $request->name['en']],
-            'code' => $request->code,
-            'status' => $request->status,
-        ]);
+        Country::create($request->all());
         toast(__('main.data_added_successfully'), 'success');
         return redirect(route('admin.countries.index'));
-    }
-
-    public function show($id)
-    {
-        //
     }
 
     public function edit($id)
@@ -51,11 +42,7 @@ class CountryController extends Controller
 
     public function update(CountryRequest $request, Country $country)
     {
-        $country->update([
-            'name' => ['ar' => $request->name['ar'], 'en' => $request->name['en']],
-            'code' => $request->code,
-            'status' => $request->status,
-        ]);
+        $country->update($request->all());
         toast(__('main.data_updated_successfully'), 'success');
         return redirect(route('admin.countries.index'));
     }

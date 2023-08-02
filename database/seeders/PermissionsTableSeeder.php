@@ -386,7 +386,7 @@ class PermissionsTableSeeder extends Seeder
                 'display_name' => 'استعاده الجميع',
                 'guard_name' => 'web',
                 'routes' => 'admin.restoreAllCountries',
-            ],[
+            ], [
                 'id' => '63',
                 'name' => 'branch-restore',
                 'display_name' => 'استعاده',
@@ -398,7 +398,7 @@ class PermissionsTableSeeder extends Seeder
                 'display_name' => 'استعاده الجميع',
                 'guard_name' => 'web',
                 'routes' => 'admin.restoreAllBranches',
-            ],[
+            ], [
                 'id' => '65',
                 'name' => 'slot-restore',
                 'display_name' => 'استعاده',
@@ -410,6 +410,54 @@ class PermissionsTableSeeder extends Seeder
                 'display_name' => 'استعاده الجميع',
                 'guard_name' => 'web',
                 'routes' => 'admin.restoreAllSlots',
+            ], [
+                'id' => '67',
+                'name' => 'system-restore',
+                'display_name' => 'استعاده',
+                'guard_name' => 'web',
+                'routes' => 'admin.restoreSystem',
+            ], [
+                'id' => '68',
+                'name' => 'system-restoreAll',
+                'display_name' => 'استعاده الجميع',
+                'guard_name' => 'web',
+                'routes' => 'admin.restoreAllSystems',
+            ], [
+                'id' => '69',
+                'name' => 'subject-restore',
+                'display_name' => 'استعاده',
+                'guard_name' => 'web',
+                'routes' => 'admin.restoreSubject',
+            ], [
+                'id' => '70',
+                'name' => 'subject-restoreAll',
+                'display_name' => 'استعاده الجميع',
+                'guard_name' => 'web',
+                'routes' => 'admin.restoreAllSubjects',
+            ], [
+                'id' => '71',
+                'name' => 'payment-method-restore',
+                'display_name' => 'استعاده',
+                'guard_name' => 'web',
+                'routes' => 'admin.restorePaymentMethod',
+            ], [
+                'id' => '72',
+                'name' => 'payment-method-restoreAll',
+                'display_name' => 'استعاده الجميع',
+                'guard_name' => 'web',
+                'routes' => 'admin.restoreAllPaymentMethods',
+            ], [
+                'id' => '73',
+                'name' => 'teacher-restore',
+                'display_name' => 'استعاده',
+                'guard_name' => 'web',
+                'routes' => 'admin.restoreTeacher',
+            ], [
+                'id' => '74',
+                'name' => 'teacher-restoreAll',
+                'display_name' => 'استعاده الجميع',
+                'guard_name' => 'web',
+                'routes' => 'admin.restoreAllTeachers',
             ],
         ];
 

@@ -34,43 +34,55 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:web', 'auto_check_perm
 
     Route::get('/', [HomeController::class, 'dashboard'])->name('home');
 
+    /********************************* Countries **************************************/
     Route::resource('countries', CountryController::class);
     Route::get('countries/restore/one/{id}', [CountryController::class, 'restore'])->name('restoreCountry');
     Route::get('countries/restoreAllCountries', [CountryController::class, 'restoreAll'])->name('restoreAllCountries');
 
+    /********************************* Branches **************************************/
     Route::resource('branches', BranchController::class);
     Route::get('branches/restore/one/{id}', [BranchController::class, 'restore'])->name('restoreBranch');
     Route::get('branches/restoreAllBranches', [BranchController::class, 'restoreAll'])->name('restoreAllBranches');
 
+    /********************************* Slots **************************************/
     Route::resource('slots', SlotController::class);
     Route::get('slots/restore/one/{id}', [SlotController::class, 'restore'])->name('restoreSlot');
     Route::get('slots/restoreAllSlots', [SlotController::class, 'restoreAll'])->name('restoreAllSlots');
 
+    /********************************* Workdays **************************************/
     Route::resource('workdays', WorkdayController::class);
 
+    /********************************* PaymentMethods **************************************/
     Route::resource('payment-methods', PaymentMethodController::class);
+    Route::get('payment-methods/restore/one/{id}', [PaymentMethodController::class, 'restore'])->name('restorePaymentMethod');
+    Route::get('payment-methods/restoreAllPaymentMethods', [PaymentMethodController::class, 'restoreAll'])->name('restoreAllPaymentMethods');
 
+    /********************************* Teachers **************************************/
     Route::resource('teachers', TeacherController::class);
+    Route::get('teachers/restore/one/{id}', [TeacherController::class, 'restore'])->name('restoreTeacher');
+    Route::get('teachers/restoreAllTeachers', [TeacherController::class, 'restoreAll'])->name('restoreAllTeachers');
 
+    /********************************* Systems **************************************/
     Route::resource('systems', SystemController::class);
+    Route::get('systems/restore/one/{id}', [SystemController::class, 'restore'])->name('restoreSystem');
+    Route::get('systems/restoreAllSystems', [SystemController::class, 'restoreAll'])->name('restoreAllSystems');
 
+    /********************************* Subjects **************************************/
     Route::resource('subjects', SubjectController::class);
+    Route::get('subjects/restore/one/{id}', [SubjectController::class, 'restore'])->name('restoreSubject');
+    Route::get('subjects/restoreAllSubjects', [SubjectController::class, 'restoreAll'])->name('restoreAllSubjects');
 
+    /********************************* Orders **************************************/
     Route::resource('orders', OrderController::class);
+    Route::post('filter-teacher', [OrderController::class, 'filterTeacher'])->name('filterTeacher');
+    Route::post('filter-status', [OrderController::class, 'filterStatus'])->name('filterStatus');
+    Route::post('filter-subject', [OrderController::class, 'filterSubject'])->name('filterSubject');
+    Route::post('date-search', [OrderController::class, 'dateSearch'])->name('dateSearch');
 
+    /********************************* Fines **************************************/
     Route::resource('fines', FineController::class);
-
     Route::get('paid/{id}', [FineController::class, 'paid'])->name('paid');
-
     Route::get('unpaid/{id}', [FineController::class, 'unpaid'])->name('unpaid');
-
-    Route::post('filter-teacher', [OrderController::class,'filterTeacher'])->name('filterTeacher');
-
-    Route::post('filter-status', [OrderController::class,'filterStatus'])->name('filterStatus');
-
-    Route::post('filter-subject', [OrderController::class,'filterSubject'])->name('filterSubject');
-
-    Route::post('date-search', [OrderController::class,'dateSearch'])->name('dateSearch');
 
     /**************************** Users & Roles *******************************/
     Route::resource('users', UserController::class);

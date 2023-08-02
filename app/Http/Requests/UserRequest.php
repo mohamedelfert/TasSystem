@@ -25,14 +25,17 @@ class UserRequest extends FormRequest
         return [
             'name' => [
                 'required',
+                'string',
                 Rule::unique('users','name')->ignore($this->user)
             ],
             'first_name' => [
                 'required',
+                'string',
                 Rule::unique('users','first_name')->ignore($this->user)
             ],
             'last_name' => [
                 'required',
+                'string',
                 Rule::unique('users','last_name')->ignore($this->user)
             ],
             'email' => [

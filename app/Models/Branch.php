@@ -13,7 +13,7 @@ class Branch extends Model
     public $translatable = ['name'];
 
     protected $table = 'branches';
-    protected $guarded = [];
+    protected $guarded = ['id'];
     //	protected $fillable = array('name', 'address', 'email', 'phone', 'status');
 
     public $timestamps = true;

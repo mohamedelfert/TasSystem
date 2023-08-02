@@ -11,7 +11,7 @@ class Order extends Model
     use SoftDeletes;
 
     protected $table = 'orders';
-    protected $guarded = [];
+    protected $guarded = ['id'];
     //    protected $fillable = array('final_price', 'coupon_name');
 
     public $timestamps = true;

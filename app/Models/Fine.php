@@ -10,7 +10,7 @@ class Fine extends Model
     use SoftDeletes;
 
     protected $table = 'fines';
-    protected $guarded = [];
+    protected $guarded = ['id'];
     //    protected $fillable = array('price');
 
     public $timestamps = true;

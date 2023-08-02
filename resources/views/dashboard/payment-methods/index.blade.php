@@ -17,6 +17,14 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body card-dashboard">
+
+                            @if(request()->has('view_deleted'))
+                                <a href="{{ route('admin.payment-methods.index') }}" class="btn btn-primary">{{ __('main.view_all') }}</a>
+                                <a href="{{ route('admin.restoreAllPaymentMethods') }}" class="btn btn-success">{{ __('main.restore_all') }}</a>
+                            @else
+                                <a href="{{ route('admin.payment-methods.index', ['view_deleted' => 'DeletedRecords']) }}" class="btn btn-primary">{{ __('main.view_all_deleted') }}</a>
+                            @endif
+
                             <div class="table-responsive">
                                 @include('dashboard.payment-methods.partials._table')
                             </div>

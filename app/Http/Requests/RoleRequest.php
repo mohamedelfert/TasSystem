@@ -25,6 +25,7 @@ class RoleRequest extends FormRequest
         return [
             'name' => [
                 'required',
+                'string',
                 Rule::unique('roles','name')->ignore($this->role)
             ],
             'display_name' => 'required',

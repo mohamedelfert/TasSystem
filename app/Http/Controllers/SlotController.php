@@ -10,7 +10,7 @@ class SlotController extends Controller
 {
     public function index(Request $request)
     {
-        $slots = Slot::select("*");
+        $slots = new Slot();
 
         if ($request->has('view_deleted')) {
             $slots = $slots->onlyTrashed();
@@ -31,11 +31,6 @@ class SlotController extends Controller
         Slot::create($request->all());
         toast(__('main.data_added_successfully'), 'success');
         return redirect(route('admin.slots.index'));
-    }
-
-    public function show(string $id)
-    {
-        //
     }
 
     public function edit($id)

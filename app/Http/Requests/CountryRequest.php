@@ -26,9 +26,10 @@ class CountryRequest extends FormRequest
             'name.*' => [
                 'required',
                 'string',
+                'regex:/^[a-zA-Z\p{Arabic}\s]+$/',
                 Rule::unique('countries', 'name')->ignore($this->country)
             ],
-            'code' => 'required|numeric',
+            'code' => 'required|regex:/^\+\d{1,3}$/',
             'status' => 'required',
         ];
     }

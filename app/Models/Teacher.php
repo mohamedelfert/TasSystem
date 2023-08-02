@@ -9,18 +9,15 @@ use Spatie\Translatable\HasTranslations;
 
 class Teacher extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
 
     protected $table = 'teachers';
+    protected $guarded = ['id'];
+    //    protected $fillable = array('first_name', 'last_name', 'email', 'phone', 'password', 'address', 'status', 'work');
+
     public $timestamps = true;
-
-    use SoftDeletes;
-
     protected $guard = 'teacher';
-
     protected $dates = ['deleted_at'];
-//    protected $fillable = array('first_name', 'last_name', 'email', 'phone', 'password', 'address', 'status', 'work');
-    protected $guarded = [];
 
     protected $appends = ['image_path'];
 
