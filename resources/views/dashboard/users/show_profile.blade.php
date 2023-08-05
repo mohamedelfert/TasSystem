@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title'){!! __('Show User') !!}@endsection
+@section('title'){!! __('main.show_profile') !!}@endsection
 @section('header')
     <style>
         .gradient-custom {

@@ -19,6 +19,7 @@ class MainController extends Controller
             'slot_id' => 'required|exists:slots,id',
             'teacher_id' => 'required|exists:teachers,id',
             'branch_id' => 'required|exists:branches,id',
+            'price' => 'required',
             'final_price' => 'sometimes',
             'coupon_name' => 'sometimes|nullable',
         ];
@@ -45,8 +46,8 @@ class MainController extends Controller
             'slot_id' => $request->slot_id,
             'teacher_id' => $request->teacher_id,
             'branch_id' => $request->branch_id,
-            'price' => $subject->price,
-            'final_price' => $final_price,
+            'price' => $request->price,
+            'final_price' => $request->price,
             'coupon_name' => $request->coupon_name,
         ]);
 

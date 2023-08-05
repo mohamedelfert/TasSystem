@@ -26,7 +26,7 @@
                 <div class="btn-group" role="group">
                     @component('dashboard.layouts.partials.buttons._show_button',[
                             'route' => route('admin.users.show',$user->id),
-                            'tooltip' => __('Show '.$user['name']),
+                            'tooltip' => __('main.show'),
                              ])
                     @endcomponent
                 </div>
@@ -36,7 +36,7 @@
                 <div class="btn-group" role="group">
                     @component('dashboard.layouts.partials.buttons._edit_button',[
                             'route' => route('admin.users.edit',$user->id),
-                            'tooltip' => __('Edit '.$user['name']),
+                            'tooltip' => __('main.edit'),
                              ])
                     @endcomponent
                 </div>
@@ -47,7 +47,7 @@
                     @component('dashboard.layouts.partials.buttons._delete_button',[
                                 'id'=>$user->id,
                                 'route' => route('admin.users.destroy',$user->id) ,
-                                'tooltip' => __('Delete'),
+                                'tooltip' => __('main.delete'),
                                  ])
                     @endcomponent
                 </div>

@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title'){!! __('Show Teacher') !!}@endsection
+@section('title'){!! __('main.show_teacher') !!}@endsection
 @section('header')@endsection
 @section('breadcrumb')
     @include('dashboard.layouts.partials._breadcrumb',['level'=>'teachers'])
@@ -39,9 +39,9 @@
                                     <div class="tabs-menu1">
                                         <!-- Tabs -->
                                         <ul class="nav panel-tabs main-nav-line">
-                                            <li><a href="#tab1" class="nav-link active" data-toggle="tab">{!! __('Teacher Information') !!}</a></li>
-                                            <li><a href="#tab2" class="nav-link" data-toggle="tab">{!! __('Teacher Orders') !!}</a></li>
-                                            <li><a href="#tab3" class="nav-link" data-toggle="tab">{!! __('Teacher Fines') !!}</a></li>
+                                            <li><a href="#tab1" class="nav-link active" data-toggle="tab">{!! __('main.teacher_info') !!}</a></li>
+                                            <li><a href="#tab2" class="nav-link" data-toggle="tab">{!! __('main.teacher_orders') !!}</a></li>
+                                            <li><a href="#tab3" class="nav-link" data-toggle="tab">{!! __('main.teacher_fines') !!}</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                                                                      src="{{ $teacher->image_path }}"
                                                                  @else
                                                                      src="{{asset('assets/dashboard/resources')}}/app-assets/images/portrait/small/avatar-s-11.jpg"
-                                                                 @endif alt="{!! __('Teacher Image') !!}" style="width: 210px;height: 140px;">
+                                                                 @endif alt="{!! __('main.image') !!}" style="width: 210px;height: 140px;">
                                                         </p>
                                                     </div>
                                                     <div class="col-12 col-md-12 col-lg-8 order-2 order-md-2">
@@ -65,23 +65,23 @@
                                                             <div class="media">
                                                                 <div class="media-body">
                                                                     <div>
-                                                                        <label>{!! __('Full Name') !!}</label> : <span class="tx-medium text-primary">{{ $teacher->first_name .' '. $teacher->last_name }}</span>
+                                                                        <label>{!! __('main.full_name') !!}</label> : <span class="tx-medium text-primary">{{ $teacher->first_name .' '. $teacher->last_name }}</span>
                                                                     </div>
                                                                     <div>
-                                                                        <label>{!! __('Email') !!}</label> : <span class="tx-medium text-primary">{{ $teacher->email }}</span>
+                                                                        <label>{!! __('main.email') !!}</label> : <span class="tx-medium text-primary">{{ $teacher->email }}</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="media">
                                                                 <div class="media-body">
                                                                     <div>
-                                                                        <label>{!! __('Phone') !!}</label> : <span class="tx-medium text-danger">{{ $teacher->phone }}</span>
+                                                                        <label>{!! __('main.phone') !!}</label> : <span class="tx-medium text-danger">{{ $teacher->phone }}</span>
                                                                     </div>
                                                                     <div>
-                                                                        <label>{!! __('Address') !!}</label> : <span class="tx-medium text-info">{{ $teacher->address }}</span>
+                                                                        <label>{!! __('main.address') !!}</label> : <span class="tx-medium text-info">{{ $teacher->address }}</span>
                                                                     </div>
                                                                     <div>
-                                                                        <label>{!! __('Status') !!}</label> :
+                                                                        <label>{!! __('main.status') !!}</label> :
                                                                         @if($teacher->status === 'active')
                                                                             <span class="badge badge-pill badge-success">{{ $teacher->status }}</span>
                                                                         @elseif($teacher->status === 'inactive')
@@ -89,7 +89,7 @@
                                                                         @endif
                                                                     </div>
                                                                     <div>
-                                                                        <label>{!! __('Work') !!}</label> :
+                                                                        <label>{!! __('main.work') !!}</label> :
                                                                         @if($teacher->work === 'yes')
                                                                             <span class="badge badge-pill badge-success">{{ $teacher->work }}</span>
                                                                         @elseif($teacher->work === 'no')
@@ -104,10 +104,10 @@
                                                             <div class="media mb-0">
                                                                 <div class="media-body">
                                                                     <div>
-                                                                        <label>{!! __('Country') !!}</label> : <span class="tx-medium text-dark">{{ optional($teacher->country)->name }}</span>
+                                                                        <label>{!! __('main.country') !!}</label> : <span class="tx-medium text-dark">{{ optional($teacher->country)->name }}</span>
                                                                     </div>
                                                                     <div>
-                                                                        <label>{!! __('Language') !!}</label> :
+                                                                        <label>{!! __('main.language') !!}</label> :
                                                                         @if($teacher->language === 'arabic')
                                                                             <span class="badge badge-pill badge-success">{!! __('main.arabic') !!}</span>
                                                                         @elseif($teacher->language === 'english')
@@ -117,7 +117,7 @@
                                                                         @endif
                                                                     </div>
                                                                     <div>
-                                                                        <label>{!! __('Timezone') !!}</label> : <span class="tx-medium text-dark">{{ $teacher->timezone }}</span>
+                                                                        <label>{!! __('main.timezone') !!}</label> : <span class="tx-medium text-dark">{{ $teacher->timezone }}</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -134,14 +134,14 @@
                                                         <thead>
                                                             <tr>
                                                                 <th class="wd-5p border-bottom-0">#</th>
-                                                                <th class="wd-10p border-bottom-0">{!! __('Order Number') !!}</th>
-                                                                <th class="wd-10p border-bottom-0">{!! __('Subject') !!}</th>
-                                                                <th class="wd-10p border-bottom-0">{!! __('Date') !!}</th>
-                                                                <th class="wd-10p border-bottom-0">{!! __('slot') !!}</th>
-                                                                <th class="wd-10p border-bottom-0">{!! __('Branch') !!}</th>
-                                                                <th class="wd-10p border-bottom-0">{!! __('Finish At') !!}</th>
-                                                                <th class="wd-10p border-bottom-0">{!! __('Price') !!}</th>
-                                                                <th class="wd-10p border-bottom-0">{!! __('Status') !!}</th>
+                                                                <th class="wd-10p border-bottom-0">{!! __('main.order_number') !!}</th>
+                                                                <th class="wd-10p border-bottom-0">{!! __('main.subject') !!}</th>
+                                                                <th class="wd-10p border-bottom-0">{!! __('main.date') !!}</th>
+                                                                <th class="wd-10p border-bottom-0">{!! __('main.slot') !!}</th>
+                                                                <th class="wd-10p border-bottom-0">{!! __('main.branch') !!}</th>
+                                                                <th class="wd-10p border-bottom-0">{!! __('main.finished_at') !!}</th>
+                                                                <th class="wd-10p border-bottom-0">{!! __('main.price') !!}</th>
+                                                                <th class="wd-10p border-bottom-0">{!! __('main.status') !!}</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -156,7 +156,7 @@
                                                                         </th>
                                                                         <th class="wd-10p border-bottom-0">
                                                                             <span class="badge badge-pill badge-secondary">
-                                                                            {{ optional($order->slot)->name }}
+                                                                            {{ Carbon\Carbon::parse(optional($order->slot)->start_at)->format('g:i A') .' - '. Carbon\Carbon::parse(optional($order->slot)->end_at)->format('g:i A') }}
                                                                             </span>
                                                                         </th>
                                                                         <th class="wd-10p border-bottom-0">
@@ -185,7 +185,7 @@
                                                                 <table class="table table-hover" id="example1" data-page-length='50' style=" text-align: center;">
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td colspan="8" class="text-center text-danger">{!! __('No Data Found') !!}</td>
+                                                                            <td colspan="8" class="text-center text-danger">{!! __('main.no_data_found') !!}</td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
@@ -203,10 +203,10 @@
                                                         <thead>
                                                             <tr>
                                                                 <th class="wd-5p border-bottom-0">#</th>
-                                                                <th class="wd-10p border-bottom-0">{!! __('price') !!}</th>
-                                                                <th class="wd-10p border-bottom-0">{!! __('Status') !!}</th>
-                                                                <th class="wd-10p border-bottom-0">{!! __('Created At') !!}</th>
-                                                                <th class="wd-10p border-bottom-0">{!! __('Payment At') !!}</th>
+                                                                <th class="wd-10p border-bottom-0">{!! __('main.price') !!}</th>
+                                                                <th class="wd-10p border-bottom-0">{!! __('main.status') !!}</th>
+                                                                <th class="wd-10p border-bottom-0">{!! __('main.created_at') !!}</th>
+                                                                <th class="wd-10p border-bottom-0">{!! __('main.payment_date') !!}</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -234,7 +234,7 @@
                                                                 <table class="table table-hover" id="example1" data-page-length='50' style=" text-align: center;">
                                                                     <tbody>
                                                                     <tr>
-                                                                        <td colspan="5" class="text-center text-danger">{!! __('No Data Found') !!}</td>
+                                                                        <td colspan="5" class="text-center text-danger">{!! __('main.no_data_found') !!}</td>
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>

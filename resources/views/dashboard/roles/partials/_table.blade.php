@@ -2,9 +2,9 @@
     <thead>
         <tr>
             <th scope="col">{{__('#') }}</th>
-            <th scope="col">{{__('Role name')}}</th>
-            <th scope="col">{{__('Display Name')}}</th>
-            <th scope="col">{{__('Options')}}</th>
+            <th scope="col">{{__('main.role_name')}}</th>
+            <th scope="col">{{__('main.display_name')}}</th>
+            <th scope="col">{{__('main.options')}}</th>
         </tr>
     </thead>
     <tbody>

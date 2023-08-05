@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title'){!! __('Edit Role') !!}@endsection
+@section('title'){!! __('main.edit_role') !!}@endsection
 @section('header')
     <link href="{{ asset('assets/dashboard/resources') }}/app-assets/css/plugins/treeview/treeview.css" rel="stylesheet" type="text/css"/>
 @endsection

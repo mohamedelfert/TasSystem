@@ -20,7 +20,7 @@
                     <div class="btn-group" role="group">
                         @component('dashboard.layouts.partials.buttons._show_button',[
                                     'route' => route('admin.teachers.show',$teacher->id),
-                                    'tooltip' => __('Show '.$teacher['name']),
+                                    'tooltip' => __('main.show'),
                                      ])
                         @endcomponent
                     </div>
@@ -30,7 +30,7 @@
                     <div class="btn-group" role="group">
                         @component('dashboard.layouts.partials.buttons._edit_button',[
                                 'route' => route('admin.teachers.edit',$teacher->id),
-                                'tooltip' => __('Edit '.$teacher['name']),
+                                'tooltip' => __('main.edit'),
                                  ])
                         @endcomponent
                     </div>
@@ -41,7 +41,7 @@
                         @component('dashboard.layouts.partials.buttons._delete_button',[
                                     'id'=>$teacher->id,
                                     'route' => route('admin.teachers.destroy',$teacher->id) ,
-                                    'tooltip' => __('Delete'),
+                                    'tooltip' => __('main.delete'),
                                      ])
                         @endcomponent
                     </div>

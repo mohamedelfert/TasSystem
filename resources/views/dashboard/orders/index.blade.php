@@ -128,7 +128,7 @@
                                                                 </th>
                                                                 <th class="wd-10p border-bottom-0">
                                                                     <span class="badge badge-pill badge-secondary">
-                                                                        {{ optional($order->slot)->name }}
+                                                                        {{ Carbon\Carbon::parse(optional($order->slot)->start_at)->format('g:i A') .' - '. Carbon\Carbon::parse(optional($order->slot)->end_at)->format('g:i A') }}
                                                                     </span>
                                                                 </th>
                                                                 <th class="wd-10p border-bottom-0">

@@ -232,7 +232,7 @@
                                                                             @foreach ($slots as $slot)
                                                                                 <tr>
                                                                                     <th class="wd-10p border-bottom-0">
-                                                                                        {{  Carbon\Carbon::parse($slot->start_at)->format('g:i A') .' - '. Carbon\Carbon::parse($slot->end_at)->format('g:i A') }}
+                                                                                        {{  Carbon\Carbon::parse($slot->start_at)->timezone(auth()->user()->timezone)->format('g:i A') .' - '. Carbon\Carbon::parse($slot->end_at)->timezone(auth()->user()->timezone)->format('g:i A') }}
                                                                                     </th>
                                                                                     @foreach ($workdays as $workday)
                                                                                         <th class="wd-10p border-bottom-0">

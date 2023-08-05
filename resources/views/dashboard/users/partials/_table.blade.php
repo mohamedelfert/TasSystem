@@ -2,11 +2,11 @@
     <thead>
         <tr>
             <th scope="col">{{__('#') }}</th>
-            <th scope="col">{{__('Full name')}}</th>
-            <th scope="col">{{__('Email')}}</th>
-            <th scope="col">{{__('Status')}}</th>
-            <th scope="col">{{__('Role')}}</th>
-            <th scope="col">{{__('Options')}}</th>
+            <th scope="col">{{__('main.full_name')}}</th>
+            <th scope="col">{{__('main.email')}}</th>
+            <th scope="col">{{__('main.status')}}</th>
+            <th scope="col">{{__('main.role')}}</th>
+            <th scope="col">{{__('main.options')}}</th>
         </tr>
     </thead>
     <tbody>

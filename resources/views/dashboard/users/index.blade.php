@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title'){!! __('Users') !!}@endsection
+@section('title'){!! __('main.users') !!}@endsection
 @section('header')@endsection
 @section('breadcrumb')
         @include('dashboard.layouts.partials._breadcrumb',['level'=>'users'])
