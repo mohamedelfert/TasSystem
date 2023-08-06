@@ -1,10 +1,9 @@
 @extends('teacher-dashboard.layouts.app')
 @section('title'){!! __('main.home') !!}@endsection
 @section('header')
-    <link rel="stylesheet" type="text/css" href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/app-assets/css/core/menu/menu-types/vertical-menu.min.css">
-    <link rel="stylesheet" type="text/css" href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/app-assets/css/pages/dashboard-ecommerce.min.css">
-    <link rel="stylesheet" type="text/css" href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/app-assets/css/plugins/charts/chart-apex.min.css">
-    <link rel="stylesheet" type="text/css" href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/app-assets/css/plugins/extensions/ext-component-toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
 @endsection
 @section('content')
     <section id="column-selectors">
@@ -94,4 +93,57 @@
         </div>
     </section>
 
+    <div class="col-xl-12 col-md-12 col-12">
+        <div class="row">
+            <div class="col-xl-4 col-sm-4 col-4 mb-2 mb-xl-0 float-left">
+                <div class="card card-statistics">
+                    <div class="card-header">
+                        <h4 class="card-title">{{__('main.statistics')}}</h4>
+                    </div>
+                    <div class="card-body statistics-body">
+                        <div class="row">
+                            <div class="card-body" style="width:100%;">
+                                {!! $chartjs->render() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-8 col-sm-8 col-8 mb-2 mb-xl-0 float-right">
+                <div class="card card-statistics">
+                    <div class="card-header">
+                        <h4 class="card-title">{{__('main.calendar')}}</h4>
+                    </div>
+                    <div class="card-body statistics-body">
+                        <div class="row">
+                            <div id='calendar'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('footer')
+    <script src="{{URL::asset('assets/dashboard/resources/app-assets/js/scripts/charts/chart-chartjs.js')}}"></script>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js'></script>
+    <script>
+        $(document).ready(function() {
+            // page is now ready, initialize the calendar...
+            $('#calendar').fullCalendar({
+                // put your options and callbacks here
+                events : [
+                        @foreach($slots as $slot)
+                        {
+                            title : '{{ $slot->slot_id }}',
+                            start : '{{ $slot->workday_id }}',
+                        },
+                        @endforeach
+                ]
+            })
+        });
+    </script>
 @endsection

@@ -27,7 +27,7 @@
         <link rel="stylesheet" type="text/css" href="{{asset('assets/dashboard/resources/app-assets/css/pages/authentication.css')}}">
         <!-- END: Page CSS-->
         <!-- BEGIN: Custom CSS-->
-        <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('assets/dashboard/resources/assets/css/style.css')}}">
         <!-- END: Custom CSS-->
     </head>
     <body class="vertical-layout vertical-menu-modern 1-column  navbar-floating footer-static bg-full-screen-image  blank-page blank-page" data-open="click" data-menu="vertical-menu-modern" data-col="1-column">
@@ -154,8 +154,8 @@
         </div>
 
         <script src=" {{asset('assets/dashboard/resources/app-assets/vendors/js/vendors.min.js')}}"></script>
-        <script src=" {{asset('dashboard/resources/app-assets/js/core/app-menu.js')}}"></script>
-        <script src=" {{asset('dashboard/resources/app-assets/js/core/app.js')}}"></script>
-        <script src=" {{asset('dashboard/resources/app-assets/js/scripts/components.js')}}"></script>
+        <script src=" {{asset('assets/dashboard/resources/app-assets/js/core/app-menu.js')}}"></script>
+        <script src=" {{asset('assets/dashboard/resources/app-assets/js/core/app.js')}}"></script>
+        <script src=" {{asset('assets/dashboard/resources/app-assets/js/scripts/components.js')}}"></script>
     </body>
 </html>

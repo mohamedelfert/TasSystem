@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/dashboard/resources')}}/app-assets/css/components.css">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/dashboard/resources')}}/app-assets/css/themes/dark-layout.css">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/dashboard/resources')}}/app-assets/css/themes/semi-dark-layout.css">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/dashboard/resources')}}/app-assets/css/pages/dashboard-analytics.css`">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/dashboard/resources')}}/app-assets/css/pages/dashboard-analytics.css">
 
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/dashboard/resources')}}/app-assets/css/core/menu/menu-types/vertical-menu.css">
@@ -57,7 +57,6 @@
 
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/dashboard/resources')}}/assets/css/style.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="{!! asset('css') !!}/custom-style.css"/>
 
     <!-- END: Custom CSS-->
 @endif

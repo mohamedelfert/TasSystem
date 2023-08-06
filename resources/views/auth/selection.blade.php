@@ -32,7 +32,7 @@
         <!-- END: Page CSS-->
 
         <!-- BEGIN: Custom CSS-->
-        <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('assets/dashboard/resources/assets/css/style.css')}}">
         <!-- END: Custom CSS-->
     </head>
     <!-- END: Head-->
@@ -83,9 +83,9 @@
         </div>
 
         <script src=" {{asset('assets/dashboard/resources/app-assets/vendors/js/vendors.min.js')}}"></script>
-        <script src=" {{asset('dashboard/resources/app-assets/js/core/app-menu.js')}}"></script>
-        <script src=" {{asset('dashboard/resources/app-assets/js/core/app.js')}}"></script>
-        <script src=" {{asset('dashboard/resources/app-assets/js/scripts/components.js')}}"></script>
+        <script src=" {{asset('assets/dashboard/resources/app-assets/js/core/app-menu.js')}}"></script>
+        <script src=" {{asset('assets/dashboard/resources/app-assets/js/core/app.js')}}"></script>
+        <script src=" {{asset('assets/dashboard/resources/app-assets/js/scripts/components.js')}}"></script>
     </body>
 </html>
 
