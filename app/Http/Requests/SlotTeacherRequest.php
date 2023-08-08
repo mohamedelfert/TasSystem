@@ -26,8 +26,7 @@ class SlotTeacherRequest extends FormRequest
             'place_type' => 'required',
             'subjects' => 'required',
             'branches' => 'sometimes|nullable',
-            'language' => 'required',
-            'slots' => 'required',
+            'language' => 'required'
         ];
     }
 }

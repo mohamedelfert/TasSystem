@@ -35,7 +35,6 @@
                                             <form method="post" action="{{ route('teacher.slots.update',$teacher->id) }}">
                                                 @csrf
                                                 {{ method_field('PUT') }}
-
                                                 <div class="row">
                                                     <div class="form-group py-1 col-md-3">
                                                         <label for="place_type"> {{__('main.online_and_center')}}</label>
@@ -62,8 +61,17 @@
                                                         <label for="subjects"> {{__('main.subjects')}}</label>
                                                     </div>
                                                     <div class="form-group col-md-9">
-                                                        {!! Form::select('subjects',App\Models\Subject::pluck('name','id'),request()->name ?? null,['class'=>'form-control col select2',
-                                                            'multiple'=>'multiple','name'=>'subjects[]','id'=>'subjects',disable_on_show()]) !!}
+{{--                                                        {!! Form::select('subjects',App\Models\Subject::pluck('name','id'),request()->name ?? null,['class'=>'form-control col select2',--}}
+{{--                                                            'multiple'=>'multiple','name'=>'subjects[]','id'=>'subjects',disable_on_show()]) !!}--}}
+                                                        <select name="subjects[]" id="subjects" class="form-control col select2" multiple>
+                                                            @foreach(App\Models\Subject::all() as $subject)
+                                                                @foreach($teacher->subjects()->get() as $value)
+                                                                    <option value="{{ $subject->id }}" {{($value->id === $subject->id) ? 'selected':''}}>
+                                                                        {{ $subject->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            @endforeach
+                                                        </select>
                                                         {{input_error($errors,'subjects')}}
                                                     </div>
                                                 </div>
@@ -73,8 +81,17 @@
                                                         <label for="branches"> {{__('main.branches')}}</label>
                                                     </div>
                                                     <div class="form-group py-1 col-md-9">
-                                                        {!! Form::select('branches',App\Models\Branch::pluck('name','id'),request()->name ?? null,['class'=>'form-control col select2',
-                                                             'multiple'=>'multiple','name'=>'branches[]','id'=>'branches',disable_on_show()]) !!}
+{{--                                                        {!! Form::select('branches',App\Models\Branch::pluck('name','id'),request()->name ?? null,['class'=>'form-control col select2',--}}
+{{--                                                             'multiple'=>'multiple','name'=>'branches[]','id'=>'branches',disable_on_show()]) !!}--}}
+                                                        <select name="branches[]" id="branches" class="form-control col select2" multiple>
+                                                            @foreach(App\Models\Branch::all() as $branch)
+                                                                @foreach($teacher->branches()->get() as $value)
+                                                                    <option value="{{ $branch->id }}" {{($value->id === $branch->id) ? 'selected':''}}>
+                                                                        {{ $branch->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            @endforeach
+                                                        </select>
                                                         {{input_error($errors,'branches')}}
                                                     </div>
                                                 </div>
@@ -102,45 +119,6 @@
                                                         {{input_error($errors,'language')}}
                                                     </div>
                                                 </div>
-
-                                                <hr>
-
-                                                <table class="table text-md-nowrap" id="example1">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.slots') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.saturday') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.sunday') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.monday') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.tuesday') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.wednesday') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.thursday') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.friday') !!}</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach ($slots as $slot)
-                                                            <tr>
-                                                                <th class="wd-10p border-bottom-0">
-                                                                    {{  Carbon\Carbon::parse($slot->start_at)->timezone(auth()->user()->timezone)->format('g:i A') .' - '. Carbon\Carbon::parse($slot->end_at)->timezone(auth()->user()->timezone)->format('g:i A') }}
-                                                                </th>
-                                                                @foreach ($workdays as $workday)
-                                                                    <th class="wd-10p border-bottom-0">
-                                                                        <label class="block text-gray-500 font-semibold sm:border-r sm:pr-4">
-                                                                            @php
-                                                                                $count = \App\Models\SlotTeacher::where('teacher_id',auth()->guard('teacher')->id())->where('slot_id',$slot->id)->where('workday_id',$workday->id)->count();
-                                                                            @endphp
-                                                                            <input name="slots[{{ $slot->id }}][{{ $workday->id }}]" value="{{ $workday->id }}" class="leading-tight"
-                                                                                   type="checkbox" @checked($count > 0)>
-
-                                                                        </label>
-                                                                    </th>
-                                                                @endforeach
-                                                            </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                                {{input_error($errors,'slots')}}
 
                                                 <div class="modal-footer" style="margin-top: 10px">
                                                     @component('teacher-dashboard.layouts.partials.buttons._save_button',[])

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SlotInfoRequest;
 use App\Http\Requests\SlotTeacherRequest;
 use App\Models\Branch;
 use App\Models\Slot;
@@ -29,12 +30,36 @@ class SlotController extends Controller
 
     public function create()
     {
-        $slots = Slot::all();
-        $workdays = Workday::all();
-        return view('teacher-dashboard.slots.create', compact('slots', 'workdays'));
+        return view('teacher-dashboard.slots.create');
     }
 
     public function store(SlotTeacherRequest $request)
+    {
+        $teacher = Teacher::findOrFail(auth()->guard('teacher')->id());
+        $teacher['place_type'] = $request->place_type;
+        $teacher['language'] = $request->language;
+        $teacher->update();
+
+        if ($request->has('subjects')) {
+            $request->user()->subjects()->sync($request->subjects);
+        }
+
+        if ($request->has('branches')) {
+            $request->user()->branches()->sync($request->branches);
+        }
+
+        toast(__('main.data_added_successfully'), 'success');
+        return redirect(route('teacher.slots.index'));
+    }
+
+    public function createSlot()
+    {
+        $slots = Slot::all();
+        $workdays = Workday::all();
+        return view('teacher-dashboard.slots.create_slots', compact('slots', 'workdays'));
+    }
+
+    public function doCreateSlot(SlotInfoRequest $request)
     {
         $slots = $request->input('slots', []);
 
@@ -66,17 +91,6 @@ class SlotController extends Controller
 
         if ($count >= setting()->slots_number_validation) {
             $teacher = Teacher::findOrFail(auth()->guard('teacher')->id());
-            $teacher['language'] = $request->language;
-            $teacher['place_type'] = $request->place_type;
-            $teacher->update();
-
-            if ($request->has('subjects')) {
-                $request->user()->subjects()->sync($request->subjects);
-            }
-
-            if ($request->has('branches')) {
-                $request->user()->branches()->sync($request->branches);
-            }
 
             foreach ($slots as $key => $values) {
                 foreach ($values as $value) {
@@ -103,12 +117,37 @@ class SlotController extends Controller
     public function edit($id)
     {
         $teacher = Teacher::findOrFail($id);
-        $slots = Slot::all();
-        $workdays = Workday::all();
-        return view('teacher-dashboard.slots.edit', compact('teacher', 'slots', 'workdays'));
+        return view('teacher-dashboard.slots.edit', compact('teacher'));
     }
 
     public function update(SlotTeacherRequest $request, $id)
+    {
+        $teacher = Teacher::findOrFail($id);
+        $teacher['place_type'] = $request->place_type;
+        $teacher['language'] = $request->language;
+        $teacher->update();
+
+        if ($request->has('subjects')) {
+            $request->user()->subjects()->sync($request->subjects);
+        }
+
+        if ($request->has('branches')) {
+            $request->user()->branches()->sync($request->branches);
+        }
+
+        toast(__('main.data_updated_successfully'), 'success');
+        return redirect(route('teacher.slots.index'));
+    }
+
+    public function editSlot($id)
+    {
+        $teacher = Teacher::findOrFail($id);
+        $slots = Slot::all();
+        $workdays = Workday::all();
+        return view('teacher-dashboard.slots.edit_slots', compact('teacher', 'slots', 'workdays'));
+    }
+
+    public function doEditSlot(SlotInfoRequest $request, $id)
     {
         $slots = $request->input('slots', []);
 
@@ -124,17 +163,6 @@ class SlotController extends Controller
 
         if ($count >= setting()->slots_number_validation) {
             $teacher = Teacher::findOrFail($id);
-            $teacher['language'] = $request->language;
-            $teacher['place_type'] = $request->place_type;
-            $teacher->update();
-
-            if ($request->has('subjects')) {
-                $request->user()->subjects()->sync($request->subjects);
-            }
-
-            if ($request->has('branches')) {
-                $request->user()->branches()->sync($request->branches);
-            }
 
             foreach ($request->input('slots', []) as $key => $values) {
                 $slot = Slot::findOrFail($key);

@@ -34,14 +34,13 @@
 
                                             <form method="post" action="{{ route('teacher.slots.store') }}">
                                                 @csrf
-
                                                 <div class="row">
                                                     <div class="form-group py-1 col-md-3">
                                                         <label for="place_type"> {{__('main.online_and_center')}}</label>
                                                     </div>
                                                     <div class="form-group col-md-9">
                                                         {!! Form::select('place_type',['online_center'=>__('main.online_and_center'),'online'=>__('main.online'),'center'=>__('main.center')]
-                                                            ,request()->place_type ?? null,['class'=>'form-control mb-2','id'=>'place_type',disable_on_show()]) !!}
+                                                            ,request()->place_type ?? old('place_type'),['class'=>'form-control mb-2','id'=>'place_type',disable_on_show()]) !!}
                                                         {{input_error($errors,'place_type')}}
                                                     </div>
                                                 </div>
@@ -51,7 +50,7 @@
                                                         <label for="subjects"> {{__('main.subjects')}}</label>
                                                     </div>
                                                     <div class="form-group col-md-9">
-                                                        {!! Form::select('subjects',App\Models\Subject::pluck('name','id'),request()->name ?? null,['class'=>'form-control col select2',
+                                                        {!! Form::select('subjects',App\Models\Subject::pluck('name','id'),request()->name ?? old('subjects'),['class'=>'form-control col select2',
                                                             'multiple'=>'multiple','name'=>'subjects[]','id'=>'subjects',disable_on_show()]) !!}
                                                         {{input_error($errors,'subjects')}}
                                                     </div>
@@ -62,7 +61,7 @@
                                                         <label for="branches"> {{__('main.branches')}}</label>
                                                     </div>
                                                     <div class="form-group py-1 col-md-9">
-                                                        {!! Form::select('branches',App\Models\Branch::pluck('name','id'),request()->name ?? null,['class'=>'form-control col select2',
+                                                        {!! Form::select('branches',App\Models\Branch::pluck('name','id'),request()->name ?? old('branches'),['class'=>'form-control col select2',
                                                              'multiple'=>'multiple','name'=>'branches[]','id'=>'branches',disable_on_show()]) !!}
                                                         {{input_error($errors,'branches')}}
                                                     </div>
@@ -75,57 +74,22 @@
                                                     <div class="form-group py-1 col-md-9">
                                                         <label
                                                             class="block text-gray-500 font-semibold sm:border-r sm:pr-4">
-                                                            <input name="language" class="leading-tight" type="radio" value="arabic">
+                                                            <input name="language" class="leading-tight" type="radio" value="arabic" {{ old("language") == 'arabic' ? 'checked' : '' }}>
                                                             <span class="text-primary">@lang('main.fully_arabic')</span>
                                                         </label>
                                                         <label
                                                             class="block text-gray-500 font-semibold sm:border-r sm:pr-4">
-                                                            <input name="language" class="leading-tight" type="radio" value="english">
+                                                            <input name="language" class="leading-tight" type="radio" value="english" {{ old("language") == 'english' ? 'checked' : '' }}>
                                                             <span class="text-primary">@lang('main.fully_english')</span>
                                                         </label>
                                                         <label
                                                             class="block text-gray-500 font-semibold sm:border-r sm:pr-4">
-                                                            <input name="language" class="leading-tight" type="radio" value="both">
+                                                            <input name="language" class="leading-tight" type="radio" value="both" {{ old("language") == 'both' ? 'checked' : '' }}>
                                                             <span class="text-primary">@lang('main.both_english_arabic')</span>
                                                         </label>
                                                         {{input_error($errors,'language')}}
                                                     </div>
                                                 </div>
-
-                                                <hr>
-
-                                                <table class="table text-md-nowrap" id="example1">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.slots') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.saturday') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.sunday') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.monday') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.tuesday') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.wednesday') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.thursday') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.friday') !!}</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach ($slots as $slot)
-                                                            <tr>
-                                                                <th class="wd-10p border-bottom-0">
-                                                                    {{  Carbon\Carbon::parse($slot->start_at)->timezone(auth()->user()->timezone)->format('g:i A') .' - '. Carbon\Carbon::parse($slot->end_at)->timezone(auth()->user()->timezone)->format('g:i A') }}
-                                                                </th>
-                                                                @foreach ($workdays as $workday)
-                                                                    <th class="wd-10p border-bottom-0">
-                                                                        <label class="block text-gray-500 font-semibold sm:border-r sm:pr-4">
-                                                                            <input name="slots[{{ $slot->id }}][{{ $workday->id }}]" value="{{ $workday->id }}"
-                                                                                   class="leading-tight" type="checkbox">
-                                                                        </label>
-                                                                    </th>
-                                                                @endforeach
-                                                            </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                                {{input_error($errors,'slots')}}
 
                                                 <div class="modal-footer" style="margin-top: 10px">
                                                     @component('teacher-dashboard.layouts.partials.buttons._save_button',[])
