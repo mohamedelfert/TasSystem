@@ -458,6 +458,36 @@ class PermissionsTableSeeder extends Seeder
                 'display_name' => 'استعاده الجميع',
                 'guard_name' => 'web',
                 'routes' => 'admin.restoreAllTeachers',
+            ], [
+                'id' => '75',
+                'name' => 'setting-list',
+                'display_name' => 'الإعدادات',
+                'guard_name' => 'web',
+                'routes' => 'admin.settings.index',
+            ], [
+                'id' => '76',
+                'name' => 'setting-edit',
+                'display_name' => 'الإعدادات',
+                'guard_name' => 'web',
+                'routes' => 'admin.settings.update',
+            ], [
+                'id' => '77',
+                'name' => 'fine-type-list',
+                'display_name' => 'انواع الغرامات',
+                'guard_name' => 'web',
+                'routes' => 'admin.fine-types.index',
+            ], [
+                'id' => '78',
+                'name' => 'fine-type-create',
+                'display_name' => 'انواع الغرامات',
+                'guard_name' => 'web',
+                'routes' => 'admin.fine-types.create,admin.fine-types.store',
+            ], [
+                'id' => '79',
+                'name' => 'fine-type-edit',
+                'display_name' => 'انواع الغرامات',
+                'guard_name' => 'web',
+                'routes' => 'admin.fine-types.edit,admin.fine-types.update',
             ],
         ];
 

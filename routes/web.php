@@ -3,10 +3,12 @@
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\FineController;
+use App\Http\Controllers\FineTypeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SlotController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\SystemController;
@@ -84,12 +86,18 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:web', 'auto_check_perm
     Route::get('paid/{id}', [FineController::class, 'paid'])->name('paid');
     Route::get('unpaid/{id}', [FineController::class, 'unpaid'])->name('unpaid');
 
+    /********************************* Fine Types **************************************/
+    Route::resource('fine-types', FineTypeController::class);
+
     /**************************** Users & Roles *******************************/
     Route::resource('users', UserController::class);
     Route::get('/users/profile/{id}', [UserController::class, 'showProfile'])->name('showProfile');
     Route::get('/users/{id}/profile', [UserController::class, 'editProfile'])->name('editProfile');
     Route::put('/users/profile/{id}', [UserController::class, 'profile'])->name('profile');
     Route::resource('roles', RoleController::class);
+
+    /**************************** Settings *******************************/
+    Route::resource('settings', SettingController::class);
 
     //================= this route for change language ( ar - en ) ===================//
     Route::get('lang/{lang}', function ($lang) {

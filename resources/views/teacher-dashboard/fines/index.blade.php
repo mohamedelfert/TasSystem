@@ -27,7 +27,6 @@
                                                         <th class="wd-10p border-bottom-0">{!! __('main.price') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.status') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.payment_date') !!}</th>
-                                                        <th class="wd-10p border-bottom-0">{!! __('main.options') !!}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -59,15 +58,15 @@
                                                                         {{ $fine->payment_date }}
                                                                     </span>
                                                                 </th>
-                                                                <th class="wd-10p border-bottom-0">
-                                                                    @if($fine->status === 'unpaid')
-                                                                        <a href="{{ route('teacher.payFine',$fine->id) }}">
-                                                                            <span class="btn btn-success">{!! __('main.pay') !!}</span>
-                                                                        </a>
-                                                                    @else
-                                                                        <span class="btn btn-success disabled">{!! __('main.pay') !!}</span>
-                                                                    @endif
-                                                                </th>
+{{--                                                                <th class="wd-10p border-bottom-0">--}}
+{{--                                                                    @if($fine->status === 'unpaid')--}}
+{{--                                                                        <a href="{{ route('teacher.payFine',$fine->id) }}">--}}
+{{--                                                                            <span class="btn btn-success">{!! __('main.pay') !!}</span>--}}
+{{--                                                                        </a>--}}
+{{--                                                                    @else--}}
+{{--                                                                        <span class="btn btn-success disabled">{!! __('main.pay') !!}</span>--}}
+{{--                                                                    @endif--}}
+{{--                                                                </th>--}}
                                                             </tr>
                                                         @endforeach
                                                     @else

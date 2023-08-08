@@ -39,7 +39,7 @@
             @can('slot-list')
                 <li class=" nav-item @if(Request::is('admin/slots')) active  @endif">
                     <a href="{{ route('admin.slots.index') }}">
-                        <i class="feather icon-watch"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.slots')}}</span>
+                        <i class="feather icon-clock"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.slots')}}</span>
                     </a>
                 </li>
             @endcan
@@ -71,7 +71,7 @@
             @can('payment-method-list')
                 <li class=" nav-item @if(Request::is('admin/payment-methods')) active  @endif">
                     <a href="{{ route('admin.payment-methods.index') }}">
-                        <i class="feather icon-dollar-sign"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.payment_methods')}}</span>
+                        <i class="feather icon-credit-card"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.payment_methods')}}</span>
                     </a>
                 </li>
             @endcan
@@ -87,7 +87,7 @@
             @can('order-list')
                 <li class=" nav-item @if(Request::is('admin/orders')) active  @endif">
                     <a href="{{ route('admin.orders.index') }}">
-                        <i class="feather icon-octagon"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.orders')}}</span>
+                        <i class="feather icon-shopping-cart"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.orders')}}</span>
                     </a>
                 </li>
             @endcan
@@ -95,7 +95,15 @@
             @can('fine-list')
                 <li class=" nav-item @if(Request::is('admin/fines')) active  @endif">
                     <a href="{{ route('admin.fines.index') }}">
-                        <i class="feather icon-filter"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.fines')}}</span>
+                        <i class="feather icon-dollar-sign"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.fines')}}</span>
+                    </a>
+                </li>
+            @endcan
+
+            @can('fine-type-list')
+                <li class=" nav-item @if(Request::is('admin/fine-types')) active  @endif">
+                    <a href="{{ route('admin.fine-types.index') }}">
+                        <i class="feather icon-eye"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.fine_types')}}</span>
                     </a>
                 </li>
             @endcan
@@ -112,6 +120,15 @@
                 <li class=" nav-item @if(Request::is('admin/roles')) active  @endif">
                     <a href="{{ route('admin.roles.index') }}">
                         <i class="feather icon-shield-off"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.roles')}}</span>
+                    </a>
+                </li>
+            @endcan
+
+            @can('setting-list')
+                <li class="slide">
+                    <a class="side-menu__item" href="{{ route('admin.settings.index') }}">
+                        <i class="side-menu__icon fa fa-cogs"></i>
+                        <span class="side-menu__label">{{__('main.settings')}}</span>
                     </a>
                 </li>
             @endcan

@@ -24,6 +24,7 @@
                                                     <tr>
                                                         <th class="wd-5p border-bottom-0">#</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.teacher_name') !!}</th>
+                                                        <th class="wd-10p border-bottom-0">{!! __('main.fine_type') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.price') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.status') !!}</th>
                                                     </tr>
@@ -34,6 +35,7 @@
                                                             <tr>
                                                                 <th class="wd-5p border-bottom-0">{{ $index + 1 }}</th>
                                                                 <th class="wd-10p border-bottom-0">{{ optional($fine->teacher)->first_name .' '. optional($fine->teacher)->last_name }}</th>
+                                                                <th class="wd-10p border-bottom-0">-</th>
                                                                 <th class="wd-10p border-bottom-0">
                                                                     <span class="badge badge-pill badge-warning">
                                                                         {{ $fine->price }} $

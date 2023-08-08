@@ -42,6 +42,7 @@
                                             <li><a href="#tab1" class="nav-link active" data-toggle="tab">{!! __('main.teacher_info') !!}</a></li>
                                             <li><a href="#tab2" class="nav-link" data-toggle="tab">{!! __('main.teacher_orders') !!}</a></li>
                                             <li><a href="#tab3" class="nav-link" data-toggle="tab">{!! __('main.teacher_fines') !!}</a></li>
+                                            <li><a href="#tab4" class="nav-link" data-toggle="tab">{!! __('main.slot_info') !!}</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -175,8 +176,6 @@
                                                                                 <span class="badge badge-pill badge-success">{{ $order->status }}</span>
                                                                             @elseif($order->status === 'cancelled')
                                                                                 <span class="badge badge-pill badge-danger">{{ $order->status }}</span>
-                                                                            @elseif($order->status === 'pending')
-                                                                                <span class="badge badge-pill badge-light-warning">{{ $order->status }}</span>
                                                                             @endif
                                                                         </th>
                                                                     </tr>
@@ -239,6 +238,52 @@
                                                                     </tbody>
                                                                 </table>
                                                             @endif
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane" id="tab4">
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table text-md-nowrap" id="example1">
+                                                        <thead>
+                                                        <tr>
+                                                            <th class="wd-10p border-bottom-0">{!! __('main.slots') !!}</th>
+                                                            <th class="wd-10p border-bottom-0">{!! __('main.saturday') !!}</th>
+                                                            <th class="wd-10p border-bottom-0">{!! __('main.sunday') !!}</th>
+                                                            <th class="wd-10p border-bottom-0">{!! __('main.monday') !!}</th>
+                                                            <th class="wd-10p border-bottom-0">{!! __('main.tuesday') !!}</th>
+                                                            <th class="wd-10p border-bottom-0">{!! __('main.wednesday') !!}</th>
+                                                            <th class="wd-10p border-bottom-0">{!! __('main.thursday') !!}</th>
+                                                            <th class="wd-10p border-bottom-0">{!! __('main.friday') !!}</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach (\App\Models\Slot::all() as $slot)
+                                                            <tr>
+                                                                <th class="wd-10p border-bottom-0">
+                                                                    {{  Carbon\Carbon::parse($slot->start_at)->timezone(auth()->user()->timezone)->format('g:i A') .' - '. Carbon\Carbon::parse($slot->end_at)->timezone(auth()->user()->timezone)->format('g:i A') }}
+                                                                </th>
+                                                                @foreach (\App\Models\Workday::all() as $workday)
+                                                                    {{--                                                                            <th class="wd-10p border-bottom-0">--}}
+                                                                    {{--                                                                                <label class="block text-gray-500 font-semibold sm:border-r sm:pr-4">--}}
+                                                                    {{--                                                                                    @php--}}
+                                                                    {{--                                                                                        $count = \App\Models\SlotTeacher::where('teacher_id',$teacher->id)->where('slot_id',$slot->id)->where('workday_id',$workday->id)->count()--}}
+                                                                    {{--                                                                                    @endphp--}}
+                                                                    {{--                                                                                    <input name="slots[{{ $slot->id }}][{{ $workday->id }}]" value="{{ $workday->id }}" class="leading-tight checkbox"--}}
+                                                                    {{--                                                                                           type="checkbox"  @if($count > 0) checked style="accent-color: red !important;" @endif>--}}
+                                                                    {{--                                                                                </label>--}}
+                                                                    {{--                                                                            </th>--}}
+
+                                                                    @php
+                                                                        $count = \App\Models\SlotTeacher::where('teacher_id',$teacher->id)->where('slot_id',$slot->id)->where('workday_id',$workday->id)->count()
+                                                                    @endphp
+                                                                    <td>@if($count > 0) <span class="text-danger">checked</span> @else <span class="text-dark">-</span> @endif</td>
+                                                                @endforeach
+                                                            </tr>
+                                                        @endforeach
                                                         </tbody>
                                                     </table>
                                                 </div>

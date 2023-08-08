@@ -260,21 +260,11 @@
                                                                                class="btn btn-primary float-right ml-1" title="@lang('main.create')">
                                                                                 <i class="fa fa-plus"> @lang('main.create') </i>
                                                                             </a>
-                                                                        @else
-                                                                            <a href="#"
-                                                                               class="btn btn-primary float-right ml-1 disabled" title="@lang('main.create')">
-                                                                                <i class="fa fa-plus"> @lang('main.create') </i>
-                                                                            </a>
                                                                         @endif
 
                                                                         @if(auth()->user()->status === 'active')
                                                                             <a href="{{ route('teacher.slots.edit',auth()->user()->id) }}"
                                                                                class="btn btn-success float-right" title="@lang('main.edit')">
-                                                                                <i class="fa fa-edit"> @lang('main.edit') </i>
-                                                                            </a>
-                                                                        @else
-                                                                            <a href="#"
-                                                                               class="btn btn-success float-right disabled" title="@lang('main.edit')">
                                                                                 <i class="fa fa-edit"> @lang('main.edit') </i>
                                                                             </a>
                                                                         @endif

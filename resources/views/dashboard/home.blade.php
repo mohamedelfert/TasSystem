@@ -41,7 +41,7 @@
                                     <div class="clearfix">
                                         <div class="float-left">
                                             <span class="text-primary">
-                                                <i class="fa fa-shopping-bag highlight-icon fa-3x" aria-hidden="true"></i>
+                                                <i class="fa fa-shopping-cart highlight-icon fa-3x" aria-hidden="true"></i>
                                             </span>
                                         </div>
                                         <div class="float-right text-right">
@@ -63,12 +63,15 @@
                                     <div class="clearfix">
                                         <div class="float-left">
                                             <span class="text-secondary">
-                                                <i class="fa fa-pie-chart highlight-icon fa-3x" aria-hidden="true"></i>
+                                                <i class="fa fa-shopping-basket highlight-icon fa-3x" aria-hidden="true"></i>
                                             </span>
                                         </div>
                                         <div class="float-right text-right">
-                                            <p class="card-text text-dark">{{__('main.new_orders')}}</p>
-                                            <h4>{{ \App\Models\Order::where('status' , 'pending')->count() }}</h4>
+                                            <p class="card-text text-dark">{{__('main.finished_orders')}}</p>
+                                            <h4>
+                                                {{ \App\Models\Order::where('status', 'accepted')
+                                                    ->where('finished_at','!=',null)->count() }}
+                                            </h4>
                                         </div>
                                     </div>
                                 </div>

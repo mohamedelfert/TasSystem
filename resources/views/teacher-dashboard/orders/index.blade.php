@@ -41,7 +41,6 @@
                                             <label for="status">{!! __('main.search_by_status') !!}
                                                 <select class="custom-select mr-sm-2" name="status" data-style="btn-info" onchange="this.form.submit()">
                                                     <option value="" selected disabled>{!! __('main.search_by_status') !!}</option>
-                                                    <option value="pending">{!! __('main.pending') !!}</option>
                                                     <option value="accepted">{!! __('main.accepted') !!}</option>
                                                     <option value="cancelled">{!! __('main.cancelled') !!}</option>
                                                 </select>
@@ -125,22 +124,14 @@
                                                                         <span class="badge badge-pill badge-danger">
                                                                             {{ $order->status }}
                                                                         </span>
-                                                                    @else
-                                                                        <span class="badge badge-pill badge-warning">
-                                                                            {{ $order->status }}
-                                                                        </span>
                                                                     @endif
                                                                 </th>
                                                                 <th class="wd-10p border-bottom-0">
-                                                                    @if($order->status === 'pending')
-                                                                        <a href="{{ route('teacher.acceptOrder',$order->id) }}">
-                                                                            <span class="btn btn-success btn-sm">{!! __('main.accept') !!}</span>
-                                                                        </a>
+                                                                    @if($order->status === 'accepted')
                                                                         <a href="{{ route('teacher.cancelOrder',$order->id) }}">
                                                                             <span class="btn btn-danger btn-sm">{!! __('main.cancel') !!}</span>
                                                                         </a>
                                                                     @else
-                                                                        <span class="btn btn-success disabled btn-sm">{!! __('main.accept') !!}</span>
                                                                         <span class="btn btn-danger disabled btn-sm">{!! __('main.cancel') !!}</span>
                                                                     @endif
                                                                 </th>

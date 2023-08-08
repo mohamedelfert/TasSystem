@@ -12,7 +12,9 @@ class CreateFinesTable extends Migration {
 			$table->integer('payment_method_id')->unsigned();
 			$table->integer('teacher_id')->unsigned();
 			$table->decimal('price', 8,2);
-			$table->morphs('model');
+            $table->datetime('payment_date');
+            $table->enum('status', array('paid', 'unpaid'));
+            $table->morphs('model');
 			$table->timestamps();
 			$table->softDeletes();
 		});

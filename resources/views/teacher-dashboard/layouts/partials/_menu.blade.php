@@ -20,25 +20,25 @@
 
             <li class=" nav-item @if(Request::is('teacher/orders')) active  @endif">
                 <a href="{{ route('teacher.orders.index') }}">
-                    <i class="feather icon-octagon"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.orders')}}</span>
+                    <i class="feather icon-shopping-cart"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.orders')}}</span>
                 </a>
             </li>
 
-            <li class=" nav-item @if(Request::is('teacher/new-orders')) active  @endif">
-                <a href="{{ route('teacher.newOrders') }}">
-                    <i class="feather icon-octagon"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.new_orders')}}</span>
-                </a>
-            </li>
+{{--            <li class=" nav-item @if(Request::is('teacher/new-orders')) active  @endif">--}}
+{{--                <a href="{{ route('teacher.newOrders') }}">--}}
+{{--                    <i class="feather icon-octagon"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.new_orders')}}</span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
 
             <li class=" nav-item @if(Request::is('teacher/finished-orders')) active  @endif">
                 <a href="{{ route('teacher.finishedOrders') }}">
-                    <i class="feather icon-octagon"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.finished_orders')}}</span>
+                    <i class="feather icon-shopping-bag"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.finished_orders')}}</span>
                 </a>
             </li>
 
             <li class=" nav-item @if(Request::is('teacher/fines')) active  @endif">
                 <a href="{{ route('teacher.fines.index') }}">
-                    <i class="feather icon-filter"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.fines')}}</span>
+                    <i class="feather icon-dollar-sign"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.fines')}}</span>
                 </a>
             </li>
 

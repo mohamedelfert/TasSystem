@@ -17,11 +17,9 @@ Route::prefix('teacher')->name('teacher.')->middleware(['auth:teacher'])->group(
 
     Route::resource('orders',OrderController::class);
 
-    Route::get('new-orders',[OrderController::class,'newOrders'])->name('newOrders');
+//    Route::get('new-orders',[OrderController::class,'newOrders'])->name('newOrders');
 
     Route::get('finished-orders',[OrderController::class,'finishedOrders'])->name('finishedOrders');
-
-    Route::get('accept/{id}', [OrderController::class, 'acceptOrder'])->name('acceptOrder');
 
     Route::get('cancel/{id}', [OrderController::class, 'cancelOrder'])->name('cancelOrder');
 
@@ -33,7 +31,7 @@ Route::prefix('teacher')->name('teacher.')->middleware(['auth:teacher'])->group(
 
     Route::resource('fines', FineController::class);
 
-    Route::get('pay/{id}', [FineController::class,'payFine'])->name('payFine');
+//    Route::get('pay/{id}', [FineController::class,'payFine'])->name('payFine');
 
     Route::resource('slots',SlotController::class);
 

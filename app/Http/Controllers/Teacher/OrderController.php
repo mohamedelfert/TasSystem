@@ -49,14 +49,6 @@ class OrderController extends Controller
         return view('teacher-dashboard.orders.index', compact('orders', 'from_date', 'to_date', 'subjects'));
     }
 
-    public function acceptOrder($id)
-    {
-        $order = Order::findOrFail($id);
-        $order->update(['status' => 'accepted']);
-        toast(__('main.data_accepted_successfully'), 'success');
-        return back();
-    }
-
     public function cancelOrder($id)
     {
         $order = Order::findOrFail($id);

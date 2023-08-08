@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Company;
+use App\Models\Setting;
 use Illuminate\Support\Str;
 
 if (!function_exists('responseJson')) {
@@ -54,6 +55,12 @@ if (!function_exists('json_response')) {
 
 }
 
+if (!function_exists('setting')) {
+    function setting()
+    {
+        return Setting::orderBy('id', 'desc')->first();
+    }
+}
 
 if (!function_exists('lang')){
     function lang()

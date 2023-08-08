@@ -16,7 +16,7 @@ class SlotController extends Controller
             $slots = $slots->onlyTrashed();
         }
 
-        $slots = $slots->latest()->get();
+        $slots = $slots->get();
 
         return view('dashboard.slots.index', compact('slots'));
     }

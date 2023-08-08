@@ -1,0 +1,19 @@
+<tr>
+    <td>{!! $loop->index +1 !!}</td>
+    <td>{!! session('lang') == 'ar' ? $fine->getTranslation('name', 'ar') : $fineType->getTranslation('name', 'en') !!}</td>
+    <td>{!! $fineType->price !!} $</td>
+    <td>
+        <div class="btn-group" role="group" aria-label="Vertical button group">
+            @can('country-edit')
+                <div class="btn-group" role="group">
+                    @component('dashboard.layouts.partials.buttons._edit_button',[
+                            'route' => route('admin.fine-types.edit',$fineType->id),
+                            'tooltip' => __('main.edit'),
+                             ])
+                    @endcomponent
+                </div>
+            @endcan
+        </div>
+    </td>
+</tr>
+

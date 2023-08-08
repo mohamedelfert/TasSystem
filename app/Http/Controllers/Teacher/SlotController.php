@@ -64,7 +64,7 @@ class SlotController extends Controller
 //            }
 //        }
 
-        if ($count >= 14) {
+        if ($count >= setting()->slots_number_validation) {
             $teacher = Teacher::findOrFail(auth()->guard('teacher')->id());
             $teacher['language'] = $request->language;
             $teacher['place_type'] = $request->place_type;
@@ -95,8 +95,8 @@ class SlotController extends Controller
             toast(__('main.data_added_successfully'), 'success');
             return redirect(route('teacher.slots.index'));
         } else {
-            toast(__('main.slots_less_than_14_slot'), 'error');
-            return redirect()->back()->withErrors(['errors' => trans('main.slots_less_than_14_slot')]);
+            toast(__('main.slots_less_than_slot_accept'), 'error');
+            return redirect()->back()->withErrors(['errors' => trans('main.slots_less_than_slot_accept')]);
         }
     }
 
@@ -122,7 +122,7 @@ class SlotController extends Controller
             }
         }
 
-        if ($count >= 14) {
+        if ($count >= setting()->slots_number_validation) {
             $teacher = Teacher::findOrFail($id);
             $teacher['language'] = $request->language;
             $teacher['place_type'] = $request->place_type;
@@ -155,8 +155,8 @@ class SlotController extends Controller
             toast(__('main.data_updated_successfully'), 'success');
             return redirect(route('teacher.slots.index'));
         } else {
-            toast(__('main.slots_less_than_14_slot'), 'error');
-            return redirect()->back()->withErrors(['errors' => trans('main.slots_less_than_14_slot')]);
+            toast(__('main.slots_less_than_slot_accept'), 'error');
+            return redirect()->back()->withErrors(['errors' => trans('main.slots_less_than_slot_accept')]);
         }
     }
 }
