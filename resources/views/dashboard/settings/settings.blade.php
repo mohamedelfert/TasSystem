@@ -50,34 +50,6 @@
                     </div>
 
                     <div class="form-group row">
-                        {!! Form::label('slots_number_validation',trans('main.slots_number_validation'),['class'=>'col-sm-2 col-form-label']) !!}
-                        <div class="col-sm-10">
-                            {!! Form::number('slots_number_validation',setting()->slots_number_validation,
-                                ['class'=>'form-control','id'=>'slots_number_validation','placeholder'=>@trans('main.slots_number_validation'),
-                                    'required','min'=>'1','max'=>'50']) !!}
-                            @error('slots_number_validation')<span class="text-danger">{{ $message }}</span>@enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        {!! Form::label('start_at',trans('main.start_at'),['class'=>'col-sm-2 col-form-label']) !!}
-                        <div class="col-sm-10">
-                            {!! Form::time('start_at',setting()->start_at,
-                                ['class'=>'form-control','id'=>'start_at','placeholder'=>@trans('main.start_at'),'required']) !!}
-                            @error('start_at')<span class="text-danger">{{ $message }}</span>@enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        {!! Form::label('end_at',trans('main.end_at'),['class'=>'col-sm-2 col-form-label']) !!}
-                        <div class="col-sm-10">
-                            {!! Form::time('end_at',setting()->end_at,
-                                ['class'=>'form-control','id'=>'end_at','placeholder'=>@trans('main.end_at'),'required']) !!}
-                            @error('end_at')<span class="text-danger">{{ $message }}</span>@enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
                         {!! Form::label('currency',trans('main.currency'),['class'=>'col-sm-2 col-form-label']) !!}
                         <div class="col-sm-10">
                             {!! Form::text('currency',setting()->currency,['class'=>'form-control','id'=>'currency','placeholder'=>@trans('main.currency'),'required']) !!}

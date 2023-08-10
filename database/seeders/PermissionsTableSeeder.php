@@ -488,6 +488,55 @@ class PermissionsTableSeeder extends Seeder
                 'display_name' => 'انواع الغرامات',
                 'guard_name' => 'web',
                 'routes' => 'admin.fine-types.edit,admin.fine-types.update',
+            ], [
+                'id' => '80',
+                'name' => 'slot-validation-list',
+                'display_name' => 'المواعيد',
+                'guard_name' => 'web',
+                'routes' => 'admin.slots-validation.index',
+            ], [
+                'id' => '81',
+                'name' => 'slot-validation-create',
+                'display_name' => 'المواعيد',
+                'guard_name' => 'web',
+                'routes' => 'admin.slots-validation.create,admin.slots-validation.store',
+            ], [
+                'id' => '82',
+                'name' => 'slot-validation-edit',
+                'display_name' => 'المواعيد',
+                'guard_name' => 'web',
+                'routes' => 'admin.slots-validation.edit,admin.slots-validation.update',
+            ], [
+                'id' => '83',
+                'name' => 'slot-validation-delete',
+                'display_name' => 'المواعيد',
+                'guard_name' => 'web',
+                'routes' => 'admin.slots-validation.destroy',
+            ], [
+                'id' => '84',
+                'name' => 'slot-validation-restore',
+                'display_name' => 'استعاده',
+                'guard_name' => 'web',
+                'routes' => 'admin.restoreSlotValidation',
+            ], [
+                'id' => '85',
+                'name' => 'slot-validation-restoreAll',
+                'display_name' => 'استعاده الجميع',
+                'guard_name' => 'web',
+                'routes' => 'admin.restoreAllSlotsValidation',
+            ], [
+                'id' => '86',
+                'name' => 'slot-edit-validation',
+                'display_name' => 'المواعيد',
+                'guard_name' => 'web',
+                'routes' => 'admin.editSlotValidation',
+            ],
+            [
+                'id' => '87',
+                'name' => 'slot-do-edit-slot-validation',
+                'display_name' => 'المواعيد',
+                'guard_name' => 'web',
+                'routes' => 'admin.doEditSlotValidation',
             ],
         ];
 

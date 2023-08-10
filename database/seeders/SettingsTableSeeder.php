@@ -21,9 +21,7 @@ class SettingsTableSeeder extends Seeder
         $data['icon'] = 'icon.jpg';
         $data['email'] = 'info@app.com';
         $data['phone'] = '+9640000000';
-        $data['slots_number_validation'] = '14';
-        $data['start_at'] = '16:00:00';
-        $data['end_at'] = '20:00:00';
+        $data['total'] = '14';
         $data['currency'] = 'USD';
         $data['address'] = 'Amman,Jordan';
         $data['facebook'] = 'www.facebook.com';

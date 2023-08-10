@@ -19,9 +19,7 @@ return new class extends Migration
             $table->string('icon')->default('icon.jpg');
             $table->string('email')->default('info@app.com');
             $table->string('phone')->default('+9640000000');
-            $table->integer('slots_number_validation')->default('14');
-            $table->time('start_at')->default('14:00:00');
-            $table->time('end_at')->default('20:00:00');
+            $table->integer('total')->default('14')->nullable();
             $table->string('currency')->default('USD');
             $table->string('address');
             $table->string('facebook');

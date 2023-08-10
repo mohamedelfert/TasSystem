@@ -10,6 +10,7 @@ use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SlotController;
+use App\Http\Controllers\SlotValidationController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\SystemController;
 use App\Http\Controllers\TeacherController;
@@ -50,6 +51,13 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:web', 'auto_check_perm
     Route::resource('slots', SlotController::class);
     Route::get('slots/restore/one/{id}', [SlotController::class, 'restore'])->name('restoreSlot');
     Route::get('slots/restoreAllSlots', [SlotController::class, 'restoreAll'])->name('restoreAllSlots');
+
+    /********************************* Slots Validation **************************************/
+    Route::resource('slots-validation', SlotValidationController::class);
+    Route::get('slot-validation', [SlotValidationController::class, 'editSlotValidation'])->name('editSlotValidation');
+    Route::post('slot-validation', [SlotValidationController::class, 'doEditSlotValidation'])->name('doEditSlotValidation');
+    Route::get('slots-validation/restore/one/{id}', [SlotValidationController::class, 'restore'])->name('restoreSlotValidation');
+    Route::get('slots-validation/restoreAllSlotsValidation', [SlotValidationController::class, 'restoreAll'])->name('restoreAllSlotsValidation');
 
     /********************************* Workdays **************************************/
     Route::resource('workdays', WorkdayController::class);

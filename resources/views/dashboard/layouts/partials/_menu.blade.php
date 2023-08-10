@@ -37,10 +37,25 @@
             @endcan
 
             @can('slot-list')
-                <li class=" nav-item @if(Request::is('admin/slots')) active  @endif">
-                    <a href="{{ route('admin.slots.index') }}">
-                        <i class="feather icon-clock"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.slots')}}</span>
-                    </a>
+                <li class=" nav-item ">
+                    <a href="#"><i class="feather icon-clock"></i><span class="menu-title" data-i18n="Starter kit">{{__('main.slots')}}</span></a>
+                    <ul class="menu-content">
+                        <li class=" nav-item @if(Request::is('admin/slots')) active  @endif">
+                            <a href="{{ route('admin.slots.index') }}">
+                                <i class="feather icon-clock"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.slots')}}</span>
+                            </a>
+                        </li>
+                        <li class=" nav-item @if(Request::is('admin/slots-validation')) active  @endif">
+                            <a href="{{ route('admin.slots-validation.index') }}">
+                                <i class="feather icon-clock"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.slots_validation')}}</span>
+                            </a>
+                        </li>
+                        <li class=" nav-item @if(Request::is('admin/slot-validation')) active  @endif">
+                            <a href="{{ route('admin.editSlotValidation') }}">
+                                <i class="feather icon-clock"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.create_slot_validation')}}</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             @endcan
 
@@ -93,34 +108,38 @@
             @endcan
 
             @can('fine-list')
-                <li class=" nav-item @if(Request::is('admin/fines')) active  @endif">
-                    <a href="{{ route('admin.fines.index') }}">
-                        <i class="feather icon-dollar-sign"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.fines')}}</span>
-                    </a>
-                </li>
-            @endcan
-
-            @can('fine-type-list')
-                <li class=" nav-item @if(Request::is('admin/fine-types')) active  @endif">
-                    <a href="{{ route('admin.fine-types.index') }}">
-                        <i class="feather icon-eye"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.fine_types')}}</span>
-                    </a>
+                <li class=" nav-item ">
+                    <a href="#"><i class="feather icon-dollar-sign"></i><span class="menu-title" data-i18n="Starter kit">{{__('main.fines')}}</span></a>
+                    <ul class="menu-content">
+                        <li class=" nav-item @if(Request::is('admin/fines')) active  @endif">
+                            <a href="{{ route('admin.fines.index') }}">
+                                <i class="feather icon-dollar-sign"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.fines')}}</span>
+                            </a>
+                        </li>
+                        <li class=" nav-item @if(Request::is('admin/fine-types')) active  @endif">
+                            <a href="{{ route('admin.fine-types.index') }}">
+                                <i class="feather icon-eye"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.fine_types')}}</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             @endcan
 
             @can('user-list')
-                <li class=" nav-item @if(Request::is('admin/users')) active  @endif">
-                    <a href="{{ route('admin.users.index') }}">
-                        <i class="feather icon-users"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.users')}}</span>
-                    </a>
-                </li>
-            @endcan
-
-            @can('role-list')
-                <li class=" nav-item @if(Request::is('admin/roles')) active  @endif">
-                    <a href="{{ route('admin.roles.index') }}">
-                        <i class="feather icon-shield-off"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.roles')}}</span>
-                    </a>
+                <li class=" nav-item ">
+                    <a href="#"><i class="feather icon-users"></i><span class="menu-title" data-i18n="Starter kit">{{__('main.users_permissions')}}</span></a>
+                    <ul class="menu-content">
+                        <li class=" nav-item @if(Request::is('admin/users')) active  @endif">
+                            <a href="{{ route('admin.users.index') }}">
+                                <i class="feather icon-users"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.users')}}</span>
+                            </a>
+                        </li>
+                        <li class=" nav-item @if(Request::is('admin/roles')) active  @endif">
+                            <a href="{{ route('admin.roles.index') }}">
+                                <i class="feather icon-shield-off"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.roles')}}</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             @endcan
 
