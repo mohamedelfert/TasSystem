@@ -17,7 +17,25 @@
                                 <div class=" tab-menu-heading">
                                     {!! __('main.slots') !!}
                                 </div>
+
                                 <hr>
+
+                                <div class="alert alert-danger">
+                                    <h5>{{ __('main.remember') }} : </h5>
+                                    <ul>
+                                        <li>
+                                            {{ __('main.total_slots_required')  .' '. ( setting()->total ) .' '.  __('main.slots') }}
+                                        </li>
+                                        @foreach (\App\Models\SlotValidation::all() as $validation)
+                                            <li>
+                                                <span>
+                                                    {{ __('main.slot_validation_required') . Carbon\Carbon::parse($validation->start)->timezone(auth()->user()->timezone)->format('g:i A') . __('main.and_end_time') . Carbon\Carbon::parse($validation->end)->timezone(auth()->user()->timezone)->format('g:i A') . __('main.is') }}
+                                                </span>( {{ $validation->number }} ) {{  __('main.slots') }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+
                                 <div class="panel-body tabs-menu-body main-content-body-right border">
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -56,7 +74,7 @@
                                                                 @foreach ($workdays as $workday)
                                                                     <th class="wd-10p border-bottom-0">
                                                                         <label class="block text-gray-500 font-semibold sm:border-r sm:pr-4">
-                                                                            <input name="slots[{{ $slot->id }}][{{ $workday->id }}]" value="{{ old('slots',$workday->id) }}"
+                                                                            <input name="slots[{{ $slot->id }}][{{ $workday->id }}]" value="{{ $workday->id }}"
                                                                                    class="leading-tight" type="checkbox">
                                                                         </label>
                                                                     </th>

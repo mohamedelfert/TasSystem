@@ -3,20 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SlotTeacher extends Model
 {
-
     protected $table = 'slot_teacher';
-    public $timestamps = true;
-
-    use SoftDeletes;
-
-    protected $dates = ['deleted_at'];
+    protected $guarded = ['id'];
 //    protected $fillable = array('slot_id', 'workday_id', 'teacher_id');
 
-    protected $guarded = ['id'];
+    public $timestamps = true;
 
     public function teacher()
     {

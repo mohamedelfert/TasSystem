@@ -35,41 +35,73 @@
                                             <form method="post" action="{{ route('teacher.doEditSlot',$teacher->id) }}">
                                                 @csrf
                                                 {{ method_field('PUT') }}
-                                                <table class="table text-md-nowrap" id="example1">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.slots') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.saturday') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.sunday') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.monday') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.tuesday') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.wednesday') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.thursday') !!}</th>
-                                                            <th class="wd-10p border-bottom-0">{!! __('main.friday') !!}</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach ($slots as $slot)
-                                                            <tr>
-                                                                <th class="wd-10p border-bottom-0">
-                                                                    {{  Carbon\Carbon::parse($slot->start_at)->timezone(auth()->user()->timezone)->format('g:i A') .' - '. Carbon\Carbon::parse($slot->end_at)->timezone(auth()->user()->timezone)->format('g:i A') }}
-                                                                </th>
-                                                                @foreach ($workdays as $workday)
-                                                                    <th class="wd-10p border-bottom-0">
-                                                                        <label class="block text-gray-500 font-semibold sm:border-r sm:pr-4">
-                                                                            @php
-                                                                                $count = \App\Models\SlotTeacher::where('teacher_id',auth()->guard('teacher')->id())->where('slot_id',$slot->id)->where('workday_id',$workday->id)->count();
-                                                                            @endphp
-                                                                            <input name="slots[{{ $slot->id }}][{{ $workday->id }}]" value="{{ $workday->id }}" class="leading-tight"
-                                                                                   type="checkbox" @checked($count > 0)>
-                                                                        </label>
-                                                                    </th>
-                                                                @endforeach
-                                                            </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                                {{input_error($errors,'slots')}}
+
+                                                <div class="row">
+                                                    <div class="form-group py-1 col-md-3">
+                                                        <label for="old_workday_id"> {{__('main.old_workdays')}}</label>
+                                                    </div>
+                                                    <div class="form-group col-md-9">
+                                                        <select name="old_workday_id" id="old_workday_id" class="form-control col">
+                                                            <option value="">{{ __('main.select_workday') }}</option>
+                                                            @foreach($workdays as $workday)
+                                                                <option value="{{ $workday->id }}">
+                                                                    {{ $workday->day }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        {{input_error($errors,'old_workday_id')}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="form-group py-1 col-md-3">
+                                                        <label for="old_slot_id"> {{__('main.old_slots')}}</label>
+                                                    </div>
+                                                    <div class="form-group col-md-9">
+                                                        <select name="old_slot_id" id="old_slot_id" class="form-control col">
+                                                            {{--                                                            @foreach($slotsTeacher as $slotTeacher)--}}
+                                                            {{--                                                                <option value="{{ $slotTeacher->id }}">--}}
+                                                            {{--                                                                    {{ Carbon\Carbon::parse($slotTeacher->slot->start_at)->timezone(auth()->user()->timezone)->format('g:i A') .' - '. Carbon\Carbon::parse($slotTeacher->slot->end_at)->timezone(auth()->user()->timezone)->format('g:i A') }}--}}
+                                                            {{--                                                                </option>--}}
+                                                            {{--                                                            @endforeach--}}
+                                                        </select>
+                                                        {{input_error($errors,'old_slot_id')}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="form-group py-1 col-md-3">
+                                                        <label for="workday_id"> {{__('main.new_workday')}}</label>
+                                                    </div>
+                                                    <div class="form-group col-md-9">
+                                                        <select name="workday_id" id="workday_id"
+                                                                class="form-control col">
+                                                            <option value="">{{ __('main.select_workday') }}</option>
+                                                            @foreach($workdays as $workday)
+                                                                <option value="{{ $workday->id }}">
+                                                                    {{ $workday->day }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        {{input_error($errors,'workday_id')}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="form-group py-1 col-md-3">
+                                                        <label for="slot_id"> {{__('main.new_slot')}}</label>
+                                                    </div>
+                                                    <div class="form-group col-md-9">
+                                                        <select name="slot_id" id="slot_id" class="form-control col">
+                                                            {{--                                                            @foreach($slots as $slot)--}}
+                                                            {{--                                                                <option value="{{ $slot->id }}">--}}
+                                                            {{--                                                                    {{ Carbon\Carbon::parse($slot->start_at)->timezone(auth()->user()->timezone)->format('g:i A') .' - '. Carbon\Carbon::parse($slot->end_at)->timezone(auth()->user()->timezone)->format('g:i A') }}--}}
+                                                            {{--                                                                </option>--}}
+                                                            {{--                                                            @endforeach--}}
+                                                        </select>
+                                                        {{input_error($errors,'slot_id')}}
+                                                    </div>
+                                                </div>
 
                                                 <div class="modal-footer" style="margin-top: 10px">
                                                     @component('teacher-dashboard.layouts.partials.buttons._save_button',[])
@@ -86,4 +118,53 @@
             </div>
         </div>
     </div>
+@endsection
+@section('footer')
+    <script>
+        // this to get slots choose before
+        $(document).ready(function () {
+            $('select[name="old_workday_id"]').on('change', function () {
+                let old_workday_id = $(this).val();
+                if (old_workday_id) {
+                    $.ajax({
+                        url: "{{ route('teacher.getSlots') }}",
+                        type: 'GET',
+                        data: {id: old_workday_id},
+                        dataType: 'JSON',
+                        success: function (data) {
+                            $('select[name="old_slot_id"]').empty()
+                            $.each(data, function (key, value) {
+                                $('select[name="old_slot_id"]').append(`<option value="${value}">${value}</option>`);
+                            });
+                        }
+                    })
+                } else {
+                    console.log('Ajax Load Failed');
+                }
+            });
+        });
+
+        // this to new slots did not choose
+        $(document).ready(function () {
+            $('select[name="workday_id"]').on('change', function () {
+                let workday_id = $(this).val();
+                if (workday_id) {
+                    $.ajax({
+                        url: "{{ route('teacher.getNewSlots') }}",
+                        type: 'GET',
+                        data: {id: workday_id},
+                        dataType: 'JSON',
+                        success: function (data) {
+                            $('select[name="slot_id"]').empty()
+                            $.each(data, function (key, value) {
+                                $('select[name="slot_id"]').append(`<option value="${key}">${value}</option>`);
+                            });
+                        }
+                    })
+                } else {
+                    console.log('Ajax Load Failed');
+                }
+            });
+        });
+    </script>
 @endsection

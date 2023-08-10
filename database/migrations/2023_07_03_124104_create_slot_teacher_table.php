@@ -9,11 +9,10 @@ class CreateSlotTeacherTable extends Migration {
 	{
 		Schema::create('slot_teacher', function(Blueprint $table) {
 			$table->increments('id');
-			$table->timestamps();
-			$table->softDeletes();
 			$table->integer('slot_id')->unsigned();
 			$table->integer('workday_id')->unsigned();
 			$table->string('teacher_id');
+            $table->timestamps();
 		});
 	}
 

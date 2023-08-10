@@ -34,9 +34,17 @@ Route::prefix('teacher')->name('teacher.')->middleware(['auth:teacher'])->group(
 //    Route::get('pay/{id}', [FineController::class,'payFine'])->name('payFine');
 
     Route::resource('slots', SlotController::class);
+
+    Route::get('getSlots', [SlotController::class, 'getSlots'])->name('getSlots');
+
+    Route::get('getNewSlots', [SlotController::class, 'getNewSlots'])->name('getNewSlots');
+
     Route::get('createSlot', [SlotController::class, 'createSlot'])->name('createSlot');
+
     Route::post('doCreateSlot', [SlotController::class, 'doCreateSlot'])->name('doCreateSlot');
+
     Route::get('editSlot/{id}', [SlotController::class, 'editSlot'])->name('editSlot');
+
     Route::put('doEditSlot/{id}', [SlotController::class, 'doEditSlot'])->name('doEditSlot');
 
     //================= this route for change language ( ar - en ) ===================//
