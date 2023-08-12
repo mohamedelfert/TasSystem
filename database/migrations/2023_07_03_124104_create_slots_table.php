@@ -11,9 +11,9 @@ class CreateSlotsTable extends Migration {
 			$table->increments('id');
 			$table->time('start_at');
 			$table->time('end_at');
-			$table->softDeletes();
-			$table->timestamps();
-		});
+            $table->timestamps();
+            $table->softDeletes();
+        });
 	}
 
 	public function down()

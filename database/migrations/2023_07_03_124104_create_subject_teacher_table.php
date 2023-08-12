@@ -9,10 +9,10 @@ class CreateSubjectTeacherTable extends Migration {
 	{
 		Schema::create('subject_teacher', function(Blueprint $table) {
 			$table->increments('id');
-			$table->timestamps();
-			$table->integer('subject_id')->unsigned();
-			$table->integer('teacher_id')->unsigned();
-		});
+            $table->integer('subject_id')->unsigned();
+            $table->integer('teacher_id')->unsigned();
+            $table->timestamps();
+        });
 	}
 
 	public function down()

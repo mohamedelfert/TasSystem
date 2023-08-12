@@ -47,6 +47,36 @@ class CreateForeignKeys extends Migration {
 						->onDelete('cascade')
 						->onUpdate('restrict');
 		});
+        Schema::table('orders', function(Blueprint $table) {
+            $table->foreign('teacher_id')->references('id')->on('teachers')
+                ->onDelete('cascade')
+                ->onUpdate('restrict');
+        });
+        Schema::table('orders', function(Blueprint $table) {
+            $table->foreign('branch_id')->references('id')->on('branches')
+                ->onDelete('cascade')
+                ->onUpdate('restrict');
+        });
+        Schema::table('orders', function(Blueprint $table) {
+            $table->foreign('subject_id')->references('id')->on('subjects')
+                ->onDelete('cascade')
+                ->onUpdate('restrict');
+        });
+        Schema::table('order_details', function(Blueprint $table) {
+            $table->foreign('order_id')->references('id')->on('orders')
+                ->onDelete('cascade')
+                ->onUpdate('restrict');
+        });
+        Schema::table('order_details', function(Blueprint $table) {
+            $table->foreign('subject_id')->references('id')->on('subjects')
+                ->onDelete('cascade')
+                ->onUpdate('restrict');
+        });
+        Schema::table('order_details', function(Blueprint $table) {
+            $table->foreign('slot_id')->references('id')->on('slots')
+                ->onDelete('cascade')
+                ->onUpdate('restrict');
+        });
 	}
 
 	public function down()
@@ -75,5 +105,23 @@ class CreateForeignKeys extends Migration {
 		Schema::table('fines', function(Blueprint $table) {
 			$table->dropForeign('fines_teacher_id_foreign');
 		});
+        Schema::table('orders', function(Blueprint $table) {
+            $table->dropForeign('orders_teacher_id_foreign');
+        });
+        Schema::table('orders', function(Blueprint $table) {
+            $table->dropForeign('orders_branch_id_foreign');
+        });
+        Schema::table('orders', function(Blueprint $table) {
+            $table->dropForeign('orders_subject_id_foreign');
+        });
+        Schema::table('order_details', function(Blueprint $table) {
+            $table->dropForeign('order_details_order_id_foreign');
+        });
+        Schema::table('order_details', function(Blueprint $table) {
+            $table->dropForeign('order_details_subject_id_foreign');
+        });
+        Schema::table('order_details', function(Blueprint $table) {
+            $table->dropForeign('order_details_slot_id_foreign');
+        });
 	}
 }

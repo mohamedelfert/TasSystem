@@ -9,10 +9,10 @@ class CreateSystemTeacherTable extends Migration {
 	{
 		Schema::create('system_teacher', function(Blueprint $table) {
 			$table->increments('id');
-			$table->timestamps();
-			$table->bigInteger('system_id');
-			$table->bigInteger('teacher_id');
-		});
+            $table->integer('system_id');
+            $table->integer('teacher_id');
+            $table->timestamps();
+        });
 	}
 
 	public function down()

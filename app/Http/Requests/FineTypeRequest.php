@@ -29,7 +29,8 @@ class FineTypeRequest extends FormRequest
                 'regex:/^[a-zA-Z\p{Arabic}\s]+$/',
                 Rule::unique('fine_types', 'name')->ignore($this->fine_type)
             ],
-            'price' => 'required|numeric|integer',
+            'type' => 'required',
+            'price' => 'required|numeric',
         ];
     }
 }

@@ -1,8 +1,14 @@
 @extends('dashboard.layouts.app')
-@section('title'){!! __('main.create_slot_validation') !!}@endsection
+@section('title'){!! __('main.slots_validation') !!}@endsection
 @section('header')@endsection
 @section('breadcrumb')
-    @include('dashboard.layouts.partials._breadcrumb',['level'=>'slots-validation'])
+    <h2 class="content-header-title float-left mb-0">@yield('title')</h2>
+    <div class="breadcrumb-wrapper col-12">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{route('admin.home')}}">{{__('Home')}}</a></li>
+            <li class="breadcrumb-item"><a href="{!! route('admin.editSlotValidation') !!}">{{__(ucfirst('slots-validation'))}}</a></li>
+        </ol>
+    </div>
 @endsection
 @section('content')
     <section id="column-selectors">
@@ -25,8 +31,9 @@
                                 </div>
                             @endif
 
-                            {!! Form::open(['method'=>'post','route'=>'admin.doEditSlotValidation','class'=>'form','enctype' => 'multipart/form-data']) !!}
-                            @csrf()
+                            {!! Form::model(['method'=>'put','route'=>['admin.doEditSlotValidation'],'class'=>'form','enctype' => 'multipart/form-data']  ) !!}
+                                @csrf()
+                                {{ method_field('put') }}
                                 <div class="repeater">
                                     <div data-repeater-list="slots_list">
                                         <div class="row">
@@ -38,32 +45,35 @@
                                             </div>
                                         </div>
                                         <div class="div_inputs" data-repeater-item>
-{{--                                            <div class="row">--}}
-{{--                                                <div class="form-group py-1 col-md-4">--}}
-{{--                                                    <label for="formInputRole"> {{__('main.start')}}</label>--}}
-{{--                                                    {!! Form::time('start[]',null,['class'=>'form-control col',--}}
-{{--                                                        isset($readOnly)?$readOnly:null,disable_on_show()]) !!}--}}
-{{--                                                    {{input_error($errors,'start[]')}}--}}
-{{--                                                </div>--}}
+                                            @foreach($slotsValidation as $slot)
+                                                <div class="row">
+                                                    <input type="hidden" name="ids[]" class="form-control col" value="{{$slot->id}}">
+                                                    <div class="form-group py-1 col-md-4">
+                                                        <label for="formInputRole"> {{__('main.start')}}</label>
+                                                        {!! Form::time('start[]',$slot->start,['class'=>'form-control col',
+                                                            isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
+                                                        {{input_error($errors,'start[]')}}
+                                                    </div>
 
-{{--                                                <div class="form-group py-1 col-md-4">--}}
-{{--                                                    <label for="formInputRole"> {{__('main.end')}}</label>--}}
-{{--                                                    {!! Form::time('end[]',null,['class'=>'form-control col',--}}
-{{--                                                        isset($readOnly)?$readOnly:null,disable_on_show()]) !!}--}}
-{{--                                                    {{input_error($errors,'end[]')}}--}}
-{{--                                                </div>--}}
+                                                    <div class="form-group py-1 col-md-4">
+                                                        <label for="formInputRole"> {{__('main.end')}}</label>
+                                                        {!! Form::time('end[]',$slot->end,['class'=>'form-control col',
+                                                            isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
+                                                        {{input_error($errors,'end[]')}}
+                                                    </div>
 
-{{--                                                <div class="form-group py-1 col-md-3">--}}
-{{--                                                    <label for="number"> {{__('main.number')}}</label>--}}
-{{--                                                    {!! Form::number('number[]',null,['id'=>'number','class'=>'form-control col','min'=>'0','max'=>'100','placeholder'=>__("main.number"),--}}
-{{--                                                        isset($readOnly)?$readOnly:null,disable_on_show(),'required']) !!}--}}
-{{--                                                    {{input_error($errors,'number[]')}}--}}
-{{--                                                </div>--}}
+                                                    <div class="form-group py-1 col-md-3">
+                                                        <label for="number"> {{__('main.number')}}</label>
+                                                        {!! Form::number('number[]',$slot->number,['id'=>'number','class'=>'form-control col','min'=>'0','max'=>'100','placeholder'=>__("main.number"),
+                                                            isset($readOnly)?$readOnly:null,disable_on_show(),'required']) !!}
+                                                        {{input_error($errors,'number[]')}}
+                                                    </div>
 
-{{--                                                <a href="#" class="btn btn-danger remove_input btn-sm mt-3 mb-3">--}}
-{{--                                                    <i class="fa fa-trash"></i>--}}
-{{--                                                </a>--}}
-{{--                                            </div>--}}
+                                                    <a href="#" class="btn btn-danger remove_input btn-sm mt-3 mb-3">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                     <div class="row">
@@ -93,6 +103,7 @@
             if (x < max_inputs) {
                 $('.div_inputs').append(
                     `
+                        <input type="hidden" name="ids[]" class="form-control col" value="">
                         <div class="row">
                             <div class="form-group py-1 col-md-4">
                             <label for="formInputRole"> {{__('main.start')}}</label>
@@ -128,6 +139,29 @@
             $(this).parent('div').remove();
             x--;
             return false;
+        });
+
+        // delete
+        $(document).ready(function () {
+            $('select[name="old_workday_id"]').on('change', function () {
+                let old_workday_id = $(this).val();
+                if (old_workday_id) {
+                    $.ajax({
+                        url: "{{ route('teacher.getSlots') }}",
+                        type: 'GET',
+                        data: {id: old_workday_id},
+                        dataType: 'JSON',
+                        success: function (data) {
+                            $('select[name="old_slot_id"]').empty()
+                            $.each(data, function (key, value) {
+                                $('select[name="old_slot_id"]').append(`<option value="${value}">${value}</option>`);
+                            });
+                        }
+                    })
+                } else {
+                    console.log('Ajax Load Failed');
+                }
+            });
         });
     </script>
 @endsection

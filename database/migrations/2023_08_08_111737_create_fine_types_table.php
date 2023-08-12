@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('fine_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->enum('type',['edit','cancel','delete','delay']);
             $table->decimal('price', 8,2);
             $table->timestamps();
         });

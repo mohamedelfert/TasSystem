@@ -45,14 +45,14 @@
                                 <i class="feather icon-clock"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.slots')}}</span>
                             </a>
                         </li>
-                        <li class=" nav-item @if(Request::is('admin/slots-validation')) active  @endif">
-                            <a href="{{ route('admin.slots-validation.index') }}">
-                                <i class="feather icon-clock"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.slots_validation')}}</span>
-                            </a>
-                        </li>
+{{--                        <li class=" nav-item @if(Request::is('admin/slots-validation')) active  @endif">--}}
+{{--                            <a href="{{ route('admin.slots-validation.index') }}">--}}
+{{--                                <i class="feather icon-clock"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.slots_validation')}}</span>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
                         <li class=" nav-item @if(Request::is('admin/slot-validation')) active  @endif">
                             <a href="{{ route('admin.editSlotValidation') }}">
-                                <i class="feather icon-clock"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.create_slot_validation')}}</span>
+                                <i class="feather icon-clock"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.slots_validation')}}</span>
                             </a>
                         </li>
                     </ul>

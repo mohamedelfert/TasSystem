@@ -10,9 +10,15 @@
     {{input_error($errors,'name[en]')}}
 </div>
 
-<div class="form-group py-1 col-md-12">
+<div class="form-group py-1 col-md-6">
     <label for="price"> {{__('main.price')}}</label>
     {!! Form::number('price',null,['id'=>'price','class'=>'form-control col','min'=>'0','max'=>'100','placeholder'=>__("main.price"),
         isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
     {{input_error($errors,'price')}}
+</div>
+
+<div class="form-group py-1 col-md-6">
+    <label for="formInputRole"> {{__('main.type')}}</label>
+    {!! Form::select('type',['edit'=>__('main.edit'),'cancel'=>__('main.cancel'),'delete'=>__('main.delete'),'delay'=>__('main.delay')] ,null,['class'=>'form-control mb-2','id'=>'type',disable_on_show()]) !!}
+    {{input_error($errors,'type')}}
 </div>

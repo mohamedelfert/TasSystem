@@ -10,11 +10,9 @@ class CreateWorkdaysTable extends Migration {
 		Schema::create('workdays', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('day');
-			$table->datetime('date');
-			$table->string('name_slot');
-			$table->softDeletes();
-			$table->timestamps();
-		});
+            $table->timestamps();
+            $table->softDeletes();
+        });
 	}
 
 	public function down()

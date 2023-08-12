@@ -17,7 +17,7 @@ class CreateTeachersTable extends Migration {
 			$table->text('address')->nullable();
 			$table->enum('status', array('active', 'inactive'))->default('inactive');
 			$table->enum('work', array('yes', 'no'))->default('no');
-			$table->bigInteger('country_id')->nullable();
+			$table->integer('country_id')->nullable();
 			$table->string('language')->nullable();
             $table->timestamps();
             $table->softDeletes();

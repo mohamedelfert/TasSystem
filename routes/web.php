@@ -53,11 +53,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:web', 'auto_check_perm
     Route::get('slots/restoreAllSlots', [SlotController::class, 'restoreAll'])->name('restoreAllSlots');
 
     /********************************* Slots Validation **************************************/
-    Route::resource('slots-validation', SlotValidationController::class);
-    Route::get('slot-validation', [SlotValidationController::class, 'editSlotValidation'])->name('editSlotValidation');
-    Route::post('slot-validation', [SlotValidationController::class, 'doEditSlotValidation'])->name('doEditSlotValidation');
-    Route::get('slots-validation/restore/one/{id}', [SlotValidationController::class, 'restore'])->name('restoreSlotValidation');
-    Route::get('slots-validation/restoreAllSlotsValidation', [SlotValidationController::class, 'restoreAll'])->name('restoreAllSlotsValidation');
+//    Route::resource('slots-validation', SlotValidationController::class);
+    Route::get('slot-validations', [SlotValidationController::class, 'editSlotValidation'])->name('editSlotValidation');
+    Route::put('slot-validations', [SlotValidationController::class, 'doEditSlotValidation'])->name('doEditSlotValidation');
+//    Route::get('slots-validation/restore/one/{id}', [SlotValidationController::class, 'restore'])->name('restoreSlotValidation');
+//    Route::get('slots-validation/restoreAllSlotsValidation', [SlotValidationController::class, 'restoreAll'])->name('restoreAllSlotsValidation');
 
     /********************************* Workdays **************************************/
     Route::resource('workdays', WorkdayController::class);

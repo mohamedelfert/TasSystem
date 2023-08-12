@@ -1,6 +1,7 @@
 <tr>
     <td>{!! $loop->index +1 !!}</td>
     <td>{!! session('lang') == 'ar' ? $fine->getTranslation('name', 'ar') : $fineType->getTranslation('name', 'en') !!}</td>
+    <td>{!! $fineType->type !!}</td>
     <td>{!! $fineType->price !!} $</td>
     <td>
         <div class="btn-group" role="group" aria-label="Vertical button group">

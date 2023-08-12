@@ -10,10 +10,10 @@ class CreateSubjectsTable extends Migration {
 		Schema::create('subjects', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('name');
-			$table->bigInteger('system_id');
-			$table->softDeletes();
-			$table->timestamps();
-		});
+			$table->integer('system_id');
+            $table->timestamps();
+            $table->softDeletes();
+        });
 	}
 
 	public function down()

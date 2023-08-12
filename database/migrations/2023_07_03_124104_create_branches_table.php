@@ -11,10 +11,10 @@ class CreateBranchesTable extends Migration {
 			$table->increments('id');
 			$table->string('name');
 			$table->text('address');
-			$table->string('email');
-			$table->string('phone');
+			$table->string('email')->nullable();
+			$table->string('phone')->unique();
 			$table->enum('status', array('open', 'close'));
-			$table->bigInteger('country_id');
+			$table->integer('country_id');
 			$table->decimal('lat', 10,7);
 			$table->decimal('lng', 10,7);
             $table->timestamps();

@@ -9,10 +9,10 @@ class CreateBranchTeacherTable extends Migration {
 	{
 		Schema::create('branch_teacher', function(Blueprint $table) {
 			$table->increments('id');
-			$table->timestamps();
-			$table->integer('branch_id')->unsigned();
-			$table->integer('teacher_id')->unsigned();
-		});
+            $table->integer('branch_id')->unsigned();
+            $table->integer('teacher_id')->unsigned();
+            $table->timestamps();
+        });
 	}
 
 	public function down()

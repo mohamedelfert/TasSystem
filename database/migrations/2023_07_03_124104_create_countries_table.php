@@ -9,9 +9,11 @@ class CreateCountriesTable extends Migration {
 	{
 		Schema::create('countries', function(Blueprint $table) {
 			$table->increments('id');
-			$table->timestamps();
-			$table->softDeletes();
-			$table->string('name');
+            $table->string('name');
+            $table->string('code');
+            $table->enum('status', ['active', 'inactive']);
+            $table->timestamps();
+            $table->softDeletes();
 		});
 	}
 
