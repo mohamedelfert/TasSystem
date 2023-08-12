@@ -37,6 +37,11 @@ class Order extends Model
         return $this->belongsTo(Slot::class);
     }
 
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
+
     public function fines()
     {
         return $this->morphMany(Fine::class, 'model');

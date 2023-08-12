@@ -30,6 +30,10 @@
                                                 <button class="btn btn-dark btn-sm" title="@lang('main.search')">
                                                     <i class="fa fa-search"></i>
                                                 </button>
+                                                <a class="btn btn-danger btn-sm" href="{{ route('teacher.orders.index') }}"
+                                                   title="@lang('main.clear')">
+                                                    <i class="fa fa-eraser"></i>
+                                                </a>
                                             </div>
                                         </form>
                                     </div>
@@ -43,6 +47,7 @@
                                                     <option value="" selected disabled>{!! __('main.search_by_status') !!}</option>
                                                     <option value="accepted">{!! __('main.accepted') !!}</option>
                                                     <option value="cancelled">{!! __('main.cancelled') !!}</option>
+                                                    <option value="completed">{!! __('main.completed') !!}</option>
                                                 </select>
                                             </label>
                                         </form>
@@ -75,7 +80,6 @@
                                                         <th class="wd-10p border-bottom-0">{!! __('main.order_number') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.subject') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.date') !!}</th>
-                                                        <th class="wd-10p border-bottom-0">{!! __('main.slot') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.branch') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.finished_at') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.price') !!}</th>
@@ -89,15 +93,10 @@
                                                         @foreach ($orders as $index => $order)
                                                             <tr>
                                                                 <th class="wd-5p border-bottom-0">{{ $index + 1 }}</th>
-                                                                <th class="wd-10p border-bottom-0">{{ $order->order_id }}</th>
+                                                                <th class="wd-10p border-bottom-0">{{ optional($order->orderDetails()->first())->order_id }}</th>
                                                                 <th class="wd-10p border-bottom-0">{{ optional($order->subject)->name }}</th>
                                                                 <th class="wd-10p border-bottom-0">
                                                                     <span class="badge badge-pill badge-primary">{{ $order->date }}</span>
-                                                                </th>
-                                                                <th class="wd-10p border-bottom-0">
-                                                                    <span class="badge badge-pill badge-secondary">
-                                                                        {{ Carbon\Carbon::parse(optional($order->slot)->start_at)->format('g:i A') .' - '. Carbon\Carbon::parse(optional($order->slot)->end_at)->format('g:i A') }}
-                                                                    </span>
                                                                 </th>
                                                                 <th class="wd-10p border-bottom-0">
                                                                     <span class="badge badge-pill badge-light-danger">
@@ -127,13 +126,9 @@
                                                                     @endif
                                                                 </th>
                                                                 <th class="wd-10p border-bottom-0">
-                                                                    @if($order->status === 'accepted')
-                                                                        <a href="{{ route('teacher.cancelOrder',$order->id) }}">
-                                                                            <span class="btn btn-danger btn-sm">{!! __('main.cancel') !!}</span>
-                                                                        </a>
-                                                                    @else
-                                                                        <span class="btn btn-danger disabled btn-sm">{!! __('main.cancel') !!}</span>
-                                                                    @endif
+                                                                    <a href="{{ route('teacher.orderDetails',$order->id) }}">
+                                                                        <span class="btn btn-success btn-sm">{!! __('main.details') !!}</span>
+                                                                    </a>
                                                                 </th>
                                                             </tr>
                                                         @endforeach
@@ -141,7 +136,7 @@
                                                         <table class="table table-hover" id="example1" data-page-length='50' style=" text-align: center;">
                                                             <tbody>
                                                             <tr>
-                                                                <td colspan="8" class="text-center text-danger">{!! __('main.no_data_found') !!}</td>
+                                                                <td colspan="10" class="text-center text-danger">{!! __('main.no_data_found') !!}</td>
                                                             </tr>
                                                             </tbody>
                                                         </table>

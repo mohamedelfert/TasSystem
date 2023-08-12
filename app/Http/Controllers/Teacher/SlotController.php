@@ -14,6 +14,7 @@ use App\Models\Subject;
 use App\Models\Teacher;
 use App\Models\Workday;
 use Carbon\Carbon;
+use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Illuminate\Http\Request;
 
 class SlotController extends Controller
@@ -204,5 +205,29 @@ class SlotController extends Controller
 //        $slotTeacher = SlotTeacher::where('teacher_id', auth()->user()->id)->where('workday_id', $request->id)->pluck('slot_id', 'id')->toArray();
 //        return SlotTeacher::where('teacher_id', auth()->user()->id)->where('workday_id', $request->id)->pluck('slot_id', 'id');
         return Slot::get()->pluck('start_at', 'id');
+    }
+
+    public function checkout($price)
+    {
+        return view('teacher-dashboard.slots.checkout', compact('price'));
+    }
+
+    public function pay(Request $request)
+    {
+        $charge = Stripe::charges()->create([
+            'currency' => 'USD',
+            'source' => $request->stripeToken,
+            'amount' => $request->price,
+            'description' => 'Payment From Tas System',
+        ]);
+
+        $chargeId = $charge['id'];
+
+        if ($chargeId) {
+            toast(__('Payment was done successfully'), 'success');
+            return redirect()->route('teacher.editSlot',auth()->user()->id);
+        } else {
+            return redirect()->back();
+        }
     }
 }

@@ -104,6 +104,13 @@
                                                 </div>
 
                                                 <div class="modal-footer" style="margin-top: 10px">
+{{--                                                    @php--}}
+{{--                                                        $fineType = \App\Models\FineType::where('type','edit')->first();--}}
+{{--                                                    @endphp--}}
+{{--                                                    <a href="{{ route('teacher.checkout',$fineType->price) }}"--}}
+{{--                                                       class="btn btn-success float-right" title="@lang('main.edit')">--}}
+{{--                                                        <i class="fa fa-edit"> @lang('main.edit') </i>--}}
+{{--                                                    </a>--}}
                                                     @component('teacher-dashboard.layouts.partials.buttons._save_button',[])
                                                     @endcomponent
                                                 </div>

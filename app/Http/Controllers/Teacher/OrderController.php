@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Subject;
 use App\Models\Teacher;
+use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -16,6 +18,13 @@ class OrderController extends Controller
             ->latest()->paginate(10);
         $subjects = Subject::all();
         return view('teacher-dashboard.orders.index', compact('orders', 'subjects'));
+    }
+
+    public function orderDetails($id)
+    {
+        $orderDetails = OrderDetail::with('order')->where('order_id', $id)
+            ->latest()->paginate(10);
+        return view('teacher-dashboard.orders.order-details', compact('orderDetails'));
     }
 
     public function filterSubject(Request $request)
@@ -49,9 +58,34 @@ class OrderController extends Controller
         return view('teacher-dashboard.orders.index', compact('orders', 'from_date', 'to_date', 'subjects'));
     }
 
+    public function checkout($price)
+    {
+        return view('teacher-dashboard.orders.checkout', compact('price'));
+    }
+
+    public function pay(Request $request)
+    {
+        $charge = Stripe::charges()->create([
+            'currency' => 'USD',
+            'source' => $request->stripeToken,
+            'amount' => $request->price,
+            'description' => 'Payment From Tas System',
+        ]);
+
+        $chargeId = $charge['id'];
+
+        if ($chargeId) {
+            toast(__('Payment was done successfully'), 'success');
+            return redirect()->route('teacher.editSlot',auth()->user()->id);
+        } else {
+            return redirect()->back();
+        }
+    }
+
     public function cancelOrder($id)
     {
-        $order = Order::findOrFail($id);
+        $orderDetail = OrderDetail::findOrFail($id);
+        return $orderDetail;
         $order->update(['status' => 'cancelled']);
 
         // fines create
@@ -65,15 +99,6 @@ class OrderController extends Controller
 
         toast(__('main.data_cancelled_successfully'), 'success');
         return back();
-    }
-
-    public function newOrders()
-    {
-        $orders = Order::with('teacher')->where('teacher_id', auth()->user()->id)
-            ->where('status', 'pending')
-            ->latest()->paginate(10);
-        $subjects = Subject::all();
-        return view('teacher-dashboard.orders.new-orders', compact('orders', 'subjects'));
     }
 
     public function finishedOrders()
