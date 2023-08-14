@@ -15,7 +15,7 @@ class OrderController extends Controller
             return $q->where('price', 'LIKE', '%' . $request->search . '%')
                 ->orWhere('order_id', 'LIKE', '%' . $request->search . '%')
                 ->orWhere('status', 'LIKE', '%' . $request->search . '%');
-        })->latest()->paginate(10);
+        })->withTrashed()->latest()->paginate(10);
         $teachers = Teacher::all();
         $subjects = Subject::all();
         return view('dashboard.orders.index', compact('orders', 'teachers', 'subjects'));

@@ -164,6 +164,7 @@ return [
         Camroncade\Timezone\TimezoneServiceProvider::class,
         Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class,
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
+        Paytabscom\Laravel_paytabs\PaypageServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -26,6 +26,11 @@ class Fine extends Model
         return $this->belongsTo(Teacher::class);
     }
 
+    public function fineType()
+    {
+        return $this->belongsTo(FineType::class);
+    }
+
     public function model()
     {
         return $this->morphTo();

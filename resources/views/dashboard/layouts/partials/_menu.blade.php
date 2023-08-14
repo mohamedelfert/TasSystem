@@ -50,7 +50,7 @@
 {{--                                <i class="feather icon-clock"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.slots_validation')}}</span>--}}
 {{--                            </a>--}}
 {{--                        </li>--}}
-                        <li class=" nav-item @if(Request::is('admin/slot-validation')) active  @endif">
+                        <li class=" nav-item @if(Request::is('admin/slot-validations')) active  @endif">
                             <a href="{{ route('admin.editSlotValidation') }}">
                                 <i class="feather icon-clock"></i><span class="menu-item" data-i18n="Fixed navbar">{{__('main.slots_validation')}}</span>
                             </a>

@@ -44,7 +44,7 @@
                                                         <select name="old_workday_id" id="old_workday_id" class="form-control col">
                                                             <option value="">{{ __('main.select_workday') }}</option>
                                                             @foreach($workdays as $workday)
-                                                                <option value="{{ $workday->id }}">
+                                                                <option {{ old('old_workday_id') == $workday->id ? 'selected':'' }} value="{{ $workday->id }}">
                                                                     {{ $workday->day }}
                                                                 </option>
                                                             @endforeach
@@ -58,13 +58,7 @@
                                                         <label for="old_slot_id"> {{__('main.old_slots')}}</label>
                                                     </div>
                                                     <div class="form-group col-md-9">
-                                                        <select name="old_slot_id" id="old_slot_id" class="form-control col">
-                                                            {{--                                                            @foreach($slotsTeacher as $slotTeacher)--}}
-                                                            {{--                                                                <option value="{{ $slotTeacher->id }}">--}}
-                                                            {{--                                                                    {{ Carbon\Carbon::parse($slotTeacher->slot->start_at)->timezone(auth()->user()->timezone)->format('g:i A') .' - '. Carbon\Carbon::parse($slotTeacher->slot->end_at)->timezone(auth()->user()->timezone)->format('g:i A') }}--}}
-                                                            {{--                                                                </option>--}}
-                                                            {{--                                                            @endforeach--}}
-                                                        </select>
+                                                        <select name="old_slot_id" id="old_slot_id" class="form-control col"></select>
                                                         {{input_error($errors,'old_slot_id')}}
                                                     </div>
                                                 </div>
@@ -78,7 +72,7 @@
                                                                 class="form-control col">
                                                             <option value="">{{ __('main.select_workday') }}</option>
                                                             @foreach($workdays as $workday)
-                                                                <option value="{{ $workday->id }}">
+                                                                <option {{ old('workday_id') == $workday->id ? 'selected':'' }} value="{{ $workday->id }}">
                                                                     {{ $workday->day }}
                                                                 </option>
                                                             @endforeach
@@ -92,25 +86,18 @@
                                                         <label for="slot_id"> {{__('main.new_slot')}}</label>
                                                     </div>
                                                     <div class="form-group col-md-9">
-                                                        <select name="slot_id" id="slot_id" class="form-control col">
-                                                            {{--                                                            @foreach($slots as $slot)--}}
-                                                            {{--                                                                <option value="{{ $slot->id }}">--}}
-                                                            {{--                                                                    {{ Carbon\Carbon::parse($slot->start_at)->timezone(auth()->user()->timezone)->format('g:i A') .' - '. Carbon\Carbon::parse($slot->end_at)->timezone(auth()->user()->timezone)->format('g:i A') }}--}}
-                                                            {{--                                                                </option>--}}
-                                                            {{--                                                            @endforeach--}}
-                                                        </select>
+                                                        <select name="slot_id" id="slot_id" class="form-control col"></select>
                                                         {{input_error($errors,'slot_id')}}
                                                     </div>
                                                 </div>
 
                                                 <div class="modal-footer" style="margin-top: 10px">
-{{--                                                    @php--}}
-{{--                                                        $fineType = \App\Models\FineType::where('type','edit')->first();--}}
-{{--                                                    @endphp--}}
-{{--                                                    <a href="{{ route('teacher.checkout',$fineType->price) }}"--}}
-{{--                                                       class="btn btn-success float-right" title="@lang('main.edit')">--}}
-{{--                                                        <i class="fa fa-edit"> @lang('main.edit') </i>--}}
-{{--                                                    </a>--}}
+                                                    @php
+                                                        $fineType = \App\Models\FineType::where('type','edit')->first();
+                                                    @endphp
+                                                    <input type="hidden" name="teacher_id" id="teacher_id" value="{{ $teacher->id }}">
+                                                    <input type="hidden" name="fine_type_id" id="fine_type_id" value="{{ $fineType->id }}">
+                                                    <input type="hidden" name="price" id="price" value="{{ $fineType->price }}">
                                                     @component('teacher-dashboard.layouts.partials.buttons._save_button',[])
                                                     @endcomponent
                                                 </div>
@@ -141,7 +128,7 @@
                         success: function (data) {
                             $('select[name="old_slot_id"]').empty()
                             $.each(data, function (key, value) {
-                                $('select[name="old_slot_id"]').append(`<option value="${value}">${value}</option>`);
+                                $('select[name="old_slot_id"]').append(`<option value="${key}">${value}</option>`);
                             });
                         }
                     })

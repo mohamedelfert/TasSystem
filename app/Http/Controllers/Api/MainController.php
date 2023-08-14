@@ -36,6 +36,8 @@ class MainController extends Controller
 //            return json_response($validate->errors(), 'Error Data Please Try Again!', '500');
 //        }
 
+        $countOrderDetails = count($request->details);
+
         $subject = Subject::findOrFail($request->subject_id);
 
         if ($request->final_price) {
@@ -50,6 +52,7 @@ class MainController extends Controller
             'teacher_id' => $request->teacher_id,
             'branch_id' => $request->branch_id,
             'subject_id' => $request->subject_id,
+            'count_order_details' => $countOrderDetails,
             'date' => $request->date,
             'price' => $request->price,
             'final_price' => $request->price,

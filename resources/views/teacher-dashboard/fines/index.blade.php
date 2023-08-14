@@ -24,6 +24,7 @@
                                                     <tr>
                                                         <th class="wd-5p border-bottom-0">#</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.subject') !!}</th>
+                                                        <th class="wd-10p border-bottom-0">{!! __('main.fine_type') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.price') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.status') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.payment_date') !!}</th>
@@ -35,7 +36,23 @@
                                                             <tr>
                                                                 <th class="wd-5p border-bottom-0">{{ $index + 1 }}</th>
                                                                 <th class="wd-10p border-bottom-0">
-                                                                    {{ optional($fine->model->subject)->name }}
+{{--                                                                    {{ optional($fine->model->subject)->name }}--}}
+                                                                    -
+                                                                </th>
+                                                                <th class="wd-10p border-bottom-0">
+                                                                    @if($fine->fine_type_id === 1)
+                                                                        <span class="badge badge-pill badge-light-danger">
+                                                                            {{ optional($fine->fineType)->getTranslation('name','en') }}
+                                                                        </span>
+                                                                    @elseif($fine->fine_type_id === 2)
+                                                                        <span class="badge badge-pill badge-light-warning">
+                                                                            {{ optional($fine->fineType)->getTranslation('name','en') }}
+                                                                        </span>
+                                                                    @else
+                                                                        <span class="badge badge-pill badge-light-success">
+                                                                            {{ optional($fine->fineType)->getTranslation('name','en') }}
+                                                                        </span>
+                                                                    @endif
                                                                 </th>
                                                                 <th class="wd-10p border-bottom-0">
                                                                     <span class="badge badge-pill badge-warning">
@@ -54,19 +71,10 @@
                                                                     @endif
                                                                 </th>
                                                                 <th class="wd-10p border-bottom-0">
-                                                                    <span class="badge badge-pill badge-secondary">
+                                                                    <span class="badge badge-pill badge-success">
                                                                         {{ $fine->payment_date }}
                                                                     </span>
                                                                 </th>
-{{--                                                                <th class="wd-10p border-bottom-0">--}}
-{{--                                                                    @if($fine->status === 'unpaid')--}}
-{{--                                                                        <a href="{{ route('teacher.payFine',$fine->id) }}">--}}
-{{--                                                                            <span class="btn btn-success">{!! __('main.pay') !!}</span>--}}
-{{--                                                                        </a>--}}
-{{--                                                                    @else--}}
-{{--                                                                        <span class="btn btn-success disabled">{!! __('main.pay') !!}</span>--}}
-{{--                                                                    @endif--}}
-{{--                                                                </th>--}}
                                                             </tr>
                                                         @endforeach
                                                     @else

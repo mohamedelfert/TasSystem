@@ -202,6 +202,7 @@
                                                         <thead>
                                                             <tr>
                                                                 <th class="wd-5p border-bottom-0">#</th>
+                                                                <th class="wd-10p border-bottom-0">{!! __('main.fine_type') !!}</th>
                                                                 <th class="wd-10p border-bottom-0">{!! __('main.price') !!}</th>
                                                                 <th class="wd-10p border-bottom-0">{!! __('main.status') !!}</th>
                                                                 <th class="wd-10p border-bottom-0">{!! __('main.created_at') !!}</th>
@@ -213,6 +214,21 @@
                                                                 @foreach ($teacher->fines as $index => $fine)
                                                                     <tr>
                                                                         <th class="wd-5p border-bottom-0">{{ $index + 1 }}</th>
+                                                                        <th>
+                                                                            @if($fine->fine_type_id === 1)
+                                                                                <span class="badge badge-pill badge-light-danger">
+                                                                                {{ optional($fine->fineType)->getTranslation('name','en') }}
+                                                                            </span>
+                                                                            @elseif($fine->fine_type_id === 2)
+                                                                                <span class="badge badge-pill badge-light-warning">
+                                                                                {{ optional($fine->fineType)->getTranslation('name','en') }}
+                                                                            </span>
+                                                                            @else
+                                                                                <span class="badge badge-pill badge-light-success">
+                                                                                {{ optional($fine->fineType)->getTranslation('name','en') }}
+                                                                            </span>
+                                                                            @endif
+                                                                        </th>
                                                                         <th class="wd-10p border-bottom-0">{{ $fine->price }} $</th>
                                                                         <th class="wd-10p border-bottom-0">
                                                                             @if($fine->status === 'paid')

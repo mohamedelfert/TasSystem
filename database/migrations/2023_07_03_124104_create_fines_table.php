@@ -13,6 +13,7 @@ class CreateFinesTable extends Migration {
 			$table->integer('teacher_id')->unsigned();
 			$table->decimal('price', 8,2);
             $table->datetime('payment_date');
+            $table->integer('fine_type_id');
             $table->enum('status', array('paid', 'unpaid'));
             $table->morphs('model');
 			$table->timestamps();

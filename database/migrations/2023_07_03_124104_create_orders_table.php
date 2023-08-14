@@ -14,6 +14,7 @@ class CreateOrdersTable extends Migration
             $table->integer('teacher_id')->unsigned();
             $table->integer('branch_id')->unsigned();
             $table->integer('subject_id')->unsigned();
+            $table->integer('count_order_details');
             $table->date('date');
             $table->datetime('finished_at')->nullable();
             $table->decimal('price');

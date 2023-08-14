@@ -163,71 +163,105 @@ class SlotController extends Controller
 
     public function doEditSlot(SlotEditRequest $request, $id)
     {
-        $teacher = Teacher::findOrFail($id);
+        try {
+            $details = $request;
+            $teacher = Teacher::findOrFail($id);
 
-        $slotTeacher = SlotTeacher::where('teacher_id', $teacher->id)
-            ->where('slot_id', $request->old_slot_id)
-            ->where('workday_id', $request->old_workday_id)
-            ->first();
+            $slotTeacher = SlotTeacher::where('teacher_id', $teacher->id)
+                ->where('slot_id', $request->old_slot_id)
+                ->where('workday_id', $request->old_workday_id)
+                ->first();
 
-        $oldSlotsTeacher = SlotTeacher::where('teacher_id', $teacher->id)
-            ->where('workday_id', $request->workday_id)
-            ->pluck('slot_id', 'id')
-            ->toArray();
+            $oldSlotsTeacher = SlotTeacher::where('teacher_id', $teacher->id)
+                ->where('workday_id', $request->workday_id)
+                ->pluck('slot_id', 'id')
+                ->toArray();
 
-        if ($slotTeacher->slot_id != $request->slot_id) {
-            if (in_array($request->slot_id, $oldSlotsTeacher)) {
-                toast(__('main.slot_choose_before'), 'error');
-                return redirect()->back();
+            if ($slotTeacher->slot_id != $request->slot_id) {
+                if (in_array($request->slot_id, $oldSlotsTeacher)) {
+                    toast(__('main.slot_choose_before'), 'error');
+                    return redirect()->back();
+                } else {
+//                $slotTeacher->update([
+//                    'slot_id' => $request->slot_id,
+//                    'workday_id' => $request->workday_id,
+//                    'teacher_id' => $teacher->id
+//                ]);
+                    return view('teacher-dashboard.slots.checkout', compact('details'));
+                }
             } else {
-                $slotTeacher->update([
-                    'slot_id' => $request->slot_id,
-                    'workday_id' => $request->workday_id,
-                    'teacher_id' => $teacher->id
-                ]);
+                toast(__('main.slot_choose_before'), 'error');
+                return redirect()->back()->with($request->all())->withErrors(['errors' => trans('main.slot_choose_before')]);
             }
-        } else {
-            toast(__('main.slot_choose_before'), 'error');
-            return redirect()->back();
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
-
-        toast(__('main.data_updated_successfully'), 'success');
-        return redirect(route('teacher.slots.index'));
     }
 
     public function getSlots(Request $request)
     {
-        return SlotTeacher::where('teacher_id', auth()->user()->id)->where('workday_id', $request->id)->pluck('slot_id', 'id');
+//        return SlotTeacher::where('teacher_id', auth()->user()->id)->where('workday_id', $request->id)->pluck('slot_id', 'id');
+        return SlotTeacher::join('slots', 'slot_teacher.slot_id', 'slots.id')
+            ->where('teacher_id', auth()->user()->id)
+            ->where('workday_id', $request->id)
+            ->select('slot_teacher.*', 'slots.start_at')
+            ->pluck('slots.start_at', 'slot_id', 'id');
     }
 
     public function getNewSlots(Request $request)
     {
 //        $slotTeacher = SlotTeacher::where('teacher_id', auth()->user()->id)->where('workday_id', $request->id)->pluck('slot_id', 'id')->toArray();
 //        return SlotTeacher::where('teacher_id', auth()->user()->id)->where('workday_id', $request->id)->pluck('slot_id', 'id');
-        return Slot::get()->pluck('start_at', 'id');
-    }
-
-    public function checkout($price)
-    {
-        return view('teacher-dashboard.slots.checkout', compact('price'));
+//        return Slot::get()->pluck('start_at', 'id');
+        return Slot::join('slot_teacher', 'slots.id', 'slot_teacher.slot_id')
+            ->join('workdays', 'workdays.id', 'slot_teacher.workday_id')
+            ->where('teacher_id', auth()->user()->id)
+            ->where('workday_id', '!=', $request->id)
+            ->select('slots.*', 'slot_teacher.*')
+            ->pluck('slots.start_at', 'slot_id', 'id');
     }
 
     public function pay(Request $request)
     {
-        $charge = Stripe::charges()->create([
-            'currency' => 'USD',
-            'source' => $request->stripeToken,
-            'amount' => $request->price,
-            'description' => 'Payment From Tas System',
-        ]);
+        try {
+            $charge = Stripe::charges()->create([
+                'currency' => 'USD',
+                'source' => $request->stripeToken,
+                'amount' => $request->price,
+                'description' => 'Payment From Tas System',
+            ]);
 
-        $chargeId = $charge['id'];
+            $chargeId = $charge['id'];
 
-        if ($chargeId) {
-            toast(__('Payment was done successfully'), 'success');
-            return redirect()->route('teacher.editSlot',auth()->user()->id);
-        } else {
-            return redirect()->back();
+            if ($chargeId) {
+                $slotTeacher = SlotTeacher::where('teacher_id', $request->teacher_id)
+                    ->where('slot_id', $request->old_slot_id)
+                    ->where('workday_id', $request->old_workday_id)
+                    ->first();
+
+                $slotTeacher->update([
+                    'slot_id' => $request->slot_id,
+                    'workday_id' => $request->workday_id,
+                    'teacher_id' => $request->teacher_id
+                ]);
+
+                // fines create in fines table after pay
+                $slotTeacher->fines()->create([
+                    'payment_method_id' => 1,
+                    'teacher_id' => $request->teacher_id,
+                    'price' => $request->price,
+                    'status' => 'paid',
+                    'payment_date' => now(),
+                    'fine_type_id' => $request->fine_type_id,
+                ]);
+
+                toast(__('Payment was done successfully'), 'success');
+                return redirect()->route('teacher.slots.index');
+            } else {
+                return redirect()->back();
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
         }
     }
 }

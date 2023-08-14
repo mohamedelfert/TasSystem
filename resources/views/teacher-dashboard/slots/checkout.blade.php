@@ -13,15 +13,12 @@
             -webkit-transition: box-shadow 150ms ease;
             transition: box-shadow 150ms ease;
         }
-
         .StripeElement--focus {
             box-shadow: 0 1px 3px 0 #cfd7df;
         }
-
         .StripeElement--invalid {
             border-color: #fa755a;
         }
-
         .StripeElement--webkit-autofill {
             background-color: #fefde5 !important;
         }
@@ -56,16 +53,22 @@
                                                                 <div class="media col-12 col-md-12 col-lg-12">
                                                                     <div class="media-body">
                                                                         <div class="alert alert-warning text-center mb-2 col-12 col-md-12 col-lg-12">
-                                                                            {{ __('main.message_for_edit_slot') }}<strong>$ {{ $price }}</strong>
+                                                                            {{ __('main.message_for_edit_slot') }}<strong>$ {{ $details->price }}</strong>
                                                                             {{ __('main.or_you_can') }}
                                                                             <a href="{{ route('teacher.slots.index') }}">{{ __('main.go_back') }}</a>
                                                                         </div>
 
                                                                         <div class="mb-2 col-12 col-md-12 col-lg-12">
-                                                                            <form action="{{ route('teacher.pay') }}" method="post" id="payment-form">
+                                                                            <form action="{{ route('teacher.slotFinePay') }}" method="post" id="payment-form">
                                                                                 @csrf
                                                                                 <div>
-                                                                                    <input type="hidden" name="price" value="{{ $price }}"/>
+                                                                                    <input type="hidden" name="price" id="price" value="{{ $details->price }}"/>
+                                                                                    <input type="hidden" name="old_workday_id" id="old_workday_id" value="{{ $details->old_workday_id }}"/>
+                                                                                    <input type="hidden" name="old_slot_id" id="old_slot_id" value="{{ $details->old_slot_id }}"/>
+                                                                                    <input type="hidden" name="workday_id" id="workday_id" value="{{ $details->workday_id }}"/>
+                                                                                    <input type="hidden" name="slot_id" id="slot_id" value="{{ $details->slot_id }}"/>
+                                                                                    <input type="hidden" name="teacher_id" id="teacher_id" value="{{ $details->teacher_id }}"/>
+                                                                                    <input type="hidden" name="fine_type_id" id="fine_type_id" value="{{ $details->fine_type_id }}"/>
                                                                                     <label for="card-element">
                                                                                         {{ __('main.credit_or_debit_card') }}
                                                                                     </label>

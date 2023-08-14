@@ -13,15 +13,12 @@
             -webkit-transition: box-shadow 150ms ease;
             transition: box-shadow 150ms ease;
         }
-
         .StripeElement--focus {
             box-shadow: 0 1px 3px 0 #cfd7df;
         }
-
         .StripeElement--invalid {
             border-color: #fa755a;
         }
-
         .StripeElement--webkit-autofill {
             background-color: #fefde5 !important;
         }
@@ -61,11 +58,24 @@
                                                                             <a href="{{ route('teacher.orders.index') }}">{{ __('main.go_back') }}</a>
                                                                         </div>
 
+                                                                        <div class="alert alert-secondary text-center mb-2 col-12 col-md-12 col-lg-12">
+                                                                            {{ __('main.slot') }} : <strong class="text-danger">{{ Carbon\Carbon::parse(optional($orderDetail->slot)->start_at)->format('g:i A') .' - '. Carbon\Carbon::parse(optional($orderDetail->slot)->end_at)->format('g:i A') }}</strong><br>
+                                                                            {{ __('main.date') }} : <strong class="text-danger">{{ $orderDetail->date }}</strong><br>
+                                                                            {{ __('main.order_id') }} : <strong class="text-danger">{{ $orderDetail->order_id }}</strong><br>
+                                                                            {{ __('main.app_order_id') }} : <strong class="text-danger">{{ $orderDetail->order->app_order_id }}</strong><br>
+                                                                            {{ __('main.app_detail_id') }} : <strong class="text-danger">{{ $orderDetail->app_detail_id }}</strong><br>
+                                                                        </div>
+
                                                                         <div class="mb-2 col-12 col-md-12 col-lg-12">
                                                                             <form action="{{ route('teacher.orderFinePay') }}" method="post" id="payment-form">
                                                                                 @csrf
                                                                                 <div>
                                                                                     <input type="hidden" name="price" value="{{ $price }}"/>
+                                                                                    <input type="hidden" name="fine_type_id" id="fine_type_id" value="{{ $fine_type_id }}">
+                                                                                    <input type="hidden" name="id" value="{{ $orderDetail->id }}"/>
+                                                                                    <input type="hidden" name="order_id" value="{{ $orderDetail->order_id }}"/>
+                                                                                    <input type="hidden" name="app_order_id" value="{{ $orderDetail->order->app_order_id }}"/>
+                                                                                    <input type="hidden" name="app_detail_id" value="{{ $orderDetail->app_detail_id }}"/>
                                                                                     <label for="card-element">
                                                                                         {{ __('main.credit_or_debit_card') }}
                                                                                     </label>
@@ -81,7 +91,7 @@
                                                                         </div>
 
                                                                         <div class="mb-2 col-12 col-md-12 col-lg-12">
-                                                                            <a href="{{ route('teacher.editSlot',auth()->user()->id) }}"
+                                                                            <a href="{{ route('teacher.orders.index') }}"
                                                                                class="btn btn-primary float-right ml-2" title="@lang('main.pay_cash')">
                                                                                 <i class="fa fa-edit"> @lang('main.pay_cash') </i>
                                                                             </a>

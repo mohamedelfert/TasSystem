@@ -24,6 +24,7 @@
                                                     <tr>
                                                         <th class="wd-5p border-bottom-0">#</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.slot') !!}</th>
+                                                        <th class="wd-10p border-bottom-0">{!! __('main.app_detail_id') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.date') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.options') !!}</th>
                                                     </tr>
@@ -38,13 +39,18 @@
                                                                         {{ Carbon\Carbon::parse(optional($detail->slot)->start_at)->format('g:i A') .' - '. Carbon\Carbon::parse(optional($detail->slot)->end_at)->format('g:i A') }}
                                                                     </span>
                                                                 </th>
+                                                                <th class="wd-5p border-bottom-0">{{ $detail->app_detail_id }}</th>
                                                                 <th class="wd-10p border-bottom-0">
                                                                     <span class="badge badge-pill badge-primary">{{ $detail->date }}</span>
                                                                 </th>
                                                                 <th class="wd-10p border-bottom-0">
-                                                                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancel">
+                                                                    <a class="btn btn-danger btn-sm" data-effect="effect-scale"data-toggle="modal"
+                                                                       href="#cancel" title="{!! __('main.cancel') !!}"
+                                                                       data-id="{{ $detail->id }}"
+                                                                       data-slot="{{ Carbon\Carbon::parse(optional($detail->slot)->start_at)->format('g:i A') .' - '. Carbon\Carbon::parse(optional($detail->slot)->end_at)->format('g:i A') }}"
+                                                                       data-date="{{ $detail->date }}">
                                                                         {!! __('main.cancel') !!}
-                                                                    </button>
+                                                                    </a>
                                                                 </th>
                                                             </tr>
                                                         @endforeach
@@ -71,29 +77,46 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade text-left" id="cancel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content">
+    <div class="modal fade" id="cancel">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-content-demo">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel1">{{__('main.cancel')}}</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h6 class="modal-title">{{__('main.cancel')}}</h6>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <div class="modal-body">
-                    <h5>{{__('main.cancel_record_msg')}}</h5>
-                </div>
-                <div class="modal-footer">
-                    @php
-                        $fineType = \App\Models\FineType::where('type','cancel')->first();
-                    @endphp
-                    <form method="get" action={{ route('teacher.orderCheckout',$fineType->price) }}>
-                        {{ csrf_field() }}
-                        <button type="submit" class="btn btn-danger">{!! __('main.cancel') !!}</button>
-                    </form>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{__('main.close')}}</button>
-                </div>
+                @php
+                    $fineType = \App\Models\FineType::where('type','cancel')->first();
+                @endphp
+                <form action="{{ route('teacher.orderCheckout',$fineType->price) }}" method="get">
+                    {{ csrf_field() }}
+                    <div class="modal-body">
+                        <p>{{__('main.cancel_record_msg')}}</p><br>
+                        <input type="hidden" name="fine_type_id" id="fine_type_id" value="{{ $fineType->id }}">
+                        <input type="hidden" name="id" id="id" value="">
+                        <input type="text" class="form-control mb-2" name="slot" id="slot" value="" disabled="disabled">
+                        <input type="text" class="form-control" name="date" id="date" value="" disabled="disabled">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" name="cancel" class="btn btn-danger">{{__('main.confirm')}}</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">{{__('main.close')}}</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+    <!-- Modal -->
+@endsection
+@section('footer')
+    <script>
+        $('#cancel').on('show.bs.modal', function(event) {
+            let button = $(event.relatedTarget)
+            let id = button.data('id')
+            let slot = button.data('slot')
+            let date = button.data('date')
+            let modal = $(this)
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #slot').val(slot);
+            modal.find('.modal-body #date').val(date);
+        })
+    </script>
 @endsection
