@@ -27,7 +27,7 @@
                                         <div class="float-right text-right">
                                             <p class="card-text text-dark">{{__('main.slots')}}</p>
                                             <h4>
-                                                {{ \App\Models\slotTeacher::where('teacher_id', auth()->user()->id)->count() }}
+                                                {{ \App\Models\SlotTeacher::where('teacher_id', auth()->user()->id)->count() }}
                                             </h4>
                                         </div>
                                     </div>
