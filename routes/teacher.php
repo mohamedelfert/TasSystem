@@ -26,7 +26,7 @@ Route::prefix('teacher')->name('teacher.')->middleware(['auth:teacher'])->group(
     Route::post('filter-status', [OrderController::class, 'filterStatus'])->name('filterStatus');
     Route::post('filter-subject', [OrderController::class, 'filterSubject'])->name('filterSubject');
     Route::post('date-search', [OrderController::class, 'dateSearch'])->name('dateSearch');
-    Route::get('paytabs/pay-success',[OrderController::class, 'orderPaySuccess'])->name('pay_success');
+    Route::post('paytabs/pay-success',[OrderController::class, 'orderPaySuccess'])->name('pay_success');
 
     /********************************* Fines **************************************/
     Route::resource('fines', FineController::class);
