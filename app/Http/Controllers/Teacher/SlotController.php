@@ -221,25 +221,25 @@ class SlotController extends Controller
     {
         $teacher = Teacher::findOrFail(auth()->user()->id);
 
-        $cart_id = $request->old_workday_id;
+        $old_workday_id = $request->old_workday_id;
         $old_slot_id = $request->old_slot_id;
         $workday_id = $request->workday_id;
         $slot_id = $request->slot_id;
         $cart_amount = $request->price;
         $fine_type_id = $request->fine_type_id;
+        $cart_description = 'edit';
 
         $data = [
-            'old_workday_id' => $cart_id,
-            'old_slot_id' => $old_slot_id,
-            'workday_id' => $workday_id,
-            'slot_id' => $slot_id,
-            'fine_type_id' => $fine_type_id,
-            'teacher_id' => $teacher->id
+            'oldSlot' => $old_slot_id,
+            'workday' => $workday_id,
+            'slot' => $slot_id,
+            'teacher' => $teacher->id,
+            'fineType' => $fine_type_id,
+            'desc' => $cart_description,
         ];
 
         $data = serialize($data);
 
-        $cart_description = 'edit';
         $name = $teacher->first_name . ' ' . $teacher->last_name;
         $email = $teacher->email;
         $phone = $teacher->phone;
@@ -253,7 +253,7 @@ class SlotController extends Controller
 
         $pay = paypage::sendPaymentCode('all')
             ->sendTransaction('sale')
-            ->sendCart($data, $cart_amount, $cart_description)
+            ->sendCart($old_workday_id, $cart_amount, $data)
             ->sendCustomerDetails($name, $email, $phone, $street1, $city, $state, $country, $zip, $ip)
             ->sendHideShipping(true)
             ->sendURLs(route('slot_pay_success'), route('slot_pay_success'))

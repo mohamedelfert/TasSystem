@@ -133,13 +133,13 @@ class MainController extends Controller
 
     public function slotPaySuccess(Request $request)
     {
-        return $request->all();
-//        if ($request['respStatus'] === "A") {
-//            $tranRef = $request['tranRef'];
-//            $order_detail_id = $request['cartId'];
-//            $transaction = Paypage::queryTransaction($tranRef);
-//            $fine_price = $transaction->payment_result->cart_total;
-//            $fine_type = $transaction->payment_result->cart_description;
+        if ($request['respStatus'] === "A") {
+            $tranRef = $request['tranRef'];
+            $old_workday_id = $request['cartId'];
+            $transaction = Paypage::queryTransaction($tranRef);
+            $fine_price = $transaction->payment_result->cart_total;
+            $data = $transaction->payment_result->cart_description;
+            return [$old_workday_id, $fine_price, $data];
 //            if ($transaction->payment_result->response_status === 'A' && $transaction->success) {
 //                $slotTeacher = SlotTeacher::where('teacher_id', $request->teacher_id)
 //                    ->where('slot_id', $request->old_slot_id)
@@ -165,11 +165,11 @@ class MainController extends Controller
 //                toast(__('Payment was done successfully'), 'success');
 //                return redirect()->route('teacher.orders.index');
 //            }
-//        } else {
-//            toast(__('Payment Failed'), 'error');
-//            return redirect()->route('teacher.orders.index');
-//        }
-//        toast(__('Payment Failed ....'), 'error');
-//        return redirect()->route('teacher.orders.index');
+        } else {
+            toast(__('Payment Failed'), 'error');
+            return redirect()->route('teacher.orders.index');
+        }
+        toast(__('Payment Failed ....'), 'error');
+        return redirect()->route('teacher.orders.index');
     }
 }
