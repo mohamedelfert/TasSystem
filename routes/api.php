@@ -25,4 +25,5 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
     Route::post('new-order', [MainController::class, 'newOrder']);
 
     Route::post('paytabs/pay-success', [MainController::class, 'orderPaySuccess'])->name('order_pay_success');
+    Route::post('paytabs/slot-pay-success', [MainController::class, 'slotPaySuccess'])->name('slot_pay_success');
 });

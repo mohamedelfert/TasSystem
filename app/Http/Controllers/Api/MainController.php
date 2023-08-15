@@ -8,6 +8,7 @@ use App\Models\FineType;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Slot;
+use App\Models\SlotTeacher;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -107,7 +108,7 @@ class MainController extends Controller
                     $order->update();
                 }
 
-                $fineType = FineType::where('type',$fine_type)->first();
+                $fineType = FineType::where('type', $fine_type)->first();
 
                 // fines create in fines table after pay
                 $order->fines()->create([
@@ -128,5 +129,47 @@ class MainController extends Controller
         }
         toast(__('Payment Failed ....'), 'error');
         return redirect()->route('teacher.orders.index');
+    }
+
+    public function slotPaySuccess(Request $request)
+    {
+        return $request->all();
+//        if ($request['respStatus'] === "A") {
+//            $tranRef = $request['tranRef'];
+//            $order_detail_id = $request['cartId'];
+//            $transaction = Paypage::queryTransaction($tranRef);
+//            $fine_price = $transaction->payment_result->cart_total;
+//            $fine_type = $transaction->payment_result->cart_description;
+//            if ($transaction->payment_result->response_status === 'A' && $transaction->success) {
+//                $slotTeacher = SlotTeacher::where('teacher_id', $request->teacher_id)
+//                    ->where('slot_id', $request->old_slot_id)
+//                    ->where('workday_id', $request->old_workday_id)
+//                    ->first();
+//
+//                $slotTeacher->update([
+//                    'slot_id' => $request->slot_id,
+//                    'workday_id' => $request->workday_id,
+//                    'teacher_id' => $request->teacher_id
+//                ]);
+//
+//                // fines create in fines table after pay
+//                $slotTeacher->fines()->create([
+//                    'payment_method_id' => 1,
+//                    'teacher_id' => $request->teacher_id,
+//                    'price' => $request->price,
+//                    'status' => 'paid',
+//                    'payment_date' => now(),
+//                    'fine_type_id' => $request->fine_type_id,
+//                ]);
+//
+//                toast(__('Payment was done successfully'), 'success');
+//                return redirect()->route('teacher.orders.index');
+//            }
+//        } else {
+//            toast(__('Payment Failed'), 'error');
+//            return redirect()->route('teacher.orders.index');
+//        }
+//        toast(__('Payment Failed ....'), 'error');
+//        return redirect()->route('teacher.orders.index');
     }
 }

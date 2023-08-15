@@ -16,6 +16,7 @@ use App\Models\Workday;
 use Carbon\Carbon;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Illuminate\Http\Request;
+use Paytabscom\Laravel_paytabs\Facades\paypage;
 
 class SlotController extends Controller
 {
@@ -182,16 +183,11 @@ class SlotController extends Controller
                     toast(__('main.slot_choose_before'), 'error');
                     return redirect()->back();
                 } else {
-//                $slotTeacher->update([
-//                    'slot_id' => $request->slot_id,
-//                    'workday_id' => $request->workday_id,
-//                    'teacher_id' => $teacher->id
-//                ]);
                     return view('teacher-dashboard.slots.checkout', compact('details'));
                 }
             } else {
                 toast(__('main.slot_choose_before'), 'error');
-                return redirect()->back()->with($request->all())->withErrors(['errors' => trans('main.slot_choose_before')]);
+                return redirect()->back()->withErrors(['errors' => trans('main.slot_choose_before')]);
             }
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
@@ -223,45 +219,90 @@ class SlotController extends Controller
 
     public function pay(Request $request)
     {
-        try {
-            $charge = Stripe::charges()->create([
-                'currency' => 'USD',
-                'source' => $request->stripeToken,
-                'amount' => $request->price,
-                'description' => 'Payment From Tas System',
-            ]);
+        $teacher = Teacher::findOrFail(auth()->user()->id);
 
-            $chargeId = $charge['id'];
+        $cart_id = $request->old_workday_id;
+        $old_slot_id = $request->old_slot_id;
+        $workday_id = $request->workday_id;
+        $slot_id = $request->slot_id;
+        $cart_amount = $request->price;
+        $fine_type_id = $request->fine_type_id;
 
-            if ($chargeId) {
-                $slotTeacher = SlotTeacher::where('teacher_id', $request->teacher_id)
-                    ->where('slot_id', $request->old_slot_id)
-                    ->where('workday_id', $request->old_workday_id)
-                    ->first();
+        $data = [
+            'old_workday_id' => $cart_id,
+            'old_slot_id' => $old_slot_id,
+            'workday_id' => $workday_id,
+            'slot_id' => $slot_id,
+            'fine_type_id' => $fine_type_id,
+            'teacher_id' => $teacher->id
+        ];
 
-                $slotTeacher->update([
-                    'slot_id' => $request->slot_id,
-                    'workday_id' => $request->workday_id,
-                    'teacher_id' => $request->teacher_id
-                ]);
+        $data = serialize($data);
 
-                // fines create in fines table after pay
-                $slotTeacher->fines()->create([
-                    'payment_method_id' => 1,
-                    'teacher_id' => $request->teacher_id,
-                    'price' => $request->price,
-                    'status' => 'paid',
-                    'payment_date' => now(),
-                    'fine_type_id' => $request->fine_type_id,
-                ]);
+        $cart_description = 'edit';
+        $name = $teacher->first_name . ' ' . $teacher->last_name;
+        $email = $teacher->email;
+        $phone = $teacher->phone;
+        $street1 = $teacher->address;
+        $city = $teacher->country->getTranslation('name', 'en');
+        $state = $teacher->country->getTranslation('name', 'en');
+        $country = $teacher->country->getTranslation('name', 'en');
+        $zip = '01254';
+        $ip = $request->ip();
+        $language = 'en';
 
-                toast(__('Payment was done successfully'), 'success');
-                return redirect()->route('teacher.slots.index');
-            } else {
-                return redirect()->back();
-            }
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
-        }
+        $pay = paypage::sendPaymentCode('all')
+            ->sendTransaction('sale')
+            ->sendCart($data, $cart_amount, $cart_description)
+            ->sendCustomerDetails($name, $email, $phone, $street1, $city, $state, $country, $zip, $ip)
+            ->sendHideShipping(true)
+            ->sendURLs(route('slot_pay_success'), route('slot_pay_success'))
+            ->sendLanguage($language)
+            ->sendUserDefined(["udf1" => $teacher->id, "udf2" => $old_slot_id, "udf3" => $workday_id, "udf4" => $slot_id])
+            ->sendFramed(false)
+            ->create_pay_page(); // to initiate payment
+
+        return $pay;
+
+//        try {
+//            $charge = Stripe::charges()->create([
+//                'currency' => 'USD',
+//                'source' => $request->stripeToken,
+//                'amount' => $request->price,
+//                'description' => 'Payment From Tas System',
+//            ]);
+//
+//            $chargeId = $charge['id'];
+//
+//            if ($chargeId) {
+//                $slotTeacher = SlotTeacher::where('teacher_id', $request->teacher_id)
+//                    ->where('slot_id', $request->old_slot_id)
+//                    ->where('workday_id', $request->old_workday_id)
+//                    ->first();
+//
+//                $slotTeacher->update([
+//                    'slot_id' => $request->slot_id,
+//                    'workday_id' => $request->workday_id,
+//                    'teacher_id' => $request->teacher_id
+//                ]);
+//
+//                // fines create in fines table after pay
+//                $slotTeacher->fines()->create([
+//                    'payment_method_id' => 1,
+//                    'teacher_id' => $request->teacher_id,
+//                    'price' => $request->price,
+//                    'status' => 'paid',
+//                    'payment_date' => now(),
+//                    'fine_type_id' => $request->fine_type_id,
+//                ]);
+//
+//                toast(__('Payment was done successfully'), 'success');
+//                return redirect()->route('teacher.slots.index');
+//            } else {
+//                return redirect()->back();
+//            }
+//        } catch (\Exception $e) {
+//            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+//        }
     }
 }
