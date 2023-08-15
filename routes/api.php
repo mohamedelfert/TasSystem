@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\MainController;
-use App\Http\Controllers\Teacher\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,10 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('paytabs/pay-success',[OrderController::class, 'orderPaySuccess'])->name('pay_success');
-
 Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function () {
 
     Route::post('new-order', [MainController::class, 'newOrder']);
+
+    Route::post('paytabs/pay-success', [MainController::class, 'orderPaySuccess'])->name('pay_success');
 
 });
