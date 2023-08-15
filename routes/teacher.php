@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 
-
-
 Route::prefix('teacher')->name('teacher.')->middleware(['auth:teacher'])->group(function () {
 
     Route::get('/', [HomeController::class, 'dashboard'])->name('home');
@@ -28,7 +26,6 @@ Route::prefix('teacher')->name('teacher.')->middleware(['auth:teacher'])->group(
     Route::post('filter-status', [OrderController::class, 'filterStatus'])->name('filterStatus');
     Route::post('filter-subject', [OrderController::class, 'filterSubject'])->name('filterSubject');
     Route::post('date-search', [OrderController::class, 'dateSearch'])->name('dateSearch');
-
 
     /********************************* Fines **************************************/
     Route::resource('fines', FineController::class);
