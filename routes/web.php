@@ -29,6 +29,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('paytabs/pay-success',[OrderController::class, 'orderPaySuccess'])->name('pay_success');
+
 require __DIR__ . '/auth.php';
 
 Route::get('/', [HomeController::class, 'index'])->name('selection');

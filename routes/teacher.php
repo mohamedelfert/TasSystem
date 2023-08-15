@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 
-Route::post('paytabs/pay-success',[OrderController::class, 'orderPaySuccess'])->name('pay_success');
+
 
 Route::prefix('teacher')->name('teacher.')->middleware(['auth:teacher'])->group(function () {
 
