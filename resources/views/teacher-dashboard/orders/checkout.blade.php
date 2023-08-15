@@ -1,28 +1,28 @@
 @extends('teacher-dashboard.layouts.app')
 @section('title'){!! __('main.orders') !!}@endsection
 @section('header')
-    <style>
-        .StripeElement {
-            box-sizing: border-box;
-            height: 40px;
-            padding: 10px 12px;
-            border: 1px solid transparent;
-            border-radius: 4px;
-            background-color: white;
-            box-shadow: 0 1px 3px 0 #e6ebf1;
-            -webkit-transition: box-shadow 150ms ease;
-            transition: box-shadow 150ms ease;
-        }
-        .StripeElement--focus {
-            box-shadow: 0 1px 3px 0 #cfd7df;
-        }
-        .StripeElement--invalid {
-            border-color: #fa755a;
-        }
-        .StripeElement--webkit-autofill {
-            background-color: #fefde5 !important;
-        }
-    </style>
+{{--    <style>--}}
+{{--        .StripeElement {--}}
+{{--            box-sizing: border-box;--}}
+{{--            height: 40px;--}}
+{{--            padding: 10px 12px;--}}
+{{--            border: 1px solid transparent;--}}
+{{--            border-radius: 4px;--}}
+{{--            background-color: white;--}}
+{{--            box-shadow: 0 1px 3px 0 #e6ebf1;--}}
+{{--            -webkit-transition: box-shadow 150ms ease;--}}
+{{--            transition: box-shadow 150ms ease;--}}
+{{--        }--}}
+{{--        .StripeElement--focus {--}}
+{{--            box-shadow: 0 1px 3px 0 #cfd7df;--}}
+{{--        }--}}
+{{--        .StripeElement--invalid {--}}
+{{--            border-color: #fa755a;--}}
+{{--        }--}}
+{{--        .StripeElement--webkit-autofill {--}}
+{{--            background-color: #fefde5 !important;--}}
+{{--        }--}}
+{{--    </style>--}}
 @endsection
 @section('breadcrumb')
     @include('teacher-dashboard.layouts.partials._breadcrumb',['level'=>'orders'])
@@ -59,11 +59,11 @@
                                                                         </div>
 
                                                                         <div class="alert alert-secondary text-center mb-2 col-12 col-md-12 col-lg-12">
-                                                                            {{ __('main.slot') }} : <strong class="text-danger">{{ Carbon\Carbon::parse(optional($orderDetail->slot)->start_at)->format('g:i A') .' - '. Carbon\Carbon::parse(optional($orderDetail->slot)->end_at)->format('g:i A') }}</strong><br>
-                                                                            {{ __('main.date') }} : <strong class="text-danger">{{ $orderDetail->date }}</strong><br>
-                                                                            {{ __('main.order_id') }} : <strong class="text-danger">{{ $orderDetail->order_id }}</strong><br>
-                                                                            {{ __('main.app_order_id') }} : <strong class="text-danger">{{ $orderDetail->order->app_order_id }}</strong><br>
-                                                                            {{ __('main.app_detail_id') }} : <strong class="text-danger">{{ $orderDetail->app_detail_id }}</strong><br>
+                                                                            <strong class="text-dark">{{ __('main.slot') }} : </strong><strong class="text-danger">{{ Carbon\Carbon::parse(optional($orderDetail->slot)->start_at)->format('g:i A') .' - '. Carbon\Carbon::parse(optional($orderDetail->slot)->end_at)->format('g:i A') }}</strong><br>
+                                                                            <strong class="text-dark">{{ __('main.date') }} : </strong><strong class="text-danger">{{ $orderDetail->date }}</strong><br>
+{{--                                                                            {{ __('main.order_id') }} : <strong class="text-danger">{{ $orderDetail->order_id }}</strong><br>--}}
+{{--                                                                            {{ __('main.app_order_id') }} : <strong class="text-danger">{{ $orderDetail->order->app_order_id }}</strong><br>--}}
+{{--                                                                            {{ __('main.app_detail_id') }} : <strong class="text-danger">{{ $orderDetail->app_detail_id }}</strong><br>--}}
                                                                         </div>
 
                                                                         <div class="mb-2 col-12 col-md-12 col-lg-12">
@@ -76,9 +76,9 @@
                                                                                     <input type="hidden" name="order_id" value="{{ $orderDetail->order_id }}"/>
                                                                                     <input type="hidden" name="app_order_id" value="{{ $orderDetail->order->app_order_id }}"/>
                                                                                     <input type="hidden" name="app_detail_id" value="{{ $orderDetail->app_detail_id }}"/>
-                                                                                    <label for="card-element">
-                                                                                        {{ __('main.credit_or_debit_card') }}
-                                                                                    </label>
+{{--                                                                                    <label for="card-element">--}}
+{{--                                                                                        {{ __('main.credit_or_debit_card') }}--}}
+{{--                                                                                    </label>--}}
                                                                                     <div id="card-element">
                                                                                         <!-- A Stripe Element will be inserted here. -->
                                                                                     </div>
@@ -90,12 +90,12 @@
                                                                             </form>
                                                                         </div>
 
-                                                                        <div class="mb-2 col-12 col-md-12 col-lg-12">
-                                                                            <a href="{{ route('teacher.orders.index') }}"
-                                                                               class="btn btn-primary float-right ml-2" title="@lang('main.pay_cash')">
-                                                                                <i class="fa fa-edit"> @lang('main.pay_cash') </i>
-                                                                            </a>
-                                                                        </div>
+{{--                                                                        <div class="mb-2 col-12 col-md-12 col-lg-12">--}}
+{{--                                                                            <a href="{{ route('teacher.orders.index') }}"--}}
+{{--                                                                               class="btn btn-primary float-right ml-2 mt-2" title="@lang('main.pay_cash')">--}}
+{{--                                                                                <i class="fa fa-edit"> @lang('main.pay_cash') </i>--}}
+{{--                                                                            </a>--}}
+{{--                                                                        </div>--}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -115,67 +115,67 @@
     </div>
 @endsection
 @section('footer')
-    <script src="https://js.stripe.com/v3/"></script>
-    <script>
-        window.onload = function () {
-            var stripe = Stripe('pk_test_51Kw8xJIJoo2rP2Y39U3CRvtlcOFxG7qM6BKaYjfAPmybUbY5v6GrvJRk519BCs7PiHmuR9fH2Xr6r722S11anJOX00M2CYVpyl');
-            var elements = stripe.elements();
-            var style = {
-                base: {
-                    color: '#32325d',
-                    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-                    fontSmoothing: 'antialiased',
-                    fontSize: '16px',
-                    '::placeholder': {
-                        color: '#aab7c4'
-                    }
-                },
-                invalid: {
-                    color: '#fa755a',
-                    iconColor: '#fa755a'
-                }
-            };
-            var card = elements.create('card', {
-                style: style
-            });
-            card.mount('#card-element');
-            // Handle real-time validation errors from the card Element.
-            card.addEventListener('change', function (event) {
-                var displayError = document.getElementById('card-errors');
-                if (event.error) {
-                    displayError.textContent = event.error.message;
-                } else {
-                    displayError.textContent = '';
-                }
-            });
-            // Handle form submission.
-            var form = document.getElementById('payment-form');
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-                stripe.createToken(card).then(function (result) {
-                    if (result.error) {
-                        // Inform the user if there was an error.
-                        var errorElement = document.getElementById('card-errors');
-                        errorElement.textContent = result.error.message;
-                    } else {
-                        // Send the token to your server.
-                        stripeTokenHandler(result.token);
-                    }
-                });
-            });
+{{--    <script src="https://js.stripe.com/v3/"></script>--}}
+{{--    <script>--}}
+{{--        window.onload = function () {--}}
+{{--            var stripe = Stripe('pk_test_51Kw8xJIJoo2rP2Y39U3CRvtlcOFxG7qM6BKaYjfAPmybUbY5v6GrvJRk519BCs7PiHmuR9fH2Xr6r722S11anJOX00M2CYVpyl');--}}
+{{--            var elements = stripe.elements();--}}
+{{--            var style = {--}}
+{{--                base: {--}}
+{{--                    color: '#32325d',--}}
+{{--                    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',--}}
+{{--                    fontSmoothing: 'antialiased',--}}
+{{--                    fontSize: '16px',--}}
+{{--                    '::placeholder': {--}}
+{{--                        color: '#aab7c4'--}}
+{{--                    }--}}
+{{--                },--}}
+{{--                invalid: {--}}
+{{--                    color: '#fa755a',--}}
+{{--                    iconColor: '#fa755a'--}}
+{{--                }--}}
+{{--            };--}}
+{{--            var card = elements.create('card', {--}}
+{{--                style: style--}}
+{{--            });--}}
+{{--            card.mount('#card-element');--}}
+{{--            // Handle real-time validation errors from the card Element.--}}
+{{--            card.addEventListener('change', function (event) {--}}
+{{--                var displayError = document.getElementById('card-errors');--}}
+{{--                if (event.error) {--}}
+{{--                    displayError.textContent = event.error.message;--}}
+{{--                } else {--}}
+{{--                    displayError.textContent = '';--}}
+{{--                }--}}
+{{--            });--}}
+{{--            // Handle form submission.--}}
+{{--            var form = document.getElementById('payment-form');--}}
+{{--            form.addEventListener('submit', function (event) {--}}
+{{--                event.preventDefault();--}}
+{{--                stripe.createToken(card).then(function (result) {--}}
+{{--                    if (result.error) {--}}
+{{--                        // Inform the user if there was an error.--}}
+{{--                        var errorElement = document.getElementById('card-errors');--}}
+{{--                        errorElement.textContent = result.error.message;--}}
+{{--                    } else {--}}
+{{--                        // Send the token to your server.--}}
+{{--                        stripeTokenHandler(result.token);--}}
+{{--                    }--}}
+{{--                });--}}
+{{--            });--}}
 
-            function stripeTokenHandler(token) {
-                // Insert the token ID into the form so it gets submitted to the server
-                var form = document.getElementById('payment-form');
-                var hiddenInput = document.createElement('input');
-                hiddenInput.setAttribute('type', 'hidden');
-                hiddenInput.setAttribute('name', 'stripeToken');
-                hiddenInput.setAttribute('value', token.id);
-                form.appendChild(hiddenInput);
-                // Submit the form
-                $('.loading').removeClass('d-none');
-                form.submit();
-            }
-        }
-    </script>
+{{--            function stripeTokenHandler(token) {--}}
+{{--                // Insert the token ID into the form so it gets submitted to the server--}}
+{{--                var form = document.getElementById('payment-form');--}}
+{{--                var hiddenInput = document.createElement('input');--}}
+{{--                hiddenInput.setAttribute('type', 'hidden');--}}
+{{--                hiddenInput.setAttribute('name', 'stripeToken');--}}
+{{--                hiddenInput.setAttribute('value', token.id);--}}
+{{--                form.appendChild(hiddenInput);--}}
+{{--                // Submit the form--}}
+{{--                $('.loading').removeClass('d-none');--}}
+{{--                form.submit();--}}
+{{--            }--}}
+{{--        }--}}
+{{--    </script>--}}
 @endsection
