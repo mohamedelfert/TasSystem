@@ -85,42 +85,47 @@ class MainController extends Controller
 
     public function orderPaySuccess(Request $request)
     {
-        if ($request['respStatus'] == 'A') {
-            $order_id = $request['cartId'];
-            $tranRef = $request['tranRef'];
-            $transaction = Paypage::queryTransaction($tranRef);
-            if (@$transaction->payment_result->response_status == 'A' && $transaction->success) {
-                // delete slot time from order details table
-                $orderDetail = OrderDetail::findOrFail($request->id);
-                $orderDetail->delete();
+         if ($request['respStatus'] === "A"){
+             return 'status : ' . $request['respStatus'];
+         }
+         return $request;
 
-                // get order details from order table
-                $order = Order::findOrFail($request->order_id);
-                $countOrderDetails = $order->count_order_details;
-                if ($countOrderDetails > 0) {
-                    $count = $order->count_order_details - 1;
-                    $order['count_order_details'] = $count;
-                    $order->update();
-                }
-
-                // fines create in fines table after pay
-                $order->fines()->create([
-                    'payment_method_id' => 1,
-                    'teacher_id' => $order->teacher_id,
-                    'price' => $request->price,
-                    'status' => 'paid',
-                    'payment_date' => now(),
-                    'fine_type_id' => $request->fine_type_id,
-                ]);
-
-                toast(__('Payment was done successfully'), 'success');
-                return redirect()->route('teacher.orders.index');
-            }
-        } else {
-            toast(__('Payment Failed'), 'error');
-            return redirect()->back();
-        }
-        toast(__('Payment Failed ....'), 'error');
-        return redirect()->back();
+//        if ($request['respStatus'] == 'A') {
+//            $order_id = $request['cartId'];
+//            $tranRef = $request['tranRef'];
+//            $transaction = Paypage::queryTransaction($tranRef);
+//            if (@$transaction->payment_result->response_status == 'A' && $transaction->success) {
+//                // delete slot time from order details table
+//                $orderDetail = OrderDetail::findOrFail($request->id);
+//                $orderDetail->delete();
+//
+//                // get order details from order table
+//                $order = Order::findOrFail($request->order_id);
+//                $countOrderDetails = $order->count_order_details;
+//                if ($countOrderDetails > 0) {
+//                    $count = $order->count_order_details - 1;
+//                    $order['count_order_details'] = $count;
+//                    $order->update();
+//                }
+//
+//                // fines create in fines table after pay
+//                $order->fines()->create([
+//                    'payment_method_id' => 1,
+//                    'teacher_id' => $order->teacher_id,
+//                    'price' => $request->price,
+//                    'status' => 'paid',
+//                    'payment_date' => now(),
+//                    'fine_type_id' => $request->fine_type_id,
+//                ]);
+//
+//                toast(__('Payment was done successfully'), 'success');
+//                return redirect()->route('teacher.orders.index');
+//            }
+//        } else {
+//            toast(__('Payment Failed'), 'error');
+//            return redirect()->route('teacher.orders.index');
+//        }
+//        toast(__('Payment Failed ....'), 'error');
+//        return redirect()->route('teacher.orders.index');
     }
 }
