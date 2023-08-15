@@ -71,8 +71,9 @@ class OrderController extends Controller
         $teacher = Teacher::findOrFail(auth()->user()->id);
 
         $cart_id = $request->order_id;
+        $order_detail_id = $request->order_detail_id;
         $cart_amount = $request->price;
-        $cart_description = 'Payment For Cancel Slot Time';
+        $cart_description = 'cancel';
         $name = $teacher->first_name . ' ' . $teacher->last_name;
         $email = $teacher->email;
         $phone = $teacher->phone;
@@ -91,7 +92,7 @@ class OrderController extends Controller
 
         $pay = paypage::sendPaymentCode('all')
             ->sendTransaction('sale')
-            ->sendCart($cart_id, $cart_amount, $cart_description)
+            ->sendCart($order_detail_id, $cart_amount, $cart_description)
             ->sendCustomerDetails($name, $email, $phone, $street1, $city, $state, $country, $zip, $ip)
 //            ->sendShippingDetails($name = null, $email = null, $phone = null, $street1 = null, $city = null, $state = null, $country = null, $zip = null, $ip = null)
             ->sendHideShipping(true)

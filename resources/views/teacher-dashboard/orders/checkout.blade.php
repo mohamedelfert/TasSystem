@@ -72,7 +72,7 @@
                                                                                 <div>
                                                                                     <input type="hidden" name="price" value="{{ $price }}"/>
                                                                                     <input type="hidden" name="fine_type_id" id="fine_type_id" value="{{ $fine_type_id }}">
-                                                                                    <input type="hidden" name="id" value="{{ $orderDetail->id }}"/>
+                                                                                    <input type="hidden" name="order_detail_id" value="{{ $orderDetail->id }}"/>
                                                                                     <input type="hidden" name="order_id" value="{{ $orderDetail->order_id }}"/>
                                                                                     <input type="hidden" name="app_order_id" value="{{ $orderDetail->order->app_order_id }}"/>
                                                                                     <input type="hidden" name="app_detail_id" value="{{ $orderDetail->app_detail_id }}"/>

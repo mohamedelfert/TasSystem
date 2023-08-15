@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewOrderApiRequest;
+use App\Models\FineType;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Slot;
@@ -85,78 +86,47 @@ class MainController extends Controller
 
     public function orderPaySuccess(Request $request)
     {
-         return $request;
+        if ($request['respStatus'] === "A") {
+            $tranRef = $request['tranRef'];
+            $order_detail_id = $request['cartId'];
+            $transaction = Paypage::queryTransaction($tranRef);
+            $fine_price = $transaction->payment_result->cart_total;
+            $fine_type = $transaction->payment_result->cart_description;
+            if ($transaction->payment_result->response_status === 'A' && $transaction->success) {
+                // get order details from order_details and order from orders table
+                $orderDetail = OrderDetail::findOrFail($order_detail_id);
+                $order = Order::findOrFail($orderDetail->order_id);
 
-//        if ($request['respStatus'] === "A") {
-//            return 'status : ' . $request['respStatus'];
-//        }
+                // delete slot time from order details table
+                $orderDetail->delete();
 
-//        if ($request['respStatus'] === "A") {
-//            // delete slot time from order details table
-//            $orderDetail = OrderDetail::findOrFail($request->id);
-//            $orderDetail->delete();
-//
-//            // get order details from order table
-//            $order = Order::findOrFail($request->order_id);
-//            $countOrderDetails = $order->count_order_details;
-//            if ($countOrderDetails > 0) {
-//                $count = $order->count_order_details - 1;
-//                $order['count_order_details'] = $count;
-//                $order->update();
-//            }
-//
-//            // fines create in fines table after pay
-//            $order->fines()->create([
-//                'payment_method_id' => 1,
-//                'teacher_id' => $order->teacher_id,
-//                'price' => $request->price,
-//                'status' => 'paid',
-//                'payment_date' => now(),
-//                'fine_type_id' => $request->fine_type_id,
-//            ]);
-//
-//            toast(__('Payment was done successfully'), 'success');
-//            return redirect()->route('teacher.orders.index');
-//
-//        }
-//        toast(__('Payment Failed'), 'error');
-//        return redirect()->route('teacher.orders.index');
+                $countOrderDetails = $order->count_order_details;
+                if ($countOrderDetails > 0) {
+                    $count = $order->count_order_details - 1;
+                    $order['count_order_details'] = $count;
+                    $order->update();
+                }
 
-//        if ($request['respStatus'] === "A") {
-//            $tranRef = $request['tranRef'];
-//            $transaction = Paypage::queryTransaction($tranRef);
-//            if ($transaction->payment_result->response_status === 'A' && $transaction->success) {
-//                // delete slot time from order details table
-//                $orderDetail = OrderDetail::findOrFail($request->id);
-//                $orderDetail->delete();
-//
-//                // get order details from order table
-//                $order = Order::findOrFail($request->order_id);
-//                $countOrderDetails = $order->count_order_details;
-//                if ($countOrderDetails > 0) {
-//                    $count = $order->count_order_details - 1;
-//                    $order['count_order_details'] = $count;
-//                    $order->update();
-//                }
-//
-//                // fines create in fines table after pay
-//                $order->fines()->create([
-//                    'payment_method_id' => 1,
-//                    'teacher_id' => $order->teacher_id,
-//                    'price' => $request->price,
-//                    'status' => 'paid',
-//                    'payment_date' => now(),
-//                    'fine_type_id' => $request->fine_type_id,
-//                ]);
-//
-//                toast(__('Payment was done successfully'), 'success');
-//                return redirect()->route('teacher.orders.index');
-//            }
-//        } else {
-//            toast(__('Payment Failed'), 'error');
-//            return redirect()->route('teacher.orders.index');
-//        }
-//        toast(__('Payment Failed ....'), 'error');
-//        return redirect()->route('teacher.orders.index');
+                $fineType = FineType::where('type',$fine_type)->first();
+
+                // fines create in fines table after pay
+                $order->fines()->create([
+                    'payment_method_id' => 1,
+                    'teacher_id' => $order->teacher_id,
+                    'price' => $fine_price,
+                    'status' => 'paid',
+                    'payment_date' => now(),
+                    'fine_type_id' => $fineType->id,
+                ]);
+
+                toast(__('Payment was done successfully'), 'success');
+                return redirect()->route('teacher.orders.index');
+            }
+        } else {
+            toast(__('Payment Failed'), 'error');
+            return redirect()->route('teacher.orders.index');
+        }
+        toast(__('Payment Failed ....'), 'error');
+        return redirect()->route('teacher.orders.index');
     }
 }
