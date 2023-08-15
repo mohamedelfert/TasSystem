@@ -96,7 +96,7 @@ class OrderController extends Controller
 //            ->sendShippingDetails($name = null, $email = null, $phone = null, $street1 = null, $city = null, $state = null, $country = null, $zip = null, $ip = null)
             ->sendHideShipping(true)
 //            ->sendURLs($return, $callback)
-            ->sendURLs(route('order_pay_success'), route('order_pay_success'))
+            ->sendURLs(route('pay_success'), route('pay_success'))
             ->sendLanguage($language)
             ->sendUserDefined(["udf1" => $teacher->id, "udf2" => $cart_id])
             ->sendFramed(false)
@@ -150,6 +150,8 @@ class OrderController extends Controller
 
     public function orderPaySuccess(Request $request)
     {
+        return $request->all();
+
         if ($request['respStatus'] == 'A') {
             $order_id = $request['cartId'];
             $tranRef = $request['tranRef'];
