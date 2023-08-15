@@ -150,8 +150,6 @@ class OrderController extends Controller
 
     public function orderPaySuccess(Request $request)
     {
-        return $request->all();
-
         if ($request['respStatus'] == 'A') {
             $order_id = $request['cartId'];
             $tranRef = $request['tranRef'];
