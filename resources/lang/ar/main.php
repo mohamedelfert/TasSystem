@@ -16,6 +16,7 @@ return [
     'add_user' => 'إضافة مستخدم',
     'edit_user' => 'تعديل مستخدم',
     'delete_user' => 'حذف مستخدم',
+    'show_profile' => 'مشاهده الحساب',
     'username' => 'اسم المستخدم',
     'first_name' => 'الاسم الأول',
     'last_name' => 'الاسم الأخير',

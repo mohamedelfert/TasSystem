@@ -135,7 +135,7 @@ class SlotController extends Controller
                     return redirect(route('teacher.slots.index'));
                 } else {
                     toast(__('main.slots_less_than_slot_accept'), 'error');
-                    return redirect()->back()
+                    return redirect()->back()->withInput()
                         ->withErrors([
                             'errors' =>
                                 __('main.slot_validation_required') .
@@ -149,7 +149,7 @@ class SlotController extends Controller
             }
         } else {
             toast(__('main.slots_less_than_slot_accept'), 'error');
-            return redirect()->back()->with($request->all())->withErrors(['errors' => trans('main.slots_less_than_slot_accept')]);
+            return redirect()->back()->withInput()->withErrors(['errors' => trans('main.slots_less_than_slot_accept')]);
         }
     }
 
@@ -181,16 +181,16 @@ class SlotController extends Controller
             if ($slotTeacher->slot_id != $request->slot_id) {
                 if (in_array($request->slot_id, $oldSlotsTeacher)) {
                     toast(__('main.slot_choose_before'), 'error');
-                    return redirect()->back();
+                    return redirect()->back()->withInput();
                 } else {
                     return view('teacher-dashboard.slots.checkout', compact('details'));
                 }
             } else {
                 toast(__('main.slot_choose_before'), 'error');
-                return redirect()->back()->withErrors(['errors' => trans('main.slot_choose_before')]);
+                return redirect()->back()->withInput()->withErrors(['errors' => trans('main.slot_choose_before')]);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
+            return redirect()->back()->withInput()->withErrors(['errors' => $e->getMessage()]);
         }
     }
 

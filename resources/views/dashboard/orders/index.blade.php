@@ -119,7 +119,7 @@
                                                         @foreach ($orders as $index => $order)
                                                             <tr>
                                                                 <th class="wd-5p border-bottom-0">{{ $index + 1 }}</th>
-                                                                <th class="wd-10p border-bottom-0">{{ optional($order->orderDetails()->first())->order_id }}</th>
+                                                                <th class="wd-10p border-bottom-0">{{ $order->app_order_id }}</th>
                                                                 <th class="wd-10p border-bottom-0">{{ optional($order->subject)->name }}</th>
                                                                 <th class="wd-10p border-bottom-0">{{ optional($order->teacher)->first_name .' '. optional($order->teacher)->last_name }}</th>
                                                                 <th class="wd-10p border-bottom-0">

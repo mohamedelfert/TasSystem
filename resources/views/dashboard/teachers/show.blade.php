@@ -150,7 +150,7 @@
                                                                 @foreach ($teacher->orders as $index => $order)
                                                                     <tr>
                                                                         <th class="wd-5p border-bottom-0">{{ $index + 1 }}</th>
-                                                                        <th class="wd-10p border-bottom-0">{{ optional($order->orderDetails()->first())->order_id }}</th>
+                                                                        <th class="wd-10p border-bottom-0">{{ $order->app_order_id }}</th>
                                                                         <th class="wd-10p border-bottom-0">{{ optional($order->subject)->name }}</th>
                                                                         <th class="wd-10p border-bottom-0">
                                                                             <span class="badge badge-pill badge-primary">{{ $order->date }}</span>
@@ -205,7 +205,6 @@
                                                                 <th class="wd-10p border-bottom-0">{!! __('main.fine_type') !!}</th>
                                                                 <th class="wd-10p border-bottom-0">{!! __('main.price') !!}</th>
                                                                 <th class="wd-10p border-bottom-0">{!! __('main.status') !!}</th>
-                                                                <th class="wd-10p border-bottom-0">{!! __('main.created_at') !!}</th>
                                                                 <th class="wd-10p border-bottom-0">{!! __('main.payment_date') !!}</th>
                                                             </tr>
                                                         </thead>
@@ -241,7 +240,6 @@
                                                                                 </a>
                                                                             @endif
                                                                         </th>
-                                                                        <th class="wd-10p border-bottom-0">{{ $fine->created_at }}</th>
                                                                         <th class="wd-10p border-bottom-0"><span class="badge badge-pill badge-light-warning">{{ $fine->payment_date }}</span></th>
                                                                     </tr>
                                                                 @endforeach

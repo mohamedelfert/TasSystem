@@ -28,6 +28,7 @@ return [
     'edit_profile' => 'Edit Profile',
     'users' => 'Users',
     'full_name' => 'Full Name',
+    'show_profile' => 'Show Profile',
     'user_details' => 'User Details',
     'profile' => 'Profile',
     'add_user' => 'Add User',
