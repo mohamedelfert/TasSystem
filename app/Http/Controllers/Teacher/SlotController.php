@@ -238,7 +238,7 @@ class SlotController extends Controller
             'desc' => $cart_description,
         ];
 
-        $data = serialize($data);
+        $data = json_encode($data);
 
         $name = $teacher->first_name . ' ' . $teacher->last_name;
         $email = $teacher->email;
