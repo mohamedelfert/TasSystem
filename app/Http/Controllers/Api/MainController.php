@@ -139,6 +139,7 @@ class MainController extends Controller
             $transaction = Paypage::queryTransaction($tranRef);
             $fine_price = $transaction->cart_amount;
             $data = $transaction->cart_description;
+            return $data;
             $new_data = unserialize($data);
             return [$data,$new_data];
             if ($transaction->payment_result->response_status === 'A' && $transaction->success) {
