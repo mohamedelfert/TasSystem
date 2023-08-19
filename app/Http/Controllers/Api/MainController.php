@@ -139,32 +139,34 @@ class MainController extends Controller
             $transaction = Paypage::queryTransaction($tranRef);
             $fine_price = $transaction->cart_amount;
             $data = $transaction->cart_description;
-            return [$old_workday_id, $fine_price, $data];
-//            if ($transaction->payment_result->response_status === 'A' && $transaction->success) {
-//                $slotTeacher = SlotTeacher::where('teacher_id', $request->teacher_id)
-//                    ->where('slot_id', $request->old_slot_id)
-//                    ->where('workday_id', $request->old_workday_id)
-//                    ->first();
-//
-//                $slotTeacher->update([
-//                    'slot_id' => $request->slot_id,
-//                    'workday_id' => $request->workday_id,
-//                    'teacher_id' => $request->teacher_id
-//                ]);
-//
-//                // fines create in fines table after pay
-//                $slotTeacher->fines()->create([
-//                    'payment_method_id' => 1,
-//                    'teacher_id' => $request->teacher_id,
-//                    'price' => $request->price,
-//                    'status' => 'paid',
-//                    'payment_date' => now(),
-//                    'fine_type_id' => $request->fine_type_id,
-//                ]);
-//
-//                toast(__('Payment was done successfully'), 'success');
-//                return redirect()->route('teacher.orders.index');
-//            }
+            $new_data = unserialize($data);
+            if ($transaction->payment_result->response_status === 'A' && $transaction->success) {
+                $slotTeacher = SlotTeacher::where('teacher_id', $new_data['teacher'])
+                    ->where('slot_id', $new_data['oldSlot'])
+                    ->where('workday_id', $old_workday_id)
+                    ->first();
+
+                $slotTeacher->update([
+                    'slot_id' => $new_data['slot'],
+                    'workday_id' => $new_data['workday'],
+                    'teacher_id' => $new_data['teacher']
+                ]);
+
+                $fineType = FineType::where('type', $new_data['desc'])->first();
+
+                // fines create in fines table after pay
+                $slotTeacher->fines()->create([
+                    'payment_method_id' => 1,
+                    'teacher_id' => $new_data['teacher'],
+                    'price' => $fine_price,
+                    'status' => 'paid',
+                    'payment_date' => now(),
+                    'fine_type_id' => $fineType->id,
+                ]);
+
+                toast(__('Payment was done successfully'), 'success');
+                return redirect()->route('teacher.orders.index');
+            }
         } else {
             toast(__('Payment Failed'), 'error');
             return redirect()->route('teacher.orders.index');
