@@ -139,6 +139,7 @@ class MainController extends Controller
             $transaction = Paypage::queryTransaction($tranRef);
             $fine_price = $transaction->cart_amount;
             $fine_type = $transaction->cart_description;
+            return [$transaction, $transaction->user_defined, $transaction->payment_result];
             $teacher_id = $transaction->user_defined->udf1;
             $old_slot_id = $transaction->user_defined->udf2;
             $workday_id = $transaction->user_defined->udf3;
