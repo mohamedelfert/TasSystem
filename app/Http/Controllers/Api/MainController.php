@@ -140,6 +140,7 @@ class MainController extends Controller
             $fine_price = $transaction->cart_amount;
             $data = $transaction->cart_description;
             $new_data = json_decode($data);
+            return $new_data;
             if ($transaction->payment_result->response_status === 'A' && $transaction->success) {
                 $slotTeacher = SlotTeacher::where('teacher_id', $new_data['teacher'])
                     ->where('slot_id', $new_data['oldSlot'])
