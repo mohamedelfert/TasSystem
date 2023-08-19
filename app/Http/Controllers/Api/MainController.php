@@ -91,7 +91,7 @@ class MainController extends Controller
             $tranRef = $request['tranRef'];
             $order_detail_id = $request['cartId'];
             $transaction = Paypage::queryTransaction($tranRef);
-            $fine_price = $transaction->payment_result->cart_total;
+            $fine_price = $transaction->payment_result->cart_amount;
             $fine_type = $transaction->payment_result->cart_description;
             if ($transaction->payment_result->response_status === 'A' && $transaction->success) {
                 // get order details from order_details and order from orders table
@@ -137,7 +137,7 @@ class MainController extends Controller
             $tranRef = $request['tranRef'];
             $old_workday_id = $request['cartId'];
             $transaction = Paypage::queryTransaction($tranRef);
-            $fine_price = $transaction->payment_result->cart_total;
+            $fine_price = $transaction->payment_result->cart_amount;
             $data = $transaction->payment_result->cart_description;
             return [$old_workday_id, $fine_price, $data];
 //            if ($transaction->payment_result->response_status === 'A' && $transaction->success) {
