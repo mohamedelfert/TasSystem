@@ -93,7 +93,7 @@ class MainController extends Controller
             $transaction = Paypage::queryTransaction($tranRef);
             $fine_price = $transaction->cart_amount;
             $fine_type = $transaction->cart_description;
-            if ($transaction->response_status === 'A' && $transaction->success) {
+            if ($transaction->payment_result->response_status === 'A' && $transaction->success) {
                 // get order details from order_details and order from orders table
                 $orderDetail = OrderDetail::findOrFail($order_detail_id);
                 $order = Order::findOrFail($orderDetail->order_id);
@@ -140,7 +140,7 @@ class MainController extends Controller
             $fine_price = $transaction->cart_amount;
             $data = $transaction->cart_description;
             return [$old_workday_id, $fine_price, $data];
-//            if ($transaction->response_status === 'A' && $transaction->success) {
+//            if ($transaction->payment_result->response_status === 'A' && $transaction->success) {
 //                $slotTeacher = SlotTeacher::where('teacher_id', $request->teacher_id)
 //                    ->where('slot_id', $request->old_slot_id)
 //                    ->where('workday_id', $request->old_workday_id)
