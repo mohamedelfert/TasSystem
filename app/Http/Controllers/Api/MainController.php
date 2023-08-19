@@ -133,6 +133,7 @@ class MainController extends Controller
 
     public function slotPaySuccess(Request $request)
     {
+        return $request;
         if ($request['respStatus'] === "A") {
             $tranRef = $request['tranRef'];
             $old_workday_id = $request['cartId'];

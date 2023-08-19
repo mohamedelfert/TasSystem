@@ -229,16 +229,16 @@ class SlotController extends Controller
         $fine_type_id = $request->fine_type_id;
         $cart_description = 'edit';
 
-        $data = [
-            'oldSlot' => $old_slot_id,
-            'workday' => $workday_id,
-            'slot' => $slot_id,
-            'teacher' => $teacher->id,
-            'fineType' => $fine_type_id,
-            'desc' => $cart_description,
-        ];
-
-        $data = serialize($data);
+//        $data = [
+//            'oldSlot' => $old_slot_id,
+//            'workday' => $workday_id,
+//            'slot' => $slot_id,
+//            'teacher' => $teacher->id,
+//            'fineType' => $fine_type_id,
+//            'desc' => $cart_description,
+//        ];
+//
+//        $data = serialize($data);
 
         $name = $teacher->first_name . ' ' . $teacher->last_name;
         $email = $teacher->email;
@@ -253,7 +253,7 @@ class SlotController extends Controller
 
         $pay = paypage::sendPaymentCode('all')
             ->sendTransaction('sale')
-            ->sendCart($old_workday_id, $cart_amount, $data)
+            ->sendCart($old_workday_id, $cart_amount, $cart_description)
             ->sendCustomerDetails($name, $email, $phone, $street1, $city, $state, $country, $zip, $ip)
             ->sendHideShipping(true)
             ->sendURLs(route('slot_pay_success'), route('slot_pay_success'))
