@@ -228,18 +228,6 @@ class SlotController extends Controller
         $cart_amount = $request->price;
         $fine_type_id = $request->fine_type_id;
         $cart_description = 'edit';
-
-//        $data = [
-//            'oldSlot' => $old_slot_id,
-//            'workday' => $workday_id,
-//            'slot' => $slot_id,
-//            'teacher' => $teacher->id,
-//            'fineType' => $fine_type_id,
-//            'desc' => $cart_description,
-//        ];
-//
-//        $data = serialize($data);
-
         $name = $teacher->first_name . ' ' . $teacher->last_name;
         $email = $teacher->email;
         $phone = $teacher->phone;
@@ -258,7 +246,7 @@ class SlotController extends Controller
             ->sendHideShipping(true)
             ->sendURLs(route('slot_pay_success'), route('slot_pay_success'))
             ->sendLanguage($language)
-            ->sendUserDefined(["udf1" => $teacher->id, "udf2" => $old_slot_id, "udf3" => $workday_id, "udf4" => $slot_id])
+            ->sendUserDefined(["udf1" => $teacher->id, "udf2" => $old_slot_id, "udf3" => $workday_id, "udf4" => $slot_id, 'udf5' => $fine_type_id])
             ->sendFramed(false)
             ->create_pay_page(); // to initiate payment
 

@@ -133,34 +133,35 @@ class MainController extends Controller
 
     public function slotPaySuccess(Request $request)
     {
-        return $request;
         if ($request['respStatus'] === "A") {
-            $tranRef = $request['tranRef'];
             $old_workday_id = $request['cartId'];
+            $tranRef = $request['tranRef'];
             $transaction = Paypage::queryTransaction($tranRef);
             $fine_price = $transaction->cart_amount;
-            $data = $transaction->cart_description;
-            return $data;
-            $new_data = unserialize($data);
-            return [$data,$new_data];
+            $fine_type = $transaction->cart_description;
+            $teacher_id = $transaction->user_defined->udf1;
+            $old_slot_id = $transaction->user_defined->udf2;
+            $workday_id = $transaction->user_defined->udf3;
+            $slot_id = $transaction->user_defined->udf4;
+            $fine_type_id = $transaction->user_defined->udf5;
             if ($transaction->payment_result->response_status === 'A' && $transaction->success) {
-                $slotTeacher = SlotTeacher::where('teacher_id', $new_data['teacher'])
-                    ->where('slot_id', $new_data['oldSlot'])
+                $slotTeacher = SlotTeacher::where('teacher_id', $teacher_id)
+                    ->where('slot_id', $old_slot_id)
                     ->where('workday_id', $old_workday_id)
                     ->first();
 
                 $slotTeacher->update([
-                    'slot_id' => $new_data['slot'],
-                    'workday_id' => $new_data['workday'],
-                    'teacher_id' => $new_data['teacher']
+                    'slot_id' => $slot_id,
+                    'workday_id' => $workday_id,
+                    'teacher_id' => $teacher_id
                 ]);
 
-                $fineType = FineType::where('type', $new_data['desc'])->first();
+                $fineType = FineType::where('type', $fine_type)->first();
 
                 // fines create in fines table after pay
                 $slotTeacher->fines()->create([
                     'payment_method_id' => 1,
-                    'teacher_id' => $new_data['teacher'],
+                    'teacher_id' => $teacher_id,
                     'price' => $fine_price,
                     'status' => 'paid',
                     'payment_date' => now(),
