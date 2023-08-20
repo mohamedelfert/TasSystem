@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewOrderApiRequest;
+use App\Models\EditSlotsPay;
 use App\Models\FineType;
 use App\Models\Order;
 use App\Models\OrderDetail;
@@ -135,11 +136,16 @@ class MainController extends Controller
     {
         if ($request['respStatus'] === "A") {
             $old_workday_id = $request['cartId'];
+
+            $data = EditSlotsPay::where('old_workday_id', $old_workday_id)->first();
+
+            return $data;
+
+
             $tranRef = $request['tranRef'];
             $transaction = Paypage::queryTransaction($tranRef);
             $fine_price = $transaction->cart_amount;
             $fine_type = $transaction->cart_description;
-            return $transaction;
             $teacher_id = $transaction->user_defined->udf1;
             $old_slot_id = $transaction->user_defined->udf2;
             $workday_id = $transaction->user_defined->udf3;

@@ -7,6 +7,7 @@ use App\Http\Requests\SlotCreateRequest;
 use App\Http\Requests\SlotEditRequest;
 use App\Http\Requests\SlotTeacherRequest;
 use App\Models\Branch;
+use App\Models\EditSlotsPay;
 use App\Models\Slot;
 use App\Models\SlotTeacher;
 use App\Models\SlotValidation;
@@ -228,6 +229,18 @@ class SlotController extends Controller
         $cart_amount = $request->price;
         $fine_type_id = $request->fine_type_id;
         $cart_description = 'edit';
+
+        EditSlotsPay::create([
+            'teacher_id' => $teacher->id,
+            'old_workday_id' => $old_workday_id,
+            'old_slot_id' => $old_slot_id,
+            'workday_id' => $workday_id,
+            'slot_id' => $slot_id,
+            'price' => $cart_amount,
+            'fine_type_id' => $fine_type_id,
+            'fine_type' => $cart_description,
+        ]);
+
         $name = $teacher->first_name . ' ' . $teacher->last_name;
         $email = $teacher->email;
         $phone = $teacher->phone;
@@ -246,7 +259,15 @@ class SlotController extends Controller
             ->sendHideShipping(true)
             ->sendURLs(route('slot_pay_success'), route('slot_pay_success'))
             ->sendLanguage($language)
-            ->sendUserDefined(["udf1" => $teacher->id, "udf2" => $old_slot_id, "udf3" => $workday_id, "udf4" => $slot_id, 'udf5' => $fine_type_id])
+            ->sendUserDefined(
+                [
+                    "udf1" => $teacher->id,
+                    "udf2" => $old_slot_id,
+                    "udf3" => $workday_id,
+                    "udf4" => $slot_id,
+                    'udf5' => $fine_type_id
+                ]
+            )
             ->sendFramed(false)
             ->create_pay_page(); // to initiate payment
 
