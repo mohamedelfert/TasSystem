@@ -172,13 +172,13 @@ class MainController extends Controller
                 DB::table('edit_slots_pays')->truncate();
 
                 toast(__('Payment was done successfully'), 'success');
-                return redirect()->route('teacher.orders.index');
+                return redirect()->route('teacher.slots.index');
             }
         } else {
             toast(__('Payment Failed'), 'error');
-            return redirect()->route('teacher.orders.index');
+            return redirect()->route('teacher.slots.index');
         }
         toast(__('Payment Failed ....'), 'error');
-        return redirect()->route('teacher.orders.index');
+        return redirect()->route('teacher.slots.index');
     }
 }
