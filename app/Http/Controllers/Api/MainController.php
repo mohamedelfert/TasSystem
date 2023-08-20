@@ -12,6 +12,7 @@ use App\Models\Slot;
 use App\Models\SlotTeacher;
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Paytabscom\Laravel_paytabs\Facades\paypage;
 
@@ -139,41 +140,36 @@ class MainController extends Controller
 
             $data = EditSlotsPay::where('old_workday_id', $old_workday_id)->first();
 
-            return $data;
-
-
             $tranRef = $request['tranRef'];
             $transaction = Paypage::queryTransaction($tranRef);
-            $fine_price = $transaction->cart_amount;
-            $fine_type = $transaction->cart_description;
-            $teacher_id = $transaction->user_defined->udf1;
-            $old_slot_id = $transaction->user_defined->udf2;
-            $workday_id = $transaction->user_defined->udf3;
-            $slot_id = $transaction->user_defined->udf4;
-            $fine_type_id = $transaction->user_defined->udf5;
+//            $fine_price = $transaction->cart_amount;
+//            $fine_type = $transaction->cart_description;
             if ($transaction->payment_result->response_status === 'A' && $transaction->success) {
-                $slotTeacher = SlotTeacher::where('teacher_id', $teacher_id)
-                    ->where('slot_id', $old_slot_id)
-                    ->where('workday_id', $old_workday_id)
+                $slotTeacher = SlotTeacher::where('teacher_id', $data->teacher_id)
+                    ->where('slot_id', $data->old_slot_id)
+                    ->where('workday_id', $data->old_workday_id)
                     ->first();
 
                 $slotTeacher->update([
-                    'slot_id' => $slot_id,
-                    'workday_id' => $workday_id,
-                    'teacher_id' => $teacher_id
+                    'slot_id' => $data->slot_id,
+                    'workday_id' => $data->workday_id,
+                    'teacher_id' => $data->teacher_id
                 ]);
 
-                $fineType = FineType::where('type', $fine_type)->first();
+                $fineType = FineType::where('type', $data->fine_type)->first();
 
                 // fines create in fines table after pay
                 $slotTeacher->fines()->create([
                     'payment_method_id' => 1,
-                    'teacher_id' => $teacher_id,
-                    'price' => $fine_price,
+                    'teacher_id' => $data->teacher_id,
+                    'price' => $data->price,
                     'status' => 'paid',
                     'payment_date' => now(),
                     'fine_type_id' => $fineType->id,
                 ]);
+
+                $data->delete();
+                DB::table('edit_slots_pays')->truncate();
 
                 toast(__('Payment was done successfully'), 'success');
                 return redirect()->route('teacher.orders.index');
