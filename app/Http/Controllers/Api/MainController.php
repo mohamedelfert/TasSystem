@@ -102,6 +102,14 @@ class MainController extends Controller
 
                 // delete slot time from order details table
                 $orderDetail->delete();
+                $orderDetail['status'] = 'cancelled';
+                $orderDetail->update();
+
+                $orderDetailsCount = OrderDetail::where('order_id', $orderDetail->order_id)->count();
+                if ($orderDetailsCount === 0) {
+                    $order['status'] = 'cancelled';
+                    $order->update();
+                }
 
                 $countOrderDetails = $order->count_order_details;
                 if ($countOrderDetails > 0) {
@@ -129,7 +137,7 @@ class MainController extends Controller
             toast(__('Payment Failed'), 'error');
             return redirect()->route('teacher.orders.index');
         }
-        toast(__('Payment Failed ....'), 'error');
+        toast(__('Payment Failed'), 'error');
         return redirect()->route('teacher.orders.index');
     }
 

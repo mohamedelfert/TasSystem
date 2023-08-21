@@ -24,8 +24,8 @@
                                                     <tr>
                                                         <th class="wd-5p border-bottom-0">#</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.slot') !!}</th>
-                                                        <th class="wd-10p border-bottom-0">{!! __('main.app_detail_id') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.date') !!}</th>
+                                                        <th class="wd-10p border-bottom-0">{!! __('main.status') !!}</th>
                                                         <th class="wd-10p border-bottom-0">{!! __('main.options') !!}</th>
                                                     </tr>
                                                 </thead>
@@ -35,23 +35,37 @@
                                                             <tr>
                                                                 <th class="wd-5p border-bottom-0">{{ $index + 1 }}</th>
                                                                 <th class="wd-10p border-bottom-0">
-                                                                    <span class="badge badge-pill badge-secondary">
+                                                                    <span class="badge badge-pill badge-success">
                                                                         {{ Carbon\Carbon::parse(optional($detail->slot)->start_at)->format('g:i A') .' - '. Carbon\Carbon::parse(optional($detail->slot)->end_at)->format('g:i A') }}
                                                                     </span>
                                                                 </th>
-                                                                <th class="wd-5p border-bottom-0">{{ $detail->app_detail_id }}</th>
                                                                 <th class="wd-10p border-bottom-0">
                                                                     <span class="badge badge-pill badge-primary">{{ $detail->date }}</span>
                                                                 </th>
                                                                 <th class="wd-10p border-bottom-0">
-                                                                    <a class="btn btn-danger btn-sm" data-effect="effect-scale"data-toggle="modal"
-                                                                       href="#cancel" title="{!! __('main.cancel') !!}"
-                                                                       data-id="{{ $detail->id }}"
-                                                                       data-slot="{{ Carbon\Carbon::parse(optional($detail->slot)->start_at)->format('g:i A') .' - '. Carbon\Carbon::parse(optional($detail->slot)->end_at)->format('g:i A') }}"
-                                                                       data-date="{{ $detail->date }}">
-                                                                        {!! __('main.cancel') !!}
-                                                                    </a>
+                                                                    @if($detail->status === 'accepted')
+                                                                        <span class="badge badge-pill badge-light-success">
+                                                                            {{ $detail->status }}
+                                                                        </span>
+                                                                    @elseif($detail->status === 'cancelled')
+                                                                        <span class="badge badge-pill badge-danger">
+                                                                            {{ $detail->status }}
+                                                                        </span>
+                                                                    @endif
                                                                 </th>
+                                                                @if($detail->status === 'accepted')
+                                                                    <th class="wd-10p border-bottom-0">
+                                                                        <a class="btn btn-danger btn-sm" data-effect="effect-scale"data-toggle="modal"
+                                                                           href="#cancel" title="{!! __('main.cancel') !!}"
+                                                                           data-id="{{ $detail->id }}"
+                                                                           data-slot="{{ Carbon\Carbon::parse(optional($detail->slot)->start_at)->format('g:i A') .' - '. Carbon\Carbon::parse(optional($detail->slot)->end_at)->format('g:i A') }}"
+                                                                           data-date="{{ $detail->date }}">
+                                                                            {!! __('main.cancel') !!}
+                                                                        </a>
+                                                                    </th>
+                                                                @else
+                                                                    <th class="wd-10p border-bottom-0">-</th>
+                                                                @endif
                                                             </tr>
                                                         @endforeach
                                                     @else

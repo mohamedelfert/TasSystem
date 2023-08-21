@@ -7,7 +7,6 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Subject;
 use App\Models\Teacher;
-use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Illuminate\Http\Request;
 use Paytabscom\Laravel_paytabs\Facades\paypage;
 
@@ -24,7 +23,7 @@ class OrderController extends Controller
     public function orderDetails($id)
     {
         $orderDetails = OrderDetail::with('order')->where('order_id', $id)
-            ->latest()->paginate(10);
+            ->withTrashed()->latest()->paginate(10);
         return view('teacher-dashboard.orders.order-details', compact('orderDetails'));
     }
 
@@ -84,10 +83,6 @@ class OrderController extends Controller
         $zip = '01254';
         $ip = $request->ip();
         $same_as_billing = true;
-//        $return = route('teacher.order_pay_success');
-//        $callback = route('teacher.order_pay_success');
-//        $return = 'https://webhook.site/1beca553-73ed-472f-bd34-d2d63f457550';
-//        $callback = 'https://webhook.site/1beca553-73ed-472f-bd34-d2d63f457550';
         $language = 'en';
 
         $pay = paypage::sendPaymentCode('all')
@@ -96,7 +91,6 @@ class OrderController extends Controller
             ->sendCustomerDetails($name, $email, $phone, $street1, $city, $state, $country, $zip, $ip)
 //            ->sendShippingDetails($name = null, $email = null, $phone = null, $street1 = null, $city = null, $state = null, $country = null, $zip = null, $ip = null)
             ->sendHideShipping(true)
-//            ->sendURLs($return, $callback)
             ->sendURLs(route('order_pay_success'), route('order_pay_success'))
             ->sendLanguage($language)
             ->sendUserDefined(["udf1" => $teacher->id, "udf2" => $cart_id])
@@ -105,45 +99,43 @@ class OrderController extends Controller
 
         return $pay;
 
-        //        try {
-//            $charge = Stripe::charges()->create([
-//                'currency' => 'USD',
-//                'source' => $request->stripeToken,
-//                'amount' => $request->price,
-//                'description' => 'Payment From Tas System',
+//        try {
+//
+//            // delete slot time from order details table
+//            $orderDetail = OrderDetail::findOrFail($request->order_detail_id);
+//            $orderDetail->delete();
+//            $orderDetail['status'] = 'cancelled';
+//            $orderDetail->update();
+//
+//            // get order details from order table
+//            $order = Order::findOrFail($request->order_id);
+//
+//            $orderDetailsCount = OrderDetail::where('order_id', $request->order_id)->count();
+//            if ($orderDetailsCount === 0){
+//                $order['status'] = 'cancelled';
+//                $order->update();
+//            }
+//
+//            $countOrderDetails = $order->count_order_details;
+//            if ($countOrderDetails > 0) {
+//                $count = $order->count_order_details - 1;
+//                $order['count_order_details'] = $count;
+//                $order->update();
+//            }
+//
+//            // fines create in fines table after pay
+//            $order->fines()->create([
+//                'payment_method_id' => 1,
+//                'teacher_id' => $order->teacher_id,
+//                'price' => $request->price,
+//                'status' => 'paid',
+//                'payment_date' => now(),
+//                'fine_type_id' => $request->fine_type_id,
 //            ]);
 //
-//            $chargeId = $charge['id'];
+//            toast(__('Payment was done successfully'), 'success');
+//            return redirect()->route('teacher.orders.index');
 //
-//            if ($chargeId) {
-//                // delete slot time from order details table
-//                $orderDetail = OrderDetail::findOrFail($request->id);
-//                $orderDetail->delete();
-//
-//                // get order details from order table
-//                $order = Order::findOrFail($request->order_id);
-//                $countOrderDetails = $order->count_order_details;
-//                if ($countOrderDetails > 0) {
-//                    $count = $order->count_order_details - 1;
-//                    $order['count_order_details'] = $count;
-//                    $order->update();
-//                }
-//
-//                // fines create in fines table after pay
-//                $order->fines()->create([
-//                    'payment_method_id' => 1,
-//                    'teacher_id' => $order->teacher_id,
-//                    'price' => $request->price,
-//                    'status' => 'paid',
-//                    'payment_date' => now(),
-//                    'fine_type_id' => $request->fine_type_id,
-//                ]);
-//
-//                toast(__('Payment was done successfully'), 'success');
-//                return redirect()->route('teacher.orders.index');
-//            } else {
-//                return redirect()->back();
-//            }
 //        } catch (\Exception $e) {
 //            return redirect()->back()->withErrors(['errors' => $e->getMessage()]);
 //        }

@@ -125,16 +125,16 @@
                                                                         </span>
                                                                     @endif
                                                                 </th>
-                                                                @if($order->count_order_details > 0)
+                                                                @if($order->status === 'cancelled')
                                                                     <th class="wd-10p border-bottom-0">
                                                                         <a href="{{ route('teacher.orderDetails',$order->id) }}">
-                                                                            <span class="btn btn-success btn-sm">{!! __('main.details') !!}</span>
+                                                                            <span class="btn btn-dark  btn-sm">{!! __('main.details') !!}</span>
                                                                         </a>
                                                                     </th>
                                                                 @else
                                                                     <th class="wd-10p border-bottom-0">
-                                                                        <a href="{{ route('teacher.cancelOrder',$order->id) }}">
-                                                                            <span class="btn btn-danger btn-sm">{!! __('main.cancel') !!}</span>
+                                                                        <a href="{{ route('teacher.orderDetails',$order->id) }}">
+                                                                            <span class="btn btn-success btn-sm">{!! __('main.details') !!}</span>
                                                                         </a>
                                                                     </th>
                                                                 @endif

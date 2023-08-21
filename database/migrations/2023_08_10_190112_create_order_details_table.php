@@ -18,6 +18,7 @@ class CreateOrderDetailsTable extends Migration {
             $table->time('end_at');
             $table->boolean('is_postponed')->default(0);
             $table->integer('postpone_id')->nullable();
+            $table->enum('status', ['accepted', 'cancelled', 'completed'])->default('accepted');
 			$table->timestamps();
 			$table->softDeletes();
 		});
