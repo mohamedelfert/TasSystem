@@ -1,6 +1,6 @@
 <tr>
     <td>{!! $loop->index +1 !!}</td>
-    <td>{!! session('lang') == 'ar' ? $branch->getTranslation('name', 'ar') : $branch->getTranslation('name', 'en') !!}</td>
+    <td>{!! (app()->getLocale() == 'ar') ? $branch->getTranslation('name', 'ar') : $branch->getTranslation('name', 'en') !!}</td>
     <td>{!! $branch->phone !!}</td>
     <td>{!! $branch->email !!}</td>
     <td>

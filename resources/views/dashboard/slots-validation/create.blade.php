@@ -77,11 +77,11 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        @component('dashboard.layouts.partials.buttons._save_button',[])
-                                        @endcomponent
                                         <div class="col-12">
                                             <input class="btn btn-success mr-1 mb-1 waves-effect waves-light add_input" data-repeater-create type="button" value="{{ __('main.add_new') }}"/>
                                         </div>
+                                        @component('dashboard.layouts.partials.buttons._save_button',[])
+                                        @endcomponent
                                     </div>
                                 </div>
                             {!! Form::close() !!}

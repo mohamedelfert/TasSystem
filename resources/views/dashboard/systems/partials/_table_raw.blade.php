@@ -1,6 +1,6 @@
 <tr>
     <td>{!! $loop->index +1 !!}</td>
-    <td>{!! session('lang') == 'ar' ? $system->getTranslation('name', 'ar') : $system->getTranslation('name', 'en') !!}</td>
+    <td>{!! (app()->getLocale() == 'ar') ? $system->getTranslation('name', 'ar') : $system->getTranslation('name', 'en') !!}</td>
     <td>
         @if(request()->has('view_deleted'))
             <a href="{{ route('admin.restoreSystem', $system->id) }}" class="btn btn-success">{{ __('main.restore') }}</a>

@@ -1,6 +1,6 @@
 <tr>
     <td>{!! $loop->index +1 !!}</td>
-    <td>{!! session('lang') == 'ar' ? $country->getTranslation('name', 'ar') : $country->getTranslation('name', 'en') !!}</td>
+    <td>{!! (app()->getLocale() == 'ar') ? $country->getTranslation('name', 'ar') : $country->getTranslation('name', 'en') !!}</td>
     <td>{!! $country->code !!}</td>
     <td>{!! $country->status !!}</td>
     <td>

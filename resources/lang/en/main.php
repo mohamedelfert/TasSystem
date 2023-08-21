@@ -31,6 +31,8 @@ return [
     'show_profile' => 'Show Profile',
     'user_details' => 'User Details',
     'profile' => 'Profile',
+    'from_day' => 'From Day',
+    'to_day' => 'To Day',
     'add_user' => 'Add User',
     'edit_user' => 'Edit User',
     'delete_user' => 'Delete User',

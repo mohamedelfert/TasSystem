@@ -12,7 +12,7 @@
 
 <div class="form-group py-1 col-md-6">
     <label for="price"> {{__('main.price')}}</label>
-    {!! Form::number('price',null,['id'=>'price','class'=>'form-control col','min'=>'0','max'=>'100','placeholder'=>__("main.price"),
+    {!! Form::number('price',null,['id'=>'price','class'=>'form-control col','min'=>'0','max'=>'1000','placeholder'=>__("main.price"),
         isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
     {{input_error($errors,'price')}}
 </div>

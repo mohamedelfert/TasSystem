@@ -25,6 +25,8 @@ return [
     'edit_teacher' => 'تعديل مدرس',
     'show_teacher' => 'عرض مدرس',
     'teacher_info' => 'معلومات المدرس',
+    'from_day' => 'من يوم',
+    'to_day' => 'الي يوم',
     'teacher_orders' => 'طلبات المدرس',
     'teacher_fines' => 'غرامات المدرس',
     'confirm_password' => 'تاكيد كلمه المرور',

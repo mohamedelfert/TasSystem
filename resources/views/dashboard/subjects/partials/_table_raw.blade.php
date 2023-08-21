@@ -1,6 +1,6 @@
 <tr>
     <td>{!! $loop->index +1 !!}</td>
-    <td>{!! session('lang') == 'ar' ? $subject->getTranslation('name', 'ar') : $subject->getTranslation('name', 'en') !!}</td>
+    <td>{!! (app()->getLocale() == 'ar') ? $subject->getTranslation('name', 'ar') : $subject->getTranslation('name', 'en') !!}</td>
     <td>{!! $subject->system->name !!}</td>
     <td>
         @if(request()->has('view_deleted'))

@@ -1,6 +1,6 @@
 <tr>
     <td>{!! $loop->index +1 !!}</td>
-    <td>{!! session('lang') == 'ar' ? $paymentMethod->getTranslation('name', 'ar') : $paymentMethod->getTranslation('name', 'en') !!}</td>
+    <td>{!! (app()->getLocale() == 'ar') ? $paymentMethod->getTranslation('name', 'ar') : $paymentMethod->getTranslation('name', 'en') !!}</td>
     <td>
         @if(request()->has('view_deleted'))
             <a href="{{ route('admin.restorePaymentMethod', $paymentMethod->id) }}" class="btn btn-success">{{ __('main.restore') }}</a>

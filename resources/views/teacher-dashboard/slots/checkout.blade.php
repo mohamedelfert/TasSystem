@@ -1,29 +1,6 @@
 @extends('teacher-dashboard.layouts.app')
 @section('title'){!! __('main.slots') !!}@endsection
-@section('header')
-{{--    <style>--}}
-{{--        .StripeElement {--}}
-{{--            box-sizing: border-box;--}}
-{{--            height: 40px;--}}
-{{--            padding: 10px 12px;--}}
-{{--            border: 1px solid transparent;--}}
-{{--            border-radius: 4px;--}}
-{{--            background-color: white;--}}
-{{--            box-shadow: 0 1px 3px 0 #e6ebf1;--}}
-{{--            -webkit-transition: box-shadow 150ms ease;--}}
-{{--            transition: box-shadow 150ms ease;--}}
-{{--        }--}}
-{{--        .StripeElement--focus {--}}
-{{--            box-shadow: 0 1px 3px 0 #cfd7df;--}}
-{{--        }--}}
-{{--        .StripeElement--invalid {--}}
-{{--            border-color: #fa755a;--}}
-{{--        }--}}
-{{--        .StripeElement--webkit-autofill {--}}
-{{--            background-color: #fefde5 !important;--}}
-{{--        }--}}
-{{--    </style>--}}
-@endsection
+@section('header')@endsection
 @section('breadcrumb')
     @include('teacher-dashboard.layouts.partials._breadcrumb',['level'=>'slots'])
 @endsection
@@ -59,13 +36,16 @@
                                                                         </div>
 
                                                                         <div class="alert alert-secondary text-center mb-2 col-12 col-md-12 col-lg-12">
-                                                                            <strong class="text-dark">{{ __('Price') }} : </strong><strong class="text-danger">{{ $details->price  }}</strong><br>
-                                                                            <strong class="text-dark">{{ __('Old Workday Id') }} : </strong><strong class="text-danger">{{ $details->old_workday_id  }}</strong><br>
-                                                                            <strong class="text-dark">{{ __('Old Slot Id') }} : </strong><strong class="text-danger">{{ $details->old_slot_id  }}</strong><br>
-                                                                            <strong class="text-dark">{{ __('Workday Id') }} : </strong><strong class="text-danger">{{ $details->workday_id  }}</strong><br>
-                                                                            <strong class="text-dark">{{ __('Slot Id') }} : </strong><strong class="text-danger">{{ $details->slot_id  }}</strong><br>
-                                                                            <strong class="text-dark">{{ __('Teacher Id') }} : </strong><strong class="text-danger">{{ $details->teacher_id  }}</strong><br>
-                                                                            <strong class="text-dark">{{ __('Fine Type Id') }} : </strong><strong class="text-danger">{{ $details->fine_type_id  }}</strong><br>
+                                                                            @php
+                                                                                $old_day = \App\Models\Workday::where('id',$details->old_workday_id)->first();
+                                                                                $old_slot = \App\Models\Slot::where('id',$details->old_slot_id)->first();
+                                                                                $new_day = \App\Models\Workday::where('id',$details->workday_id)->first();
+                                                                                $new_slot = \App\Models\Slot::where('id',$details->slot_id)->first();
+                                                                            @endphp
+                                                                            <strong class="text-dark">{{ __('main.from_day') }} : </strong><strong class="text-danger">{{ (app()->getLocale() == 'ar') ? $old_day->getTranslation('day', 'ar') : $old_day->getTranslation('day', 'en') }}</strong><br>
+                                                                            <strong class="text-primary">{{ Carbon\Carbon::parse($old_slot->start_at)->timezone(auth()->user()->timezone)->format('g:i A') .' - '. Carbon\Carbon::parse($old_slot->end_at)->timezone(auth()->user()->timezone)->format('g:i A')  }}</strong><br>
+                                                                            <strong class="text-dark">{{ __('main.to_day') }} : </strong><strong class="text-danger">{{ (app()->getLocale() == 'ar') ? $new_day->getTranslation('day', 'ar') : $new_day->getTranslation('day', 'en')  }}</strong><br>
+                                                                            <strong class="text-primary">{{ Carbon\Carbon::parse($new_slot->start_at)->timezone(auth()->user()->timezone)->format('g:i A') .' - '. Carbon\Carbon::parse($new_slot->end_at)->timezone(auth()->user()->timezone)->format('g:i A')  }}</strong><br>
                                                                         </div>
 
                                                                         <div class="mb-2 col-12 col-md-12 col-lg-12">
@@ -79,26 +59,10 @@
                                                                                     <input type="hidden" name="slot_id" id="slot_id" value="{{ $details->slot_id }}"/>
                                                                                     <input type="hidden" name="teacher_id" id="teacher_id" value="{{ $details->teacher_id }}"/>
                                                                                     <input type="hidden" name="fine_type_id" id="fine_type_id" value="{{ $details->fine_type_id }}"/>
-{{--                                                                                    <label for="card-element">--}}
-{{--                                                                                        {{ __('main.credit_or_debit_card') }}--}}
-{{--                                                                                    </label>--}}
-                                                                                    <div id="card-element">
-                                                                                        <!-- A Stripe Element will be inserted here. -->
-                                                                                    </div>
-                                                                                    <!-- Used to display form errors. -->
-                                                                                    <div id="card-errors" role="alert"></div>
                                                                                 </div>
                                                                                 <button class="btn btn-success float-right ml-2 mt-2">  <i class="fa fa-dollar"> @lang('main.pay') </i></button>
-                                                                                <p class="alert alert-primary block d-none loading mt-3">{{ __('main.payment_processing') }}</p>
                                                                             </form>
                                                                         </div>
-
-{{--                                                                        <div class="mb-2 col-12 col-md-12 col-lg-12">--}}
-{{--                                                                            <a href="{{ route('teacher.editSlot',auth()->user()->id) }}"--}}
-{{--                                                                               class="btn btn-primary float-right ml-2" title="@lang('main.pay_cash')">--}}
-{{--                                                                                <i class="fa fa-edit"> @lang('main.pay_cash') </i>--}}
-{{--                                                                            </a>--}}
-{{--                                                                        </div>--}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -116,69 +80,4 @@
             </div>
         </div>
     </div>
-@endsection
-@section('footer')
-{{--    <script src="https://js.stripe.com/v3/"></script>--}}
-{{--    <script>--}}
-{{--        window.onload = function () {--}}
-{{--            var stripe = Stripe('pk_test_51Kw8xJIJoo2rP2Y39U3CRvtlcOFxG7qM6BKaYjfAPmybUbY5v6GrvJRk519BCs7PiHmuR9fH2Xr6r722S11anJOX00M2CYVpyl');--}}
-{{--            var elements = stripe.elements();--}}
-{{--            var style = {--}}
-{{--                base: {--}}
-{{--                    color: '#32325d',--}}
-{{--                    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',--}}
-{{--                    fontSmoothing: 'antialiased',--}}
-{{--                    fontSize: '16px',--}}
-{{--                    '::placeholder': {--}}
-{{--                        color: '#aab7c4'--}}
-{{--                    }--}}
-{{--                },--}}
-{{--                invalid: {--}}
-{{--                    color: '#fa755a',--}}
-{{--                    iconColor: '#fa755a'--}}
-{{--                }--}}
-{{--            };--}}
-{{--            var card = elements.create('card', {--}}
-{{--                style: style--}}
-{{--            });--}}
-{{--            card.mount('#card-element');--}}
-{{--            // Handle real-time validation errors from the card Element.--}}
-{{--            card.addEventListener('change', function (event) {--}}
-{{--                var displayError = document.getElementById('card-errors');--}}
-{{--                if (event.error) {--}}
-{{--                    displayError.textContent = event.error.message;--}}
-{{--                } else {--}}
-{{--                    displayError.textContent = '';--}}
-{{--                }--}}
-{{--            });--}}
-{{--            // Handle form submission.--}}
-{{--            var form = document.getElementById('payment-form');--}}
-{{--            form.addEventListener('submit', function (event) {--}}
-{{--                event.preventDefault();--}}
-{{--                stripe.createToken(card).then(function (result) {--}}
-{{--                    if (result.error) {--}}
-{{--                        // Inform the user if there was an error.--}}
-{{--                        var errorElement = document.getElementById('card-errors');--}}
-{{--                        errorElement.textContent = result.error.message;--}}
-{{--                    } else {--}}
-{{--                        // Send the token to your server.--}}
-{{--                        stripeTokenHandler(result.token);--}}
-{{--                    }--}}
-{{--                });--}}
-{{--            });--}}
-
-{{--            function stripeTokenHandler(token) {--}}
-{{--                // Insert the token ID into the form so it gets submitted to the server--}}
-{{--                var form = document.getElementById('payment-form');--}}
-{{--                var hiddenInput = document.createElement('input');--}}
-{{--                hiddenInput.setAttribute('type', 'hidden');--}}
-{{--                hiddenInput.setAttribute('name', 'stripeToken');--}}
-{{--                hiddenInput.setAttribute('value', token.id);--}}
-{{--                form.appendChild(hiddenInput);--}}
-{{--                // Submit the form--}}
-{{--                $('.loading').removeClass('d-none');--}}
-{{--                form.submit();--}}
-{{--            }--}}
-{{--        }--}}
-{{--    </script>--}}
 @endsection

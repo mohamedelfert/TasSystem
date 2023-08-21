@@ -15,7 +15,6 @@ use App\Models\Subject;
 use App\Models\Teacher;
 use App\Models\Workday;
 use Carbon\Carbon;
-use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Illuminate\Http\Request;
 use Paytabscom\Laravel_paytabs\Facades\paypage;
 
@@ -135,7 +134,13 @@ class SlotController extends Controller
                     toast(__('main.data_added_successfully'), 'success');
                     return redirect(route('teacher.slots.index'));
                 } else {
-                    toast(__('main.slots_less_than_slot_accept'), 'error');
+                    toast(__('main.slot_validation_required') .
+                        Carbon::parse($validation->start)->timezone(auth()->user()->timezone)->format('g:i A')
+                        . __('main.and_end_time')
+                        . Carbon::parse($validation->end)->timezone(auth()->user()->timezone)->format('g:i A')
+                        . __('main.is') . $validation->number
+                        . ' ' . __('main.slots'),
+                        'error');
                     return redirect()->back()->withInput()
                         ->withErrors([
                             'errors' =>
@@ -197,7 +202,6 @@ class SlotController extends Controller
 
     public function getSlots(Request $request)
     {
-//        return SlotTeacher::where('teacher_id', auth()->user()->id)->where('workday_id', $request->id)->pluck('slot_id', 'id');
         return SlotTeacher::join('slots', 'slot_teacher.slot_id', 'slots.id')
             ->where('teacher_id', auth()->user()->id)
             ->where('workday_id', $request->id)

@@ -1,6 +1,6 @@
 <tr>
     <td>{!! $loop->index +1 !!}</td>
-    <td>{!! session('lang') == 'ar' ? $fine->getTranslation('name', 'ar') : $fineType->getTranslation('name', 'en') !!}</td>
+    <td>{!! (app()->getLocale() == 'ar') ? $fine->getTranslation('name', 'ar') : $fineType->getTranslation('name', 'en') !!}</td>
     <td>{!! $fineType->type !!}</td>
     <td>{!! $fineType->price !!} $</td>
     <td>
