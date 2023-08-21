@@ -16,6 +16,7 @@
         "laravel/telescope": "^4.16",
         "laravel/tinker": "^2.8",
         "laravelcollective/html": "^6.4",
+        "mcamara/laravel-localization": "^1.8",
         "paytabscom/laravel_paytabs": "^1.4",
         "proengsoft/laravel-jsvalidation": "^4.8",
         "realrashid/sweet-alert": "^7.0",

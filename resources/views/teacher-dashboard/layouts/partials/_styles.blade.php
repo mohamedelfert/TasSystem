@@ -1,4 +1,4 @@
-@if(appDirection() == 'rtl')
+@if (app()->getLocale() == 'ar')
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/dashboard/resources')}}/app-assets/vendors/css/vendors-rtl.min.css">

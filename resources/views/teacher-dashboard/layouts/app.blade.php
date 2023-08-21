@@ -1,7 +1,7 @@
 <!doctype html>
 
 
-<html class="loading" lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-textdirection="{!! app()->getLocale() == 'ar'?'rtl':'ltr' !!}">
+<html class="loading" lang="{{ LaravelLocalization::getCurrentLocale() }}" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
 <!-- BEGIN: Head-->
 
 <head>

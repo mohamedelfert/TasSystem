@@ -29,10 +29,10 @@
                             </span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdown-flag">
-                            <a class="dropdown-item" href="{{ url('teacher/lang/en') }}" data-language="en">
+                            <a class="dropdown-item" href="{{ LaravelLocalization::getLocalizedURL('en') }}" data-language="en">
                                 <i class="flag-icon flag-icon-us"></i> {!! __('main.english') !!}
                             </a>
-                            <a class="dropdown-item" href="{{ url('teacher/lang/ar') }}" data-language="ar">
+                            <a class="dropdown-item" href="{{ LaravelLocalization::getLocalizedURL('ar') }}" data-language="ar">
                                 <i class="flag-icon flag-icon-sa"></i> {!! __('main.arabic') !!}
                             </a>
                         </div>

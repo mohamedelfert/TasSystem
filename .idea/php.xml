@@ -136,6 +136,7 @@
       <path value="$PROJECT_DIR$/vendor/cartalyst/stripe" />
       <path value="$PROJECT_DIR$/vendor/paytabscom/laravel_paytabs" />
       <path value="$PROJECT_DIR$/vendor/laravel/telescope" />
+      <path value="$PROJECT_DIR$/vendor/mcamara/laravel-localization" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">

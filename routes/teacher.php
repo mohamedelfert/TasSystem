@@ -6,47 +6,55 @@ use App\Http\Controllers\Teacher\OrderController;
 use App\Http\Controllers\Teacher\SlotController;
 use App\Http\Controllers\Teacher\TeacherController;
 use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 require __DIR__ . '/auth.php';
 
-Route::prefix('teacher')->name('teacher.')->middleware(['auth:teacher'])->group(function () {
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
+    ], function () {
 
-    Route::get('/', [HomeController::class, 'dashboard'])->name('home');
+    Route::prefix('teacher')->name('teacher.')->middleware(['auth:teacher'])->group(function () {
 
-    /********************************* Teachers **************************************/
-    Route::resource('teachers', TeacherController::class);
+        Route::get('/', [HomeController::class, 'dashboard'])->name('home');
 
-    /********************************* Orders **************************************/
-    Route::resource('orders', OrderController::class);
-    Route::get('finished-orders', [OrderController::class, 'finishedOrders'])->name('finishedOrders');
-    Route::get('details/{id}', [OrderController::class, 'orderDetails'])->name('orderDetails');
-    Route::get('order-checkout/{price}', [OrderController::class, 'checkout'])->name('orderCheckout');
-    Route::post('order-fine-pay', [OrderController::class, 'pay'])->name('orderFinePay');
-    Route::get('cancel/{id}', [OrderController::class, 'cancelOrder'])->name('cancelOrder');
-    Route::post('filter-status', [OrderController::class, 'filterStatus'])->name('filterStatus');
-    Route::post('filter-subject', [OrderController::class, 'filterSubject'])->name('filterSubject');
-    Route::post('date-search', [OrderController::class, 'dateSearch'])->name('dateSearch');
+        /********************************* Teachers **************************************/
+        Route::resource('teachers', TeacherController::class);
 
-    /********************************* Fines **************************************/
-    Route::resource('fines', FineController::class);
+        /********************************* Orders **************************************/
+        Route::resource('orders', OrderController::class);
+        Route::get('finished-orders', [OrderController::class, 'finishedOrders'])->name('finishedOrders');
+        Route::get('details/{id}', [OrderController::class, 'orderDetails'])->name('orderDetails');
+        Route::get('order-checkout/{price}', [OrderController::class, 'checkout'])->name('orderCheckout');
+        Route::post('order-fine-pay', [OrderController::class, 'pay'])->name('orderFinePay');
+        Route::get('cancel/{id}', [OrderController::class, 'cancelOrder'])->name('cancelOrder');
+        Route::post('filter-status', [OrderController::class, 'filterStatus'])->name('filterStatus');
+        Route::post('filter-subject', [OrderController::class, 'filterSubject'])->name('filterSubject');
+        Route::post('date-search', [OrderController::class, 'dateSearch'])->name('dateSearch');
 
-    /********************************* Slots **************************************/
-    Route::resource('slots', SlotController::class);
-    Route::get('getSlots', [SlotController::class, 'getSlots'])->name('getSlots');
-    Route::get('getNewSlots', [SlotController::class, 'getNewSlots'])->name('getNewSlots');
-    Route::get('createSlot', [SlotController::class, 'createSlot'])->name('createSlot');
-    Route::post('doCreateSlot', [SlotController::class, 'doCreateSlot'])->name('doCreateSlot');
-    Route::get('editSlot/{id}', [SlotController::class, 'editSlot'])->name('editSlot');
-    Route::put('doEditSlot/{id}', [SlotController::class, 'doEditSlot'])->name('doEditSlot');
-    Route::get('slot-checkout/{price}', [SlotController::class, 'checkout'])->name('slotCheckout');
-    Route::post('slot-fine-pay', [SlotController::class, 'pay'])->name('slotFinePay');
+        /********************************* Fines **************************************/
+        Route::resource('fines', FineController::class);
 
-    //================= this route for change language ( ar - en ) ===================//
-    Route::get('lang/{lang}', function ($lang) {
-        session()->has('lang') ? session()->forget('lang') : '';
-        $lang === 'ar' ? session()->put('lang', 'ar') : session()->put('lang', 'en');
-        return back();
-    })->name('lang');
+        /********************************* Slots **************************************/
+        Route::resource('slots', SlotController::class);
+        Route::get('getSlots', [SlotController::class, 'getSlots'])->name('getSlots');
+        Route::get('getNewSlots', [SlotController::class, 'getNewSlots'])->name('getNewSlots');
+        Route::get('createSlot', [SlotController::class, 'createSlot'])->name('createSlot');
+        Route::post('doCreateSlot', [SlotController::class, 'doCreateSlot'])->name('doCreateSlot');
+        Route::get('editSlot/{id}', [SlotController::class, 'editSlot'])->name('editSlot');
+        Route::put('doEditSlot/{id}', [SlotController::class, 'doEditSlot'])->name('doEditSlot');
+        Route::get('slot-checkout/{price}', [SlotController::class, 'checkout'])->name('slotCheckout');
+        Route::post('slot-fine-pay', [SlotController::class, 'pay'])->name('slotFinePay');
 
+//        //================= this route for change language ( ar - en ) ===================//
+//        Route::get('lang/{lang}', function ($lang) {
+//            session()->has('lang') ? session()->forget('lang') : '';
+//            $lang === 'ar' ? session()->put('lang', 'ar') : session()->put('lang', 'en');
+//            return back();
+//        })->name('lang');
+
+    });
 });
 
