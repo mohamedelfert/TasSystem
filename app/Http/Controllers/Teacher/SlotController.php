@@ -187,16 +187,16 @@ class SlotController extends Controller
             if ($slotTeacher->slot_id != $request->slot_id) {
                 if (in_array($request->slot_id, $oldSlotsTeacher)) {
                     toast(__('main.slot_choose_before'), 'error');
-                    return redirect()->back()->withInput();
+                    return redirect()->back()->withInput($request->input());
                 } else {
                     return view('teacher-dashboard.slots.checkout', compact('details'));
                 }
             } else {
                 toast(__('main.slot_choose_before'), 'error');
-                return redirect()->back()->withInput()->withErrors(['errors' => trans('main.slot_choose_before')]);
+                return redirect()->back()->withInput($request->input())->withErrors(['errors' => trans('main.slot_choose_before')]);
             }
         } catch (\Exception $e) {
-            return redirect()->back()->withInput()->withErrors(['errors' => $e->getMessage()]);
+            return redirect()->back()->withInput($request->input())->withErrors(['errors' => $e->getMessage()]);
         }
     }
 

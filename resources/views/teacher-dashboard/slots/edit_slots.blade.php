@@ -58,7 +58,12 @@
                                                         <label for="old_slot_id"> {{__('main.old_slots')}}</label>
                                                     </div>
                                                     <div class="form-group col-md-9">
-                                                        <select name="old_slot_id" id="old_slot_id" class="form-control col"></select>
+                                                        <select name="old_slot_id" id="old_slot_id" class="form-control col">
+                                                            @php $old_slot = \App\Models\Slot::where('id',old('old_slot_id'))->first(); @endphp
+                                                            <option value="{{ old('old_slot_id') }}" @if(old('old_slot_id')) selected @endif>
+                                                                {{ @$old_slot->start_at .' : '. @$old_slot->end_at }}
+                                                            </option>
+                                                        </select>
                                                         {{input_error($errors,'old_slot_id')}}
                                                     </div>
                                                 </div>
@@ -86,7 +91,12 @@
                                                         <label for="slot_id"> {{__('main.new_slot')}}</label>
                                                     </div>
                                                     <div class="form-group col-md-9">
-                                                        <select name="slot_id" id="slot_id" class="form-control col"></select>
+                                                        <select name="slot_id" id="slot_id" class="form-control col">
+                                                            @php $slot = \App\Models\Slot::where('id',old('slot_id'))->first(); @endphp
+                                                            <option value="{{ old('slot_id') }}" @if(old('slot_id')) selected @endif>
+                                                                {{ @$slot->start_at .' : '. @$slot->end_at }}
+                                                            </option>
+                                                        </select>
                                                         {{input_error($errors,'slot_id')}}
                                                     </div>
                                                 </div>
