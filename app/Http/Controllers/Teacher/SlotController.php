@@ -108,7 +108,7 @@ class SlotController extends Controller
                 foreach ($slots as $key => $values) {
                     foreach ($values as $value) {
                         $slot = Slot::findOrFail($key);
-                        if ($slot->start_at >= $validation->start && $slot->end_at <= $validation->end) {
+                        if ($slot->start_at >= $validation->start && $slot->start_at <= $validation->end) {
                             $countValidation++;
                         }
                     }
@@ -141,7 +141,7 @@ class SlotController extends Controller
                         . __('main.is') . $validation->number
                         . ' ' . __('main.slots'),
                         'error');
-                    return redirect()->back()->withInput()
+                    return redirect()->back()->withInput($request->input())
                         ->withErrors([
                             'errors' =>
                                 __('main.slot_validation_required') .
@@ -155,7 +155,7 @@ class SlotController extends Controller
             }
         } else {
             toast(__('main.slots_less_than_slot_accept'), 'error');
-            return redirect()->back()->withInput()->withErrors(['errors' => trans('main.slots_less_than_slot_accept')]);
+            return redirect()->back()->withInput($request->input())->withErrors(['errors' => trans('main.slots_less_than_slot_accept')]);
         }
     }
 
@@ -183,6 +183,7 @@ class SlotController extends Controller
                 ->where('workday_id', $request->workday_id)
                 ->pluck('slot_id', 'id')
                 ->toArray();
+return $oldSlotsTeacher;
 
             if ($slotTeacher->slot_id != $request->slot_id) {
                 if (in_array($request->slot_id, $oldSlotsTeacher)) {

@@ -216,16 +216,19 @@
                                                                         <th>
                                                                             @if($fine->fine_type_id === 1)
                                                                                 <span class="badge badge-pill badge-light-danger">
-                                                                                {{ optional($fine->fineType)->getTranslation('name','en') }}
-                                                                            </span>
+                                                                                    {{ (app()->getLocale() == 'ar') ? optional($fine->fineType)->getTranslation('name','ar') : optional($fine->fineType)->getTranslation('name','en') }}
+                                                                                    <i class="fa fa-close"></i>
+                                                                                </span>
                                                                             @elseif($fine->fine_type_id === 2)
                                                                                 <span class="badge badge-pill badge-light-warning">
-                                                                                {{ optional($fine->fineType)->getTranslation('name','en') }}
-                                                                            </span>
+                                                                                    {{ (app()->getLocale() == 'ar') ? optional($fine->fineType)->getTranslation('name','ar') : optional($fine->fineType)->getTranslation('name','en') }}
+                                                                                    <i class="fa fa-edit"></i>
+                                                                                </span>
                                                                             @else
                                                                                 <span class="badge badge-pill badge-light-success">
-                                                                                {{ optional($fine->fineType)->getTranslation('name','en') }}
-                                                                            </span>
+                                                                                    {{ (app()->getLocale() == 'ar') ? optional($fine->fineType)->getTranslation('name','ar') : optional($fine->fineType)->getTranslation('name','en') }}
+                                                                                    <i class="fa fa-trash"></i>
+                                                                                </span>
                                                                             @endif
                                                                         </th>
                                                                         <th class="wd-10p border-bottom-0">{{ $fine->price }} $</th>

@@ -74,8 +74,15 @@
                                                                 @foreach ($workdays as $workday)
                                                                     <th class="wd-10p border-bottom-0">
                                                                         <label class="block text-gray-500 font-semibold sm:border-r sm:pr-4">
+{{--                                                                            <input name="slots[{{ $slot->id }}][{{ $workday->id }}]" value="{{ $workday->id }}"--}}
+{{--                                                                                   class="leading-tight" type="checkbox"--}}
+{{--                                                                                {{ (is_array(old('slots',[])) && in_array($workday->id, old('slots.'.$workday->id,[]))) ? 'checked' : '' }}>--}}
+{{--                                                                            <input name="slots[{{ $slot->id }}][{{ $workday->id }}]" value="{{ $workday->id }}"--}}
+{{--                                                                                   class="leading-tight" type="checkbox"--}}
+{{--                                                                                @checked(array_key_exists($workday->id, old("slots[$slot->id][$workday->id]",[])))>--}}
                                                                             <input name="slots[{{ $slot->id }}][{{ $workday->id }}]" value="{{ $workday->id }}"
-                                                                                   class="leading-tight" type="checkbox">
+                                                                                   class="leading-tight" type="checkbox"
+                                                                                   @if(in_array($workday->id, old('slots.'.$slot->id, []))) checked @endif>
                                                                         </label>
                                                                     </th>
                                                                 @endforeach
