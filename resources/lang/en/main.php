@@ -66,6 +66,7 @@ return [
     'new_workday' => 'New Workday',
     'new_slot' => 'New Slot',
     'slot_validation_required' => 'Please Not Number Of Slots Required Between Start Time ',
+    'slot_validation_edit_required' => 'Please Not Slot Required Between Start Time ',
     'and_end_time' => ' And End Time ',
     'is' => ' Is ',
     'total_slots_required' => 'Total Required Slots Is Not Less Than ',

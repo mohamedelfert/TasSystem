@@ -88,6 +88,7 @@ return [
     'new_workday' => 'اليوم الجديد',
     'new_slot' => 'الموعد الجديد',
     'slot_validation_required' => 'تذكر عدد المواعيد المطلوبه بين بدايه الساعه ',
+    'slot_validation_edit_required' => 'تذكر يجب ان يكون الموعد بين بدايه الساعه ',
     'and_end_time' => ' ونهايه الساعه ',
     'is' => ' هو ',
     'total_slots_required' => 'عدد المواعيد المطلوب لا يقل عن ',

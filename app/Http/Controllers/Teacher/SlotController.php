@@ -174,7 +174,7 @@ class SlotController extends Controller
             $details = $request;
             $teacher = Teacher::findOrFail($id);
 
-            $slotTeacher = SlotTeacher::where('teacher_id', $teacher->id)
+            $oldSlot = SlotTeacher::where('teacher_id', $teacher->id)
                 ->where('slot_id', $request->old_slot_id)
                 ->where('workday_id', $request->old_workday_id)
                 ->first();
@@ -183,14 +183,43 @@ class SlotController extends Controller
                 ->where('workday_id', $request->workday_id)
                 ->pluck('slot_id', 'id')
                 ->toArray();
-return $oldSlotsTeacher;
 
-            if ($slotTeacher->slot_id != $request->slot_id) {
+            if ($request->slot_id !== $oldSlot->slot_id) {
                 if (in_array($request->slot_id, $oldSlotsTeacher)) {
                     toast(__('main.slot_choose_before'), 'error');
                     return redirect()->back()->withInput($request->input());
                 } else {
-                    return view('teacher-dashboard.slots.checkout', compact('details'));
+                    $slotValidations = SlotValidation::all();
+
+                    $oldTeacherSlot = Slot::findOrFail($oldSlot->slot_id);
+                    $newSlot = Slot::findOrFail($request->slot_id);
+
+                    foreach ($slotValidations as $validation) {
+                        if ($oldTeacherSlot->start_at >= $validation->start && $oldTeacherSlot->start_at <= $validation->end) {
+
+                            if ($newSlot->start_at >= $validation->start && $newSlot->start_at <= $validation->end) {
+                                return view('teacher-dashboard.slots.checkout', compact('details'));
+                            } else {
+                                toast(__('main.slot_validation_edit_required') .
+                                    Carbon::parse($validation->start)->timezone(auth()->user()->timezone)->format('g:i A')
+                                    . __('main.and_end_time')
+                                    . Carbon::parse($validation->end)->timezone(auth()->user()->timezone)->format('g:i A'),
+                                    'error');
+                                return redirect()->back()->withInput($request->input())
+                                    ->withErrors([
+                                        'errors' =>
+                                            __('main.slot_validation_edit_required') .
+                                            Carbon::parse($validation->start)->timezone(auth()->user()->timezone)->format('g:i A')
+                                            . __('main.and_end_time')
+                                            . Carbon::parse($validation->end)->timezone(auth()->user()->timezone)->format('g:i A')
+                                    ]);
+                            }
+                        } else {
+                            return view('teacher-dashboard.slots.checkout', compact('details'));
+                        }
+                    }
+
+//                    return view('teacher-dashboard.slots.checkout', compact('details'));
                 }
             } else {
                 toast(__('main.slot_choose_before'), 'error');
@@ -212,8 +241,6 @@ return $oldSlotsTeacher;
 
     public function getNewSlots(Request $request)
     {
-//        $slotTeacher = SlotTeacher::where('teacher_id', auth()->user()->id)->where('workday_id', $request->id)->pluck('slot_id', 'id')->toArray();
-//        return SlotTeacher::where('teacher_id', auth()->user()->id)->where('workday_id', $request->id)->pluck('slot_id', 'id');
 //        return Slot::get()->pluck('start_at', 'id');
         return Slot::join('slot_teacher', 'slots.id', 'slot_teacher.slot_id')
             ->join('workdays', 'workdays.id', 'slot_teacher.workday_id')
