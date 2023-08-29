@@ -94,7 +94,7 @@
                                                         @csrf
 
                                                         <fieldset class="form-label-group form-group position-relative has-icon-left">
-                                                            <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="user-name" placeholder="{{__('main.email')}}" required>
+                                                            <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="user-name" value="{{ old('email') }}" placeholder="{{__('main.email')}}" required>
                                                             <div class="form-control-position">
                                                                 <i class="feather icon-user"></i>
                                                             </div>
@@ -102,7 +102,7 @@
                                                         </fieldset>
 
                                                         <fieldset class="form-label-group position-relative has-icon-left">
-                                                            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="user-password" placeholder="{{__('main.password')}}" required>
+                                                            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="user-password" value="{{ old('password') }}" placeholder="{{__('main.password')}}" required>
                                                             <div class="form-control-position">
                                                                 <i class="feather icon-lock"></i>
                                                             </div>

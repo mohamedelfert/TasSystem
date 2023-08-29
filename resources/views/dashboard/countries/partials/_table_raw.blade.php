@@ -2,6 +2,7 @@
     <td>{!! $loop->index +1 !!}</td>
     <td>{!! (app()->getLocale() == 'ar') ? $country->getTranslation('name', 'ar') : $country->getTranslation('name', 'en') !!}</td>
     <td>{!! $country->code !!}</td>
+    <td>{!! $country->symbol !!}</td>
     <td>{!! $country->status !!}</td>
     <td>
         @if(request()->has('view_deleted'))

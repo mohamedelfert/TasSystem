@@ -26,7 +26,8 @@ class BranchRequest extends FormRequest
             'name.*' => [
                 'required',
                 'string',
-                'regex:/^[a-zA-Z\p{Arabic}\s]+$/',
+//                'regex:/^[a-zA-Z\p{Arabic}\s]+$/',
+                'regex :/[^0-9]/',
                 Rule::unique('branches','name')->ignore($this->branch)
             ],
             'address' => 'required',
@@ -39,7 +40,8 @@ class BranchRequest extends FormRequest
             'phone' => [
                 'required',
                 'numeric',
-                'regex:/^\+\d{1,3}([0-9\s\-\+\(\)]*)$/',
+//                'regex:/^\+\d{1,3}([0-9\s\-\+\(\)]*)$/',
+                'regex:/^\d([0-9]*)$/',
                 'min:10',
                 Rule::unique('branches','phone')->ignore($this->branch)
             ],

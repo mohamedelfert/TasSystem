@@ -26,6 +26,7 @@ class RoleRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
+                'regex :/[^0-9]/',
                 Rule::unique('roles','name')->ignore($this->role)
             ],
             'display_name' => 'required',

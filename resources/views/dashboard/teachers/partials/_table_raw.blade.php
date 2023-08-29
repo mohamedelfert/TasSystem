@@ -1,7 +1,7 @@
 <tr>
     <td>{!! $loop->index +1 !!}</td>
     <td>{!! $teacher->first_name .' '. $teacher->last_name !!}</td>
-    <td>{!! $teacher->phone !!}</td>
+    <td>+{!! $teacher->code . $teacher->phone !!}</td>
     <td>{!! $teacher->email !!}</td>
     <td>{!! $teacher->address !!}</td>
     <td>

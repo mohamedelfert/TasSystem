@@ -23,10 +23,11 @@ class SettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'site_name_ar' => 'required|string',
-            'site_name_en' => 'required|string|regex:/^[a-zA-Z\p{Arabic}\s]+$/',
+            'site_name_ar' => 'required|string|regex:/[^0-9]/',
+            'site_name_en' => 'required|string|regex:/[^0-9]/',
             'email' => 'required|email',
-            'phone' => 'required|numeric|min:10|regex:/^\+\d{1,3}([0-9\s\-\+\(\)]*)$/',
+//            'phone' => 'required|numeric|min:10|regex:/^\+\d{1,3}([0-9\s\-\+\(\)]*)$/',
+            'phone' => 'required|numeric|min:10|regex:/^\d([0-9]*)$/',
             'total' => 'sometimes|nullable',
             'address' => 'required',
             'currency' => 'required',

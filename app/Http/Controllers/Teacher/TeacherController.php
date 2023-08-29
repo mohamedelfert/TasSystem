@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TeacherRequest;
+use App\Http\Requests\TeacherDashboardRequest;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -33,7 +33,7 @@ class TeacherController extends Controller
         return view('teacher-dashboard.teachers.edit', compact('teacher'));
     }
 
-    public function update(TeacherRequest $request, Teacher $teacher)
+    public function update(TeacherDashboardRequest $request, Teacher $teacher)
     {
         $data = $request->except(['password', 'image']);
 

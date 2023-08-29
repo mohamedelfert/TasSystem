@@ -23,7 +23,8 @@ class SubjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name.*' => 'required|string|regex:/^[a-zA-Z\p{Arabic}\s]+$/',
+//            'name.*' => 'required|string|regex:/^[a-zA-Z\p{Arabic}\s]+$/',
+            'name.*' => 'required|string|regex:/[^0-9]/',
             'system_id' => 'required'
         ];
     }

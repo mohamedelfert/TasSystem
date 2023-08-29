@@ -25,7 +25,6 @@
     {{input_error($errors,'password')}}
 </div>
 
-
 @if(Route::is('admin.teachers.create'))
     <div class="form-group py-1 col-md-4">
         <label for="formInputRole"> {{__('main.phone')}}</label>
@@ -46,30 +45,23 @@
         {!! $timezone_select !!}
     </div>
 @elseif(Route::is('admin.teachers.edit'))
-    <div class="form-group py-1 col-md-6">
+    <div class="form-group py-1 col-md-4">
         <label for="formInputRole"> {{__('main.phone')}}</label>
         {!! Form::text('phone',null,['class'=>'form-control col','placeholder'=>__("Phone"),
             isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
         {{input_error($errors,'phone')}}
     </div>
 
-    <div class="form-group py-1 col-md-6">
-        <label for="formInputRole"> {{__('main.countries')}}</label>
-        {!! Form::select('country_id',App\Models\Country::pluck('name','id'),request()->country_id ?? null,['class'=>'form-control col',
-            'placeholder'=>__("main.select_country"),disable_on_show()]) !!}
-        {{input_error($errors,'country_id')}}
-    </div>
-
-    <div class="form-group py-1 col-md-6">
+    <div class="form-group py-1 col-md-4">
         <label for="formInputRole"> {{__('main.status')}}</label>
         {!! Form::select('status',['active'=>__('main.active'),'inactive'=>__('main.inactive')] ,null,['class'=>'form-control mb-2','id'=>'status',disable_on_show()]) !!}
         {{input_error($errors,'status')}}
     </div>
 
-    <div class="form-group py-1 col-md-6">
-        <label for="formInputRole"> {{__('main.work')}}</label>
-        {!! Form::select('work',['yes'=>__('main.yes'),'no'=>__('main.no')] ,null,['class'=>'form-control mb-2','id'=>'work',disable_on_show()]) !!}
-        {{input_error($errors,'work')}}
+    <div class="form-group py-1 col-md-4">
+        <label for="formInputRole"> {{__('main.blocked')}}</label>
+        {!! Form::select('blocked',['yes'=>__('main.yes'),'no'=>__('main.no')] ,null,['class'=>'form-control mb-2','id'=>'blocked',disable_on_show()]) !!}
+        {{input_error($errors,'blocked')}}
     </div>
 @endif
 

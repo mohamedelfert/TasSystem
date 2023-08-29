@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TeacherRequest;
+use App\Models\Country;
 use App\Models\Teacher;
 use Camroncade\Timezone\Facades\Timezone;
 use Illuminate\Http\Request;
@@ -28,16 +29,18 @@ class TeacherController extends Controller
         $timezone_select = Timezone::selectForm(
             'Europe/London',
             '',
-            ['class' => 'form-control', 'name' => 'timezone']
+            ['class' => 'form-control select2', 'name' => 'timezone']
         );
         return view('dashboard.teachers.create', compact('timezone_select'));
     }
 
     public function store(TeacherRequest $request)
     {
+        $country = Country::where('id', $request->country_id)->first();
         $data = $request->except(['password']);
         $data['password'] = Hash::make($request->password);
         $data['timezone'] = $request->timezone;
+        $data['code'] = $country->code;
         Teacher::create($data);
         toast(__('main.data_added_successfully'), 'success');
         return redirect(route('admin.teachers.index'));

@@ -26,10 +26,11 @@ class UserRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
+                'regex :/[^0-9]/',
                 Rule::unique('users','name')->ignore($this->user)
             ],
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
+            'first_name' => 'required|string|regex:/[^0-9]/',
+            'last_name' => 'required|string|regex:/[^0-9]/',
             'email' => [
                 'required',
                 'email',

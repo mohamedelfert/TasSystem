@@ -31,7 +31,19 @@ class BranchController extends Controller
 
     public function store(BranchRequest $request)
     {
-        Branch::create($request->all());
+        $country = Country::where('id', $request->country_id)->first();
+
+        Branch::create([
+            'name' => $request->name,
+            'address' => $request->address,
+            'email' => $request->email,
+            'code' => $country->code,
+            'phone' => $request->phone,
+            'status' => $request->status,
+            'country_id' => $request->country_id,
+            'lat' => $request->lat,
+            'lng' => $request->lng,
+        ]);
         toast(__('main.data_added_successfully'), 'success');
         return redirect(route('admin.branches.index'));
     }
@@ -50,7 +62,18 @@ class BranchController extends Controller
 
     public function update(BranchRequest $request, Branch $branch)
     {
-        $branch->update($request->all());
+        $country = Country::where('id', $request->country_id)->first();
+        $branch->update([
+            'name' => $request->name,
+            'address' => $request->address,
+            'email' => $request->email,
+            'code' => $country->code,
+            'phone' => $request->phone,
+            'status' => $request->status,
+            'country_id' => $request->country_id,
+            'lat' => $request->lat,
+            'lng' => $request->lng,
+        ]);
         toast(__('main.data_updated_successfully'), 'success');
         return redirect(route('admin.branches.index'));
     }

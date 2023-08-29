@@ -11,6 +11,7 @@ class CreateCountriesTable extends Migration {
 			$table->increments('id');
             $table->string('name');
             $table->string('code');
+            $table->string('symbol');
             $table->enum('status', ['active', 'inactive']);
             $table->timestamps();
             $table->softDeletes();

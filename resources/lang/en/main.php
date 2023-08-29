@@ -214,6 +214,8 @@ return [
     'create_country' => 'Create Country',
     'edit_country' => 'Edit Country',
     'code' => 'Code',
+    'symbol' => 'Symbol',
+    'blocked' => 'Blocked',
     'inactive' => 'Inactive',
     'select_status' => 'Select Status',
     'system_name_ar' => 'System Name Arabic',

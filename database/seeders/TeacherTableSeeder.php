@@ -17,10 +17,11 @@ class TeacherTableSeeder extends Seeder
             'last_name' => 'ali',
             'email' => 'ahmed_ali@yahoo.com',
             'password' => bcrypt('123456789'),
+            'code' => '020',
             'phone' => '01121548710',
             'address' => 'cairo',
             'status' => 'inactive',
-            'work' => 'no',
+            'blocked' => 'no',
         ]);
     }
 }

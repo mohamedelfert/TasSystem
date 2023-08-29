@@ -26,7 +26,8 @@ class FineTypeRequest extends FormRequest
             'name.*' => [
                 'required',
                 'string',
-                'regex:/^[a-zA-Z\p{Arabic}\s]+$/',
+//                'regex:/^[a-zA-Z\p{Arabic}\s]+$/',
+                'regex :/[^0-9]/',
                 Rule::unique('fine_types', 'name')->ignore($this->fine_type)
             ],
             'type' => 'required',

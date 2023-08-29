@@ -12,6 +12,7 @@ class CreateBranchesTable extends Migration {
 			$table->string('name');
 			$table->text('address');
 			$table->string('email')->nullable();
+            $table->string('code');
 			$table->string('phone')->unique();
 			$table->enum('status', array('open', 'close'));
 			$table->integer('country_id');

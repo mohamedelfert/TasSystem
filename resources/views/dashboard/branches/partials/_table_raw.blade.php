@@ -1,7 +1,7 @@
 <tr>
     <td>{!! $loop->index +1 !!}</td>
     <td>{!! (app()->getLocale() == 'ar') ? $branch->getTranslation('name', 'ar') : $branch->getTranslation('name', 'en') !!}</td>
-    <td>{!! $branch->phone !!}</td>
+    <td>+{!! $branch->code . $branch->phone !!}</td>
     <td>{!! $branch->email !!}</td>
     <td>
         @if($branch->status === 'open')

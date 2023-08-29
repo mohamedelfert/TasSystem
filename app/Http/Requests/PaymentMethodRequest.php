@@ -26,7 +26,8 @@ class PaymentMethodRequest extends FormRequest
             'name.*' => [
                 'required',
                 'string',
-                'regex:/^[a-zA-Z\p{Arabic}\s]+$/',
+//                'regex:/^[a-zA-Z\p{Arabic}\s]+$/',
+                'regex :/[^0-9]/',
                 Rule::unique('payment_methods', 'name')->ignore($this->payment_method)
             ]
         ];

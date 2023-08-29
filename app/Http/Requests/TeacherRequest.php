@@ -22,9 +22,15 @@ class TeacherRequest extends FormRequest
      */
     public function rules(): array
     {
+        if(request()->routeIs('admin.teachers.create')){
+            $countyRules = 'required';
+        }elseif (request()->routeIs('admin.teachers.update')){
+            $countyRules = 'sometimes';
+        }
+
         return [
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
+            'first_name' => 'required|string|regex:/[^0-9]/',
+            'last_name' => 'required|string|regex:/[^0-9]/',
             'email' => [
                 'required',
                 'email',
@@ -34,12 +40,13 @@ class TeacherRequest extends FormRequest
             'phone' => [
                 'required',
                 'numeric',
-                'regex:/^\+\d{1,3}([0-9\s\-\+\(\)]*)$/',
+//                'regex:/^\+\d{1,3}([0-9\s\-\+\(\)]*)$/',
+                'regex:/^\d([0-9]*)$/',
                 'min:10',
                 Rule::unique('teachers', 'phone')->ignore($this->teacher)
             ],
             'image' => 'sometimes|nullable|image|mimes:png,jpg,jpeg,gif',
-            'country_id' => 'required',
+            'country_id' => $countyRules,
             'address' => 'required',
             'language' => 'sometimes|nullable'
         ];

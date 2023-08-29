@@ -25,13 +25,6 @@
 </div>
 
 <div class="form-group py-1 col-md-6">
-    <label for="formInputRole"> {{__('main.phone')}}</label>
-    {!! Form::text('phone',null,['class'=>'form-control col','placeholder'=>__("main.phone"),
-        isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
-    {{input_error($errors,'phone')}}
-</div>
-
-<div class="form-group py-1 col-md-6">
     <label for="formInputRole"> {{__('main.status')}}</label>
     {!! Form::select('status',['open'=>__('main.open'),'close'=>__('main.close')] ,null,['class'=>'form-control mb-2','id'=>'status',disable_on_show()]) !!}
     {{input_error($errors,'status')}}
@@ -44,6 +37,12 @@
     {{input_error($errors,'country_id')}}
 </div>
 
+<div class="form-group py-1 col-md-6">
+    <label for="formInputRole"> {{__('main.phone')}}</label>
+    {!! Form::text('phone',null,['class'=>'form-control col','placeholder'=>__("main.phone"),
+        isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
+    {{input_error($errors,'phone')}}
+</div>
 
 <div class="form-group py-1 col-md-6">
     <label for="formInputRole"> {{__('main.latitude')}}</label>

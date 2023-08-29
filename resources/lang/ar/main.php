@@ -221,6 +221,8 @@ return [
     'create_country' => 'انشاء دوله',
     'edit_country' => 'تعديل دوله',
     'code' => 'كود',
+    'symbol' => 'الرمز',
+    'blocked' => 'منع / حظر',
     'type' => 'النوع',
     'delay' => 'تاخير',
     'inactive' => 'غير نشط',

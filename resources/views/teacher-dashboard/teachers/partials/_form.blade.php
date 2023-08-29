@@ -33,10 +33,10 @@
 </div>
 
 <div class="form-group py-1 col-md-6">
-    <label for="formInputRole"> {{__('main.countries')}}</label>
-    {!! Form::select('country_id',App\Models\Country::pluck('name','id'),request()->country_id ?? null,['class'=>'form-control col',
-        'placeholder'=>__("main.select_country"),disable_on_show()]) !!}
-    {{input_error($errors,'country_id')}}
+    <label for="formInputRole"> {{__('main.image')}}</label>
+    <br>
+    {!! Form::file('image',['class'=>'form-control col','placeholder'=>__("main.image"),'onchange'=>"loadImage(event)"]) !!}
+    {{input_error($errors,'image')}}
 </div>
 
 <div class="form-group py-1 col-md-12">
@@ -44,11 +44,4 @@
     {!! Form::textarea('address',null,['class'=>'form-control col','rows'=>'3','placeholder'=>__("main.address"),
         isset($readOnly)?$readOnly:null,disable_on_show()]) !!}
     {{input_error($errors,'address')}}
-</div>
-
-<div class="form-group py-1 col-md-12">
-    <label for="formInputRole"> {{__('main.image')}}</label>
-    <br>
-    {!! Form::file('image',['class'=>'form-control col','placeholder'=>__("main.image"),'onchange'=>"loadImage(event)"]) !!}
-    {{input_error($errors,'image')}}
 </div>

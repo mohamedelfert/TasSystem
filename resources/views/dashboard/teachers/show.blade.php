@@ -90,11 +90,11 @@
                                                                         @endif
                                                                     </div>
                                                                     <div>
-                                                                        <label>{!! __('main.work') !!}</label> :
-                                                                        @if($teacher->work === 'yes')
-                                                                            <span class="badge badge-pill badge-success">{{ $teacher->work }}</span>
-                                                                        @elseif($teacher->work === 'no')
-                                                                            <span class="badge badge-pill badge-danger">{{ $teacher->work }}</span>
+                                                                        <label>{!! __('main.blocked') !!}</label> :
+                                                                        @if($teacher->blocked === 'yes')
+                                                                            <span class="badge badge-pill badge-success">{{ $teacher->blocked }}</span>
+                                                                        @elseif($teacher->blocked === 'no')
+                                                                            <span class="badge badge-pill badge-danger">{{ $teacher->blocked }}</span>
                                                                         @endif
                                                                     </div>
                                                                     <div>
