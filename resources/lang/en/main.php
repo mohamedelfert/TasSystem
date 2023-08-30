@@ -216,6 +216,7 @@ return [
     'code' => 'Code',
     'symbol' => 'Symbol',
     'blocked' => 'Blocked',
+    'total_slots' => 'Total Slots',
     'inactive' => 'Inactive',
     'select_status' => 'Select Status',
     'system_name_ar' => 'System Name Arabic',

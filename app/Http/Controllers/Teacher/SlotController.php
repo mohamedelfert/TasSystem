@@ -108,13 +108,13 @@ class SlotController extends Controller
                 foreach ($slots as $key => $values) {
                     foreach ($values as $value) {
                         $slot = Slot::findOrFail($key);
-                        if ($slot->start_at >= $validation->start && $slot->start_at <= $validation->end) {
+                        if ($slot->start_at >= $validation->start && $slot->end_at <= $validation->end) {
                             $countValidation++;
                         }
                     }
                 }
 
-                if ($validation->number == $countValidation) {
+                if ($countValidation >= $validation->number) {
                     $teacher = Teacher::findOrFail(auth()->guard('teacher')->id());
 
                     foreach ($slots as $key => $values) {
@@ -128,7 +128,81 @@ class SlotController extends Controller
                     }
 
                     $teacher['status'] = 'active';
-                    $teacher['work'] = 'yes';
+                    $teacher->update();
+
+                    toast(__('main.data_added_successfully'), 'success');
+                    return redirect(route('teacher.slots.index'));
+                } else {
+                    toast(__('main.slot_validation_required') .
+                        Carbon::parse($validation->start)->timezone(auth()->user()->timezone)->format('g:i A')
+                        . __('main.and_end_time')
+                        . Carbon::parse($validation->end)->timezone(auth()->user()->timezone)->format('g:i A')
+                        . __('main.is') . $validation->number
+                        . ' ' . __('main.slots'),
+                        'error');
+                    return redirect()->back()->withInput($request->input())
+                        ->withErrors([
+                            'errors' =>
+                                __('main.slot_validation_required') .
+                                Carbon::parse($validation->start)->timezone(auth()->user()->timezone)->format('g:i A')
+                                . __('main.and_end_time')
+                                . Carbon::parse($validation->end)->timezone(auth()->user()->timezone)->format('g:i A')
+                                . __('main.is') . $validation->number
+                                . ' ' . __('main.slots')
+                        ]);
+                }
+            }
+        } else {
+            toast(__('main.slots_less_than_slot_accept'), 'error');
+            return redirect()->back()->withInput($request->input())->withErrors(['errors' => trans('main.slots_less_than_slot_accept')]);
+        }
+    }
+
+    public function createNewSlot()
+    {
+        $slots = Slot::all();
+        $workdays = Workday::all();
+        return view('teacher-dashboard.slots.create_new_slots', compact('slots', 'workdays'));
+    }
+
+    public function doCreateNewSlot(SlotCreateRequest $request)
+    {
+        $slots = $request->input('slots', []);
+        $count = 0;
+        foreach ($slots as $array) {
+            foreach ($array as $sub) {
+                $count++;
+            }
+        }
+
+        if ($count >= setting()->total) {
+            $slotValidations = SlotValidation::all();
+
+            foreach ($slotValidations as $validation) {
+                $countValidation = 0;
+                foreach ($slots as $key => $values) {
+                    foreach ($values as $value) {
+                        $slot = Slot::findOrFail($key);
+                        if ($slot->start_at >= $validation->start && $slot->end_at <= $validation->end) {
+                            $countValidation++;
+                        }
+                    }
+                }
+
+                if ($countValidation >= $validation->number) {
+                    $teacher = Teacher::findOrFail(auth()->guard('teacher')->id());
+
+                    foreach ($slots as $key => $values) {
+                        foreach ($values as $value) {
+                            SlotTeacher::updateOrCreate([
+                                'slot_id' => $key,
+                                'workday_id' => $value,
+                                'teacher_id' => auth()->user()->id
+                            ]);
+                        }
+                    }
+
+                    $teacher['status'] = 'active';
                     $teacher->update();
 
                     toast(__('main.data_added_successfully'), 'success');

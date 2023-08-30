@@ -136,6 +136,14 @@
                                                             <div class="media mb-0">
                                                                 <div class="media-body">
                                                                     <div class="col-12 mb-3">
+                                                                        @php
+                                                                            $teacherSlots = \App\Models\SlotTeacher::where('teacher_id',auth()->guard('teacher')->id())->count();
+                                                                        @endphp
+
+                                                                        <span class="btn btn-outline-linkedin float-left ml-1">
+                                                                            @lang('main.total_slots') : {{ $teacherSlots }}
+                                                                        </span>
+
                                                                         @if(auth()->user()->status === 'inactive')
                                                                             <a href="{{ route('teacher.createSlot') }}"
                                                                                class="btn btn-primary float-right ml-1" title="@lang('main.create')">
@@ -143,7 +151,14 @@
                                                                             </a>
                                                                         @endif
 
-                                                                        @if(auth()->user()->status === 'active')
+                                                                        @if(auth()->user()->status === 'active' && $teacherSlots < setting()->total)
+                                                                            <a href="{{ route('teacher.createNewSlot') }}"
+                                                                               class="btn btn-primary float-right ml-1" title="@lang('main.create')">
+                                                                                <i class="fa fa-plus"> @lang('main.create') </i>
+                                                                            </a>
+                                                                        @endif
+
+                                                                        @if(auth()->user()->status === 'active' && $teacherSlots >= setting()->total)
                                                                             <a href="{{ route('teacher.editSlot',auth()->user()->id) }}"
                                                                                class="btn btn-success float-right" title="@lang('main.edit')">
                                                                                 <i class="fa fa-edit"> @lang('main.edit') </i>

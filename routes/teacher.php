@@ -42,7 +42,9 @@ Route::group(
         Route::get('getSlots', [SlotController::class, 'getSlots'])->name('getSlots');
         Route::get('getNewSlots', [SlotController::class, 'getNewSlots'])->name('getNewSlots');
         Route::get('createSlot', [SlotController::class, 'createSlot'])->name('createSlot');
+        Route::get('createNewSlot', [SlotController::class, 'createNewSlot'])->name('createNewSlot');
         Route::post('doCreateSlot', [SlotController::class, 'doCreateSlot'])->name('doCreateSlot');
+        Route::post('doCreateNewSlot', [SlotController::class, 'doCreateNewSlot'])->name('doCreateNewSlot');
         Route::get('editSlot/{id}', [SlotController::class, 'editSlot'])->name('editSlot');
         Route::put('doEditSlot/{id}', [SlotController::class, 'doEditSlot'])->name('doEditSlot');
         Route::get('slot-checkout/{price}', [SlotController::class, 'checkout'])->name('slotCheckout');

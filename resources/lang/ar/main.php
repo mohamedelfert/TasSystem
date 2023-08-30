@@ -223,6 +223,7 @@ return [
     'code' => 'كود',
     'symbol' => 'الرمز',
     'blocked' => 'منع / حظر',
+    'total_slots' => 'اجمالي المواعيد',
     'type' => 'النوع',
     'delay' => 'تاخير',
     'inactive' => 'غير نشط',
