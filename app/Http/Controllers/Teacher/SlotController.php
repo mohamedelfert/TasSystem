@@ -269,9 +269,9 @@ class SlotController extends Controller
                     $newSlot = Slot::findOrFail($request->slot_id);
 
                     foreach ($slotValidations as $validation) {
-                        if ($oldTeacherSlot->start_at >= $validation->start && $oldTeacherSlot->start_at <= $validation->end) {
+                        if ($oldTeacherSlot->start_at >= $validation->start && $oldTeacherSlot->end_at <= $validation->end) {
 
-                            if ($newSlot->start_at >= $validation->start && $newSlot->start_at <= $validation->end) {
+                            if ($newSlot->start_at >= $validation->start && $newSlot->end_at <= $validation->end) {
                                 return view('teacher-dashboard.slots.checkout', compact('details'));
                             } else {
                                 toast(__('main.slot_validation_edit_required') .
@@ -309,19 +309,20 @@ class SlotController extends Controller
         return SlotTeacher::join('slots', 'slot_teacher.slot_id', 'slots.id')
             ->where('teacher_id', auth()->user()->id)
             ->where('workday_id', $request->id)
-            ->select('slot_teacher.*', 'slots.start_at')
-            ->pluck('slots.start_at', 'slot_id', 'id');
+            ->select('slot_teacher.id','slot_teacher.slot_id', 'slots.start_at', 'slots.end_at')->get();
+//            ->pluck('slots.start_at', 'slot_id', 'slots.end_at', 'id');
     }
 
     public function getNewSlots(Request $request)
     {
-//        return Slot::get()->pluck('start_at', 'id');
-        return Slot::join('slot_teacher', 'slots.id', 'slot_teacher.slot_id')
-            ->join('workdays', 'workdays.id', 'slot_teacher.workday_id')
-            ->where('teacher_id', auth()->user()->id)
-            ->where('workday_id', '!=', $request->id)
-            ->select('slots.*', 'slot_teacher.*')
-            ->pluck('slots.start_at', 'slot_id', 'id');
+        return Slot::get(); // get all slots
+//        return Slot::join('slot_teacher', 'slots.id', 'slot_teacher.slot_id')
+//            ->join('workdays', 'workdays.id', 'slot_teacher.workday_id')
+//            ->where('teacher_id', auth()->user()->id)
+//            ->where('workday_id', '!=', $request->id)
+//            ->select('slots.*', 'slot_teacher.*')
+//            ->pluck('slots.start_at', 'slot_id', 'id');
+//        ->select('slot_teacher.id','slot_teacher.slot_id', 'slots.start_at', 'slots.end_at')->get();
     }
 
     public function pay(Request $request)

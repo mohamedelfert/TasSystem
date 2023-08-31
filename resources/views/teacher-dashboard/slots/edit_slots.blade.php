@@ -137,8 +137,10 @@
                         dataType: 'JSON',
                         success: function (data) {
                             $('select[name="old_slot_id"]').empty()
-                            $.each(data, function (key, value) {
-                                $('select[name="old_slot_id"]').append(`<option value="${key}">${value}</option>`);
+                            $.each(data, function () {
+                                for (let i = 0; i <= data.length; i++) {
+                                    $('select[name="old_slot_id"]').append(`<option value="${data[i].slot_id}">${data[i].start_at} - ${data[i].end_at}</option>`);
+                                }
                             });
                         }
                     })
@@ -160,8 +162,13 @@
                         dataType: 'JSON',
                         success: function (data) {
                             $('select[name="slot_id"]').empty()
-                            $.each(data, function (key, value) {
-                                $('select[name="slot_id"]').append(`<option value="${key}">${value}</option>`);
+                            // $.each(data, function (key, value) {
+                            //     $('select[name="slot_id"]').append(`<option value="${key}">${value}</option>`);
+                            // });
+                            $.each(data, function () {
+                                for (let i = 0; i <= data.length; i++) {
+                                    $('select[name="slot_id"]').append(`<option value="${data[i].id}">${data[i].start_at} - ${data[i].end_at}</option>`);
+                                }
                             });
                         }
                     })
